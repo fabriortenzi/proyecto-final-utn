@@ -1,0 +1,63 @@
+@media screen and (max-width: 576px) {
+  .subcontainer {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .subcontainer {
+    width: 65%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .subcontainer {
+    width: 45%;
+  }
+}
+
+
+.container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h4 {
+  text-align: left;
+  margin-top: 15px;
+}
+
+.input-subgroup {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+
+  &-altura {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.subgroup {
+  &-altura {
+    width: 35%;   
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  &-piso {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+}
+
+.margin-button {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}

@@ -1,0 +1,77 @@
+###
+GET http://localhost:3000/api/shopTypes/
+
+### Todos los Shop Types que van
+POST http://localhost:3000/api/shopTypes
+Content-Type: application/json
+
+{
+    "description" : "Hamburguesas",
+    "iconDescription" : "lunch_dining"
+}
+
+###
+POST http://localhost:3000/api/shopTypes
+Content-Type: application/json
+
+{
+    "description" : "Heladerías",
+    "iconDescription" : "icecream"
+}
+
+###
+POST http://localhost:3000/api/shopTypes
+Content-Type: application/json
+
+{
+    "description" : "Bebidas",
+    "iconDescription" : "local_bar"
+}
+
+###
+POST http://localhost:3000/api/shopTypes
+Content-Type: application/json
+
+{
+    "description" : "Restaurantes",
+    "iconDescription" : "restaurant"
+}
+
+###
+POST http://localhost:3000/api/shopTypes
+Content-Type: application/json
+
+{
+    "description" : "Verdulerías",
+    "iconDescription" : "nutrition"
+}
+
+###
+POST http://localhost:3000/api/shopTypes
+Content-Type: application/json
+
+{
+    "description" : "Farmacias",
+    "iconDescription" : "pill"
+}
+
+###
+DELETE http://localhost:3000/api/shopTypes/
+
+
+###
+PUT http://localhost:3000/api/shopTypes/65469f7e9358827f5649899a
+Content-Type: application/json
+
+{
+    "iconDescription": "icecream"
+}
+
+###
+PATCH http://localhost:3000/api/shopTypes/2
+Content-Type: application/json
+
+{
+    "id" : 2,
+    "otraCosa" : "xd"
+}

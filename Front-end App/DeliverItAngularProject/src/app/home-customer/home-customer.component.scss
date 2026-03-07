@@ -1,0 +1,122 @@
+h6 {
+  text-align: left;
+  margin-left: 5%;
+}
+
+#categories-title {
+  margin-top: 25px;
+  font-size: 16px;
+}
+
+.margin-left {
+  margin-left: 5%;
+}
+
+#popular-shops-title {
+  margin-top: 40px;
+  font-size: 16px;
+}
+
+.shop-types-container {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.shop-cards-container {
+  width: 90%;
+}
+
+.parent-container-max-width {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+.footer {
+  height: 40px;
+}
+
+// Sidenav
+
+mat-sidenav {
+  background-color: rgb(255, 255, 255);
+  width: 300px;
+}
+
+.menu-title-container {
+  display: flex;
+  flex-direction: column;
+  height: 70px;
+  gap: 15px;
+  margin: 20px;
+  margin-bottom: 40px;
+}
+
+.menu-options-container {
+  margin-left: 20px;
+}
+
+mat-sidenav-container {
+  height: 100vh;
+}
+
+mat-divider {
+  background-color: rgba($color: #000000, $alpha: 0.1);
+  margin: 20px;
+}
+
+.menu-option {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.menu-icon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.address {
+  font-weight: 300;
+}
+
+.margin-0 {
+  margin: 0;
+}
+
+.menu-open-button {
+  font-size: 40px;
+  margin-right: 10%;
+}
+
+.container-searchbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+app-customer-searchbar {
+  margin-left: 5%;
+}
+
+.close-menu-button {
+  font-size: 40px;
+}
+
+.close-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 15px;
+}
+
+.letter-red {
+  color: #c00a0a;
+}

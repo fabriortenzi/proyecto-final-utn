@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<nav class="navbar">
+  <div class="container-menu">
+    <span class="material-symbols-outlined" routerLink="/commission-percentage-list">arrow_back</span>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="input-button">
+    <h1>¿Seguro que deseas eliminar este porcentaje de comisión?</h1>
+    <h3>Id: {{id}}</h3>
+    <div class="last-button-container">
+      <app-secondary-button class="button-style" title="ELIMINAR" (click)="delete()"></app-secondary-button>
+    </div>
+  </div>
+</div>

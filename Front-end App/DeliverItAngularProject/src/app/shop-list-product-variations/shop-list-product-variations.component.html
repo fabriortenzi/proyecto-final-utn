@@ -1,0 +1,35 @@
+<div class="banner-container">
+  <img class="banner-image" [src]="this.shop?.bannerPath ? shop.bannerPath : '../assets/alt_banner.png'" alt="banner" />
+</div>
+<div class="content-container">
+  <div class="shop-data">
+    <div class="image-container">
+      <img class="shop-icon" [src]="this.shop.logoPath" alt="icono del local" />
+    </div>
+    <div class="info-container">
+      <p class="card-title">{{ this.shop.name }}</p>
+      <p class="card-subtitle">
+        {{ this.shop.street }} {{ this.shop.streetNumber }}
+      </p>
+      <div class="text-and-star-container"></div>
+    </div>
+  </div>
+</div>
+<h6 class="products-title">Variaciones de producto</h6>
+<div class="content-container" id="margin-0">
+  <div class="cards-container">
+    <app-shop-card
+      *ngFor="let productVariation of productVariations"
+      [productId]="productVariation.id"
+      title="{{ productVariation.name }}"
+      subtitle="{{ productVariation.description }}"
+      [hasEditButton]="true"
+      [hasImage]="false"
+    >
+    </app-shop-card>
+  </div>
+</div>
+<div class="button-container">
+  <app-primary-button class="button-style" title='AGREGAR NUEVO' (click)="addVariation()">
+  </app-primary-button>
+</div>

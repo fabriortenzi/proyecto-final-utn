@@ -1,0 +1,43 @@
+services:
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build:
+      context: ./Back-end App
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./Back-end App/src:/app/src"
+      - backend_node_modules:/app/node_modules
+    environment:
+      - DB_URL=mongodb://mongodb:27017/deliverit
+      - JWT_SECRET_KEY=dev-secret-key
+      - API_PORT=3000
+      - API_SERVER=localhost
+      - CLOUDINARY_URL=${CLOUDINARY_URL:-}
+    entrypoint: /bin/sh -c "printenv | grep -E '^(DB_URL|JWT_SECRET_KEY|API_PORT|API_SERVER|CLOUDINARY_URL)=' > .env.development && exec npm run start:dev"
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./Front-end App/DeliverItAngularProject
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - "./Front-end App/DeliverItAngularProject/src:/app/src"
+      - frontend_node_modules:/app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
+  backend_node_modules:
+  frontend_node_modules:

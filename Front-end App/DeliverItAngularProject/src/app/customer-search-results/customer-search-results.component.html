@@ -1,0 +1,50 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+
+<div class="container">
+  <div class="content">
+    <div class="searchbar-container">
+      <div class="back-button-container">
+        <span class="material-symbols-rounded arrow" routerLink="/home-customer"
+          >navigate_before</span
+        >
+      </div>
+      <app-customer-searchbar></app-customer-searchbar>
+    </div>
+    <h3 *ngIf="shopTypeId; else elseBlock">{{ shopTypeDescription }}</h3>
+    <ng-template #elseBlock>
+      <h3 *ngIf="shops.length > 0; else elseBlock">
+        <h3>Resultados de la búsqueda para "{{ this.searchInput }}"</h3>
+      </h3>
+      <ng-template #elseBlock>
+        <h3>No se encontraron resultados para "{{ this.searchInput }}"</h3>
+        <div class="container">
+          <img
+            class="img"
+            src="../../assets/casual-life-3d-cardboard-boxes.png"
+            alt="no se encontraron resultados"
+          />
+        </div>
+      </ng-template>
+    </ng-template>
+    <div class="shops">
+      <app-shop-card
+        *ngFor="let s of shops"
+        shopId="{{ s.id }}"
+        title="{{ s.name }}"
+        [subtitle]="s.street + ' ' + s.streetNumber"
+        bottomText="{{ s.stars }}"
+        [hasStar]="true"
+        [routerLink]="['/shop-customer', s.id]"
+        [imagePath]="s.logoPath"
+      >
+      </app-shop-card>
+    </div>
+  </div>
+</div>

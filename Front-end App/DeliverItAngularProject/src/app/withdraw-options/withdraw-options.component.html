@@ -1,0 +1,30 @@
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<nav class="navbar">
+  <div class="container-menu">
+    <span class="material-symbols-outlined" routerLink="/withdrawal-menu">arrow_back</span>
+  </div>
+</nav>
+
+<h1>Monto a cobrar</h1>
+
+<div class="container">
+  <div class="balance-container">
+    <h2>$ {{loggedUser.creditBalance}}</h2>
+  </div> 
+</div>
+
+<hr id="division">
+
+<h4>DeliverIt® ofrece dos alternativas para acceder a tu saldo. Podes elegir cobrar todo el monto de tu balance, o simplemente una parte del mismo. Seleccioná la opción que más te convenga.</h4>
+
+<hr id="division">
+
+
+<div class="container-buttons">
+  <div class="input-buttons" >
+    <app-primary-button (click)="withdrawAll()" title="Retirar todo"></app-primary-button>
+    <button class="secondary-button" (click)="selectAmount()">Seleccionar monto</button>
+  </div>
+</div>

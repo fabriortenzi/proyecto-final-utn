@@ -1,0 +1,13 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<div class="container">
+  <p class="description">Descripción: {{ description }}</p>
+  <p class="price">Total: {{ price }}</p>
+  <p class="client">Cliente: {{ client }}</p>
+  <p class="paymentType">Método de pago: {{ paymentType }}</p>
+  <div class="container-status">
+    <p class="orderStatus" *ngIf="this.orderStatus !== 'Pendiente de repartidor'">Estado de la orden: {{ orderStatus }}</p>
+    <button (click)="onClickedButton()"class="status-button" *ngIf="getOrderStatus()">{{addButtonName()}}</button>
+  </div>
+  <p class="orderStatus" *ngIf="this.orderStatus === 'Entregada'">Fecha de entrega: {{ dateTimeArrival }}</p>
+</div>

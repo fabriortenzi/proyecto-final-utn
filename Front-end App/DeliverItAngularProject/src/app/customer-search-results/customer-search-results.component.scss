@@ -1,0 +1,33 @@
+@import "src/styles.scss";
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 90%;
+  margin-top: 10px;
+  padding: 0;
+}
+
+.img {
+  margin-top: 50px;
+  align-items: center;
+  width: 250px;
+}
+
+.arrow {
+  font-size: 40px;
+}
+
+.searchbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrow-icon {
+  color: $primary-red;
+}

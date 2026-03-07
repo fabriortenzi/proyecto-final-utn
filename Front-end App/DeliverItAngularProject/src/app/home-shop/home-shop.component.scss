@@ -1,0 +1,134 @@
+@import "../../styles.scss";
+
+.banner {
+  &-container {
+    max-height: 80px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-image {
+    width: 100%;
+  }
+}
+
+.shop-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.shop {
+  &-data {
+    width: 80%;
+    display: flex;
+    height: 80px;
+  }
+
+  &-icon {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+}
+
+.image-container {
+  aspect-ratio: 1;
+}
+
+.info-container {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.text-and-star-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 14px;
+}
+
+.opiniones {
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 13px;
+  margin-left: 5px;
+  text-decoration: underline;
+  font-size: 13px;
+  margin-left: 10px;
+}
+
+.options {
+  margin-bottom: 10%;
+  border-color: #d1d1d1;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 2px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.options-container {
+  margin-top: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 18%;
+}
+
+.extra-shop-info-container {
+  margin-left: 10%;
+}
+
+.buttons_logos {
+  margin-left: 5%;
+  display: flex;
+}
+
+#plus_icon {
+  width: 35px;
+  height: 35px;
+}
+
+#pencil_icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 4px;
+  margin-left: 3px;
+}
+
+.button_text {
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  overflow: hidden;
+  margin-left: 6%;
+  padding: 2px;
+}
+
+.logout-button {
+  border: 2px solid red;
+  background-color: #fff5f5;
+}
+
+.logout-button .button_text p {
+  color: red; /* Texto rojo */
+}
+
+.password-icon {
+  font-size: 25px;
+}

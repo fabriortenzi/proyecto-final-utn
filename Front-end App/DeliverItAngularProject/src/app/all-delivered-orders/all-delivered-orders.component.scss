@@ -1,0 +1,54 @@
+@import '../../styles.scss';
+
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: left;
+  height: 7.5vh;
+}
+
+.container-menu {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+h2 {
+  text-align: left;
+  margin-left: 10%;
+  font-family: Poppins;
+}
+
+.all-orders {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  height: 80vh;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 55%;
+  margin-left: 10%;
+}
+
+.img-no-orders {
+  width: 218px;
+  height: 357px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.no-orders {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,86 @@
+@media screen and (max-width: 576px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .container {
+    width: 65%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    width: 45%;
+  }
+}
+
+.parent-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  width: 70%;
+}
+
+.title-container {
+  margin: 50px 0 20px 0;
+  text-align: center;
+}
+
+.message-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.quantity {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 70%;
+}
+
+.quantity-total-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+
+.line-items-container {
+  margin: 10px 0;
+}
+
+.line-item {
+  margin-bottom: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+ul {
+  margin-bottom: 0;
+  margin-top: 7px;
+  padding-left: 30px;
+}
+
+.total {
+  align-self: flex-end;
+}
+
+.total-container {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding-top: 10px;
+}
+
+.button-container {
+  margin-top: 40px;
+}
+
+.payment-container {
+  margin-top: 30px;
+}

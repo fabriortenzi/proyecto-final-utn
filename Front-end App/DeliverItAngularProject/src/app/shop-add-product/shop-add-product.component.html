@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+<div class="container">
+  <h1>Agregar producto</h1>
+  <form class="input-button" [formGroup]="shopAddProductForm">
+    <div class="input-group">
+      <h6>Nombre</h6>
+      <input type="text" autofocus formControlName="name">
+      <div [ngClass]="{'error-message-show': getName().invalid && (submitted || getName().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+        <span class="error-icon-red">&#9888;</span>
+          Ingresa algún nombre válido
+      </div>
+    </div>
+    <div class="input-group">
+      <h6>Descripción</h6>
+      <input type="text" formControlName="description">
+      <div [ngClass]="{'error-message-show': getDescription().invalid && (submitted || getDescription().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+        <span class="error-icon-red">&#9888;</span>
+          Ingresa alguna descripción válida
+      </div>
+    </div>
+    <div class="input-group">
+        <h6>Foto</h6>
+        <input type="file" accept="image/*" (change)="onPhotoSelected($event)">
+        <div [ngClass]="{'error-message-show': !validPhoto && (submitted || photoTouched)}" class="error-message" style="align-self: flex-start;"  id="errors">
+          <span class="error-icon-red">&#9888;</span>
+            Escoge alguna imagen válida
+        </div>
+      </div>
+    <div class="input-group">
+        <h6>Precio</h6>
+        <div class="currency">
+            <span id="money-sign">$</span>
+            <input id="amount" type="number" min="0" formControlName="amount">
+        </div>
+        <div [ngClass]="{'error-message-show': getAmount().invalid && (submitted || getAmount().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+          <span class="error-icon-red">&#9888;</span>
+            Ingresa algún monto válido
+        </div>
+    </div>
+    <div>
+        <div class="input-group">
+            <h6>Válido desde</h6>
+            <input id="date" type="date" readonly formControlName="validSince">
+            <div [ngClass]="{'error-message-show': getValidSince().invalid  && (submitted || getValidSince().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+              <span class="error-icon-red">&#9888;</span>
+                La fecha debe ser la del día de hoy
+            </div>
+        </div>
+    </div>
+    <div class="input-group">
+        <h6>Tipo de producto</h6>
+        <select formControlName="productCategory">
+            <option value="" disabled selected hidden>Seleccione un tipo de producto</option>
+            <option [value]="productCategory.id" *ngFor="let productCategory of productCategories">{{productCategory.description}}</option>
+        </select>
+        <div [ngClass]="{'error-message-show': getProductCategory().invalid && (submitted || getProductCategory().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+          <span class="error-icon-red">&#9888;</span>
+          Escoge alguna opción
+        </div>
+    </div>
+    <div class="input-group" id="variationsgGroup">
+      <h6>¿Acepta variaciones?</h6>
+      <div class="inputContainer">
+          <input type="checkbox" switch class="form-check-input" value="" id="variationsCheck" (click)="toggleSwitch()">
+      </div>
+    </div>
+    <form class="input-button" [formGroup]="shopMaxVariationForm">
+      <div class="input-group" *ngIf="maxVariationsAllowed">
+        <h6>Máximas variaciones por producto</h6>
+        <div class="variationsQuantityContainer">
+            <input id="quantity" type="number" min="0" formControlName="maxVariations">
+        </div>
+        <div [ngClass]="{'error-message-show': getMaxVariations().invalid && (submitted || getMaxVariations().touched)}" class="error-message" style="align-self: flex-start;" id="errors">
+          <span class="error-icon-red">&#9888;</span>
+            Ingresa alguna cantidad válida
+        </div>
+      </div>
+    </form>
+    <div class="button-container">
+      <app-primary-button class="button-style" title='CONFIRMAR' (click)="submit()">
+      </app-primary-button>
+    </div>
+  </form>
+</div>
