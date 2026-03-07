@@ -8,34 +8,20 @@
     </h4>
     <form [formGroup]="direccionForm" class="input-group">
       <div class="input-subgroup">
-        <h6>Calle</h6>
-        <input formControlName="street" type="text" />
+        <h6>Dirección</h6>
+        <app-address-autocomplete formControlName="address"></app-address-autocomplete>
         <div
           [ngClass]="{
-            'error-message-show': getStreet().invalid && submitted === true
+            'error-message-show': getAddress().invalid && submitted === true
           }"
           class="error-message"
         >
           <span class="error-icon-red">&#9888;</span>
-          Campo obligatorio
+          Seleccioná una dirección de la lista
         </div>
       </div>
       <div class="input-subgroup-altura">
-        <div class="subgroup-altura">
-          <h6>Altura</h6>
-          <input formControlName="streetNumber" type="text" />
-          <div
-            [ngClass]="{
-              'error-message-show':
-                getStreetNumber().invalid && submitted === true
-            }"
-            class="error-message"
-          >
-            <span class="error-icon-red">&#9888;</span>
-            Campo obligatorio
-          </div>
-        </div>
-        <div class="subgroup-piso">
+        <div class="subgroup-piso" style="width: 100%">
           <h6>Piso o Departamento</h6>
           <input
             formControlName="apartment"
@@ -45,7 +31,7 @@
         </div>
       </div>
       <div class="input-subgroup">
-        <h6>Información adicional que nos resulte útiil para el envio</h6>
+        <h6>Información adicional que nos resulte útil para el envío</h6>
         <input
           formControlName="additionalInfo"
           type="text"

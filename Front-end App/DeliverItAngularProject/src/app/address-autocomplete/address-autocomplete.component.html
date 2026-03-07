@@ -1,0 +1,16 @@
+<input
+  #addressInput
+  type="text"
+  placeholder="Buscar dirección..."
+  (blur)="onInputBlur()"
+/>
+
+<google-map
+  *ngIf="mapCenter"
+  [center]="mapCenter"
+  [options]="mapOptions"
+  width="100%"
+  height="200px"
+>
+  <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+</google-map>

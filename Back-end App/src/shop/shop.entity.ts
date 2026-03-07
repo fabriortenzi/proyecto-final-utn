@@ -53,11 +53,20 @@ export class Shop extends BaseEntity {
         else return Math.round((this.totalStars / this.totalReviews) * 10) / 10
     }
 
-    @Property({ nullable: false })
+    @Property({ nullable: true })
     street!: string
 
-    @Property({ nullable: false })
+    @Property({ nullable: true })
     streetNumber!: string
+
+    @Property({ nullable: true })
+    address?: string
+
+    @Property({ nullable: true })
+    latitude?: number
+
+    @Property({ nullable: true })
+    longitude?: number
 
     @ManyToOne(() => ShopType, { nullable: false })
     shopType !: Rel<ShopType>

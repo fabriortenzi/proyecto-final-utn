@@ -40,6 +40,9 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
     totalReviews: req.body.totalReviews? req.body.totalReviews : 0,
     street: req.body.street,
     streetNumber: req.body.streetNumber,
+    address: req.body.address,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
     shopType: req.body.shopType,
     owner: req.body.owner
   }

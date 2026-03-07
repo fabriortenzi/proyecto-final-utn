@@ -38,6 +38,15 @@ export class User extends BaseEntity
     
     @Property({ nullable: true })
     additionalInfo?: string
+
+    @Property({ nullable: true })
+    address?: string
+
+    @Property({ nullable: true })
+    latitude?: number
+
+    @Property({ nullable: true })
+    longitude?: number
     
     @ManyToOne(() => UserType, { nullable: false })
     userType !: Rel<UserType>

@@ -30,34 +30,18 @@
         </div>
       </div>
       <div class="input-subgroup">
-        <h6>Calle</h6>
-        <input formControlName="street" type="text" />
+        <h6>Dirección del local</h6>
+        <app-address-autocomplete formControlName="address"></app-address-autocomplete>
         <div
           [ngClass]="{
-            'error-message-show': getStreet().invalid && submitted === true
+            'error-message-show': getAddress().invalid && submitted === true
           }"
           class="error-message"
         >
           <span class="error-icon-red">&#9888;</span>
-          Campo obligatorio
+          Seleccioná una dirección de la lista
         </div>
       </div>
-      <div class="input-subgroup-altura">
-        <div class="subgroup-altura">
-          <h6>Altura</h6>
-          <input formControlName="streetNumber" type="text" />
-          <div
-            [ngClass]="{
-              'error-message-show':
-                getStreetNumber().invalid && submitted === true
-            }"
-            class="error-message"
-          >
-            <span class="error-icon-red">&#9888;</span>
-            Campo obligatorio
-          </div>
-        </div>
-        </div> 
       <div class="input-subgroup">
         <h6>Numero de teléfono</h6>
         <div class="group-phone-number">
@@ -81,4 +65,3 @@
       ></app-primary-button>
     </form>
   </div>
-  

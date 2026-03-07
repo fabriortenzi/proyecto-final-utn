@@ -16,6 +16,9 @@ export class Shop {
   public closingTime: string;
   public street: string;
   public streetNumber: string;
+  public address?: string;
+  public latitude?: number;
+  public longitude?: number;
   public owner: string;
   public shopType: ShopType;
   public productVariations?: ProductVariation[];

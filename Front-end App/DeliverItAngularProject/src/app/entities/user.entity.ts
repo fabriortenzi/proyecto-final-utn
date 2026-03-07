@@ -9,6 +9,9 @@ export class User {
   public streetNumber: string;
   public apartment?: string;
   public additionalInfo?: string;
+  public address?: string;
+  public latitude?: number;
+  public longitude?: number;
   public creditBalance?: number;
   public userType: UserType;
 }

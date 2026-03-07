@@ -1,7 +1,16 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ShopRegisterServiceService } from 'src/app/services/shop-register-service.service';
+import { AddressValue } from 'src/app/address-autocomplete/address-autocomplete.component';
+
+function addressValidator(control: AbstractControl): ValidationErrors | null {
+  const val: AddressValue = control.value;
+  if (!val || !val.latitude || !val.longitude) {
+    return { addressRequired: true };
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-signup-shop-data-basic',
@@ -14,8 +23,7 @@ export class SignupShopDataBasicComponent {
   shopSignUpForm = new FormGroup({
     name: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', Validators.required),
-    street: new FormControl('', Validators.required),
-    streetNumber: new FormControl('', Validators.required),
+    address: new FormControl<AddressValue | null>(null, addressValidator),
     email: new FormControl('', Validators.required),
   });
 
@@ -26,15 +34,20 @@ export class SignupShopDataBasicComponent {
 
   submit() {
     this.submitted = true;
-    if(this.shopSignUpForm.valid){
+    if (this.shopSignUpForm.valid) {
+      const addressVal: AddressValue = this.shopSignUpForm.get('address')!.value!;
+
       const body = {
         name: this.getName().value,
         phoneNumber: this.getPhoneNumber().value,
-        street: this.getStreet().value,
-        streetNumber: this.getStreetNumber().value,
+        street: addressVal.street,
+        streetNumber: addressVal.streetNumber,
+        address: addressVal.address,
+        latitude: addressVal.latitude,
+        longitude: addressVal.longitude,
         email: this.getEmail().value,
       };
-      this.shopRegisterService.addShopFormData(body)
+      this.shopRegisterService.addShopFormData(body);
 
       this.router.navigate(['/signup_shop_data1']);
     }
@@ -52,11 +65,7 @@ export class SignupShopDataBasicComponent {
     return this.shopSignUpForm.get('phoneNumber');
   }
 
-  getStreet() {
-    return this.shopSignUpForm.get('street');
-  }
-
-  getStreetNumber() {
-    return this.shopSignUpForm.get('streetNumber');
+  getAddress() {
+    return this.shopSignUpForm.get('address');
   }
 }

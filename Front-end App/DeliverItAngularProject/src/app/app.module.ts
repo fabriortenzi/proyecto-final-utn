@@ -70,6 +70,8 @@ import { ErrorInterceptor } from './services/interceptors/error.service';
 import { LoginService } from './services/login.service';
 import { SignupShopDataBasicComponent } from './signup_shop_data/signup-shop-data-basic/signup-shop-data-basic.component';
 import { AuthInterceptor } from './services/interceptors/auth.service';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { AddressAutocompleteComponent } from './address-autocomplete/address-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +133,7 @@ import { AuthInterceptor } from './services/interceptors/auth.service';
     AllDeliveryWithdrawalsComponent,
     ShopStatsComponent,
     SignupShopDataBasicComponent,
+    AddressAutocompleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -143,6 +146,7 @@ import { AuthInterceptor } from './services/interceptors/auth.service';
     MatIconModule,
     MatSidenavModule,
     MatProgressSpinnerModule,
+    GoogleMapsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
