@@ -5,6 +5,7 @@ services:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
+      - "./Back-end App/dbSeed.js:/docker-entrypoint-initdb.d/seed.js:ro"
 
   backend:
     build:
