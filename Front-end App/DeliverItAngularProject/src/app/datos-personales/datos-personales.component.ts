@@ -29,6 +29,13 @@ export class DatosPersonalesComponent {
 
   userTypes: UserType[] = null;
 
+  userTypeLabels: Record<string, string> = {
+    client: 'Cliente',
+    owner: 'Dueño de Local',
+    delivery: 'Repartidor',
+    admin: 'Administrador',
+  };
+
   ngOnInit() {
     this.service.getUserTypes().subscribe((data) => {
       this.userTypes = data;

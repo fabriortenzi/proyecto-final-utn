@@ -51,7 +51,7 @@
     >
       <option value="0">Seleccione un tipo de Cuenta</option>
       <option *ngFor="let userType of userTypes" [value]="userType.id">
-        {{ userType.description }}
+        {{ userTypeLabels[userType.description] || userType.description }}
       </option>
     </select>
     <div

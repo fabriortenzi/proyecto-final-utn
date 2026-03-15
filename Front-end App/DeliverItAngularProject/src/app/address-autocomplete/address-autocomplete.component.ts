@@ -28,8 +28,11 @@ export interface AddressValue {
     },
   ],
 })
-export class AddressAutocompleteComponent implements OnInit, ControlValueAccessor {
-  @ViewChild('addressInput', { static: true }) addressInput!: ElementRef<HTMLInputElement>;
+export class AddressAutocompleteComponent
+  implements OnInit, ControlValueAccessor
+{
+  @ViewChild('addressInput', { static: true })
+  addressInput!: ElementRef<HTMLInputElement>;
 
   value: AddressValue = {
     address: '',
@@ -64,7 +67,7 @@ export class AddressAutocompleteComponent implements OnInit, ControlValueAccesso
           componentRestrictions: { country: 'ar' },
           fields: ['formatted_address', 'address_components', 'geometry'],
           types: ['address'],
-        }
+        },
       );
 
       this.autocomplete.addListener('place_changed', () => {
