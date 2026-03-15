@@ -35,6 +35,9 @@ services:
     volumes:
       - "./Front-end App/DeliverItAngularProject/src:/app/src"
       - frontend_node_modules:/app/node_modules
+    environment:
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY:-}
+    entrypoint: ["/bin/sh", "/app/entrypoint.dev.sh"]
     depends_on:
       - backend
 
