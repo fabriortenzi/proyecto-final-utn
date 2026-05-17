@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ShopRegisterServiceService } from 'src/app/services/shop-register-service.service';
 import { AddressValue } from 'src/app/address-autocomplete/address-autocomplete.component';
@@ -15,7 +21,7 @@ function addressValidator(control: AbstractControl): ValidationErrors | null {
 @Component({
   selector: 'app-signup-shop-data-basic',
   templateUrl: './signup-shop-data-basic.component.html',
-  styleUrls: ['./signup-shop-data-basic.component.scss']
+  styleUrls: ['./signup-shop-data-basic.component.scss'],
 })
 export class SignupShopDataBasicComponent {
   submitted = false;
@@ -29,13 +35,14 @@ export class SignupShopDataBasicComponent {
 
   constructor(
     private shopRegisterService: ShopRegisterServiceService,
-    private router: Router
+    private router: Router,
   ) {}
 
   submit() {
     this.submitted = true;
     if (this.shopSignUpForm.valid) {
-      const addressVal: AddressValue = this.shopSignUpForm.get('address')!.value!;
+      const addressVal: AddressValue =
+        this.shopSignUpForm.get('address')!.value!;
 
       const body = {
         name: this.getName().value,

@@ -1,0 +1,36 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+
+<nav class="navbar">
+  <div class="container-menu">
+    <span class="material-symbols-rounded" routerLink="/home-delivery-boy"
+      >arrow_back</span
+    >
+  </div>
+</nav>
+
+<div class="content">
+  <img class="scooter-img" src="../assets/delivery boy on scooter.png" />
+
+  <h2>Iniciar Reparto</h2>
+  <h6>Presioná el botón para recibir una ruta de entrega</h6>
+
+  <div class="button-container" *ngIf="!loading">
+    <app-primary-button
+      title="Iniciar Entrega"
+      (buttonClicked)="startDelivery()"
+    ></app-primary-button>
+  </div>
+
+  <div class="spinner-container" *ngIf="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Buscando pedidos cercanos...</p>
+  </div>
+
+  <div class="error-message-show" *ngIf="errorMessage">
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <span>{{ errorMessage }}</span>
+  </div>
+</div>

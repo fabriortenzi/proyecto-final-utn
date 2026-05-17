@@ -28,7 +28,9 @@ import { ShopCustomerComponent } from './shop-customer/shop-customer.component';
 import { AddProductButtonComponent } from './add-product-button/add-product-button.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { HomeDeliveryBoyComponent } from './home-delivery-boy/home-delivery-boy.component';
-import { ExploreNewDeliveriesComponent } from './explore-new-deliveries/explore-new-deliveries.component';
+import { StartDeliveryComponent } from './start-delivery/start-delivery.component';
+import { RouteProposalComponent } from './route-proposal/route-proposal.component';
+import { ActiveDeliveryComponent } from './active-delivery/active-delivery.component';
 import { DeliverOrderDescriptionComponent } from './deliver-order-description/deliver-order-description.component';
 import { HomeShopComponent } from './home-shop/home-shop.component';
 import { ShopAddProductComponent } from './shop-add-product/shop-add-product.component';
@@ -95,7 +97,9 @@ import { AddressAutocompleteComponent } from './address-autocomplete/address-aut
     AddProductButtonComponent,
     OrderDetailsComponent,
     HomeDeliveryBoyComponent,
-    ExploreNewDeliveriesComponent,
+    StartDeliveryComponent,
+    RouteProposalComponent,
+    ActiveDeliveryComponent,
     DeliverOrderDescriptionComponent,
     HomeShopComponent,
     ShopAddProductComponent,

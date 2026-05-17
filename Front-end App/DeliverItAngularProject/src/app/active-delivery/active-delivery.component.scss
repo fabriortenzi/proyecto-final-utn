@@ -1,0 +1,196 @@
+@import "../../styles.scss";
+
+.header {
+  padding: 15px 0 5px;
+
+  h2 {
+    text-align: left;
+    margin-left: 10%;
+    font-family: Poppins;
+  }
+}
+
+.map-container {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.stops-stack {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 30px;
+}
+
+.stop-card {
+  padding: 14px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.stop-active {
+  border-color: $primary-red;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(192, 10, 10, 0.15);
+}
+
+.stop-completed {
+  opacity: 0.55;
+  background-color: #f0f0f0;
+}
+
+.stop-future {
+  opacity: 0.7;
+}
+
+.stop-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.stop-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: $primary-red;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.stop-number-completed {
+  background-color: #4caf50;
+}
+
+.check-icon {
+  font-size: 18px;
+  color: white;
+}
+
+.stop-info {
+  flex: 1;
+}
+
+.stop-type {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.stop-type-label {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.stop-name {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.stop-address {
+  font-family: Poppins;
+  font-size: 13px;
+  opacity: 0.65;
+}
+
+.stop-action {
+  margin-top: 12px;
+}
+
+.complete-button {
+  width: 100%;
+  height: 44px;
+  background-color: $primary-red;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  ::ng-deep .mat-mdc-progress-spinner circle {
+    stroke: white;
+  }
+}
+
+.error-message-show {
+  width: 85%;
+  margin: 0 auto 15px;
+  font-family: Poppins;
+  font-size: 14px;
+  color: #ff0000;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.success-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.success-icon {
+  font-size: 80px;
+  color: #4caf50;
+  margin-bottom: 15px;
+}
+
+.success-content h2 {
+  font-family: Poppins;
+  font-size: 22px;
+  text-align: center;
+  margin: 0 0 10px;
+}
+
+.success-content p {
+  font-family: Poppins;
+  font-size: 14px;
+  opacity: 0.65;
+}

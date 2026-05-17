@@ -137,7 +137,7 @@ export async function findOrdersWithoutDelivery(req: Request, res: Response) {
   try {
     const ordersWithoutDelivery = await em.find(
       Order,
-      {},
+      { tentativeRouteId: { $eq: undefined } },
       {
         filters: ['deliveryUndefined'],
         populate: [

@@ -1,0 +1,159 @@
+@import "../../styles.scss";
+
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  height: 7.5vh;
+}
+
+.container-menu {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-title {
+  font-family: Poppins;
+  font-size: 20px;
+  margin: 0;
+}
+
+.timer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  font-family: Poppins;
+}
+
+.timer-label {
+  font-size: 14px;
+  opacity: 0.65;
+}
+
+.timer-value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.timer-low {
+  color: $primary-red;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.map-container {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.stops-list {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stop-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.stop-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: $primary-red;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.stop-info {
+  flex: 1;
+}
+
+.stop-type {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+.stop-type-label {
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.stop-name {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.stop-address {
+  font-family: Poppins;
+  font-size: 13px;
+  opacity: 0.65;
+}
+
+.error-message-show {
+  width: 85%;
+  margin: 0 auto 15px;
+  font-family: Poppins;
+  font-size: 14px;
+  color: #ff0000;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.actions {
+  width: 85%;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.confirm-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.reject-button {
+  background-color: white;
+  color: $primary-red;
+  border: 2px solid $primary-red;
+}
