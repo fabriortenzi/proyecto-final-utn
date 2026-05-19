@@ -35,6 +35,10 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
     openingTime: req.body.openingTime,
     closingTime: req.body.closingTime,
     shippingPrice: req.body.shippingPrice,
+    preparationTime:
+      req.body.preparationTime != null
+        ? Number(req.body.preparationTime)
+        : undefined,
     totalStars: req.body.totalStars ? req.body.totalStars : 0,
     totalReviews: req.body.totalReviews ? req.body.totalReviews : 0,
     street: req.body.street,
@@ -340,4 +344,3 @@ function compareFunction(a: productStatsType, b: productStatsType) {
     return 0;
   }
 }
-

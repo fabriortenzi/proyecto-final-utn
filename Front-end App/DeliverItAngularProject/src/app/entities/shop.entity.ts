@@ -7,6 +7,7 @@ export class Shop {
   public name: string;
   public phoneNumber: string;
   public shippingPrice: number;
+  public preparationTime?: number;
   public stars: number;
   public totalReviews: number;
   public email: string;

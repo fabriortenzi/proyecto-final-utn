@@ -40,6 +40,9 @@
  *         shippingPrice:
  *           type: number
  *           description: The shipping price of the shop
+ *         preparationTime:
+ *           type: number
+ *           description: The preparation time of the shop in minutes
  *         totalReviews:
  *           type: number
  *           description: The total number of reviews for the shop

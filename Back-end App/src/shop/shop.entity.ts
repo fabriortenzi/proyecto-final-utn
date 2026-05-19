@@ -42,6 +42,9 @@ export class Shop extends BaseEntity {
     shippingPrice!: number
 
     @Property({ nullable: false })
+    preparationTime!: number
+
+    @Property({ nullable: false })
     totalReviews: number = 0
 
     @Property({ hidden: true, nullable: false })
