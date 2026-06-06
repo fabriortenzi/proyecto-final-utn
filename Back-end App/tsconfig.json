@@ -1,5 +1,5 @@
 {
-    "compilerOptions": {
+  "compilerOptions": {
       "incremental": true,
       "target": "es2020",
       "module": "ES2022",

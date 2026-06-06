@@ -19,6 +19,7 @@ import { RequestContext } from "@mikro-orm/core";
 import { orm } from "./shared/orm.js";
 import { serve, setup } from "swagger-ui-express";
 import { swaggerSpec } from "./swaggerSpec.config.js";
+import { recommenderRouter } from "./recommender/recommender.routes.js";
 
 // Función para configurar y obtener la aplicación Express
 export function getApp() {
@@ -48,6 +49,7 @@ export function getApp() {
   app.use("/api/productVariations", productVariationRouter);
   app.use("/api/reviews", reviewRouter);
   app.use("/api/delivery-routes", deliveryRouteRouter);
+  app.use("/api/recommendations", recommenderRouter);
 
   // Middleware para servir la documentación de la API con Swagger UI
   app.use("/api-docs", serve, setup(swaggerSpec));
