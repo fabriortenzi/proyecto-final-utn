@@ -117,6 +117,7 @@ export async function requestRoute(req: Request, res: Response) {
 
     return res.status(201).json({ message: "Route proposed", data: route });
   } catch (error: any) {
+    console.error("requestRoute error:", error);
     return res.status(500).json({ message: error.message });
   }
 }
