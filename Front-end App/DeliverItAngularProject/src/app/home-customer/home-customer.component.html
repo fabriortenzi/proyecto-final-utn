@@ -64,6 +64,24 @@
         </app-shop-type-icon>
       </div>
     </div>
+    <ng-container *ngIf="recommendedShops.length > 0">
+      <h6 id="recommended-shops-title">Recomendados para vos</h6>
+      <div class="parent-container-max-width">
+        <div class="shop-cards-container">
+          <app-shop-card
+            *ngFor="let shop of recommendedShops"
+            title="{{ shop.name }}"
+            [subtitle]="shop.street + ' ' + shop.streetNumber"
+            bottomText="{{ shop.stars }}"
+            [hasStar]="true"
+            [routerLink]="['/shop-customer', shop.id]"
+            imagePath="{{ shop.logoPath }}"
+            totalReviews="{{ shop.totalReviews }}"
+          >
+          </app-shop-card>
+        </div>
+      </div>
+    </ng-container>
     <h6 id="popular-shops-title">Los locales más populares</h6>
     <div class="parent-container-max-width">
       <div class="shop-cards-container">
