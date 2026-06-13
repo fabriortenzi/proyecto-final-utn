@@ -50,6 +50,14 @@ db.getCollection("payment-type").insertMany([
 
 db.getCollection("product-category").insertMany([
   {
-    description: "Efectivo",
+    description: "Hamburguesas",
+    description: "Pizza",
+    description: "Empanadas",
+    description: "Gaseosa",
+    description: "Fruta",
+    description: "Pescado",
+    description: "Carne",
+    description: "Vino",
+    description: "Helado",
   },
 ]);

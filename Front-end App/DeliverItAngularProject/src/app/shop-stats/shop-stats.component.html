@@ -15,6 +15,28 @@
         <h3 id="totalAmountText">Monto total recaudado</h3>
         <h2 id="totalSellAmount">ARS$ {{this.stats.totalSellAmount}}</h2>
     </div>
+    <div class="filterContainer">
+        <button class="filterButton" (click)="toggleDropdown()">
+            <span>Filtrar por categorías</span>
+            <span class="material-symbols-rounded">expand_more</span>
+        </button>
+        <div class="dropdownPanel" *ngIf="showDropdown">
+            <label class="checkboxItem" *ngFor="let cat of categories">
+                <input type="checkbox" [value]="cat.id" (change)="onCategoryToggle(cat.id!, $event)" />
+                {{ cat.description }}
+            </label>
+            <div class="dropdownEmpty" *ngIf="categories.length === 0">
+                No hay categorías disponibles
+            </div>
+        </div>
+    </div>
+    <div class="chartContainer lineChartContainer">
+        <div class="chartTitleContainer">
+            <h3>Evolución de ventas (último año)</h3>
+        </div>
+        <div id="lineChart" style="width:350px; height: 300px;"></div>
+    </div>
+    <div class="separator"></div>
     <div class="chartContainer">
         <div class="chartTitleContainer">
             <h3>Productos más vendidos (en unidades)</h3>

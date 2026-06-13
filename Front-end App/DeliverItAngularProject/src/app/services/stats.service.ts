@@ -1,17 +1,25 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseUrlService } from './base-url.service';
 import { Shop } from '../entities/shop.entity';
 import { Product } from '../entities/product.entity';
 
-type statsType = {
+export type statsType = {
   totalSellAmount: number,
   topProducts: productStatsType[]
 }
 
-type productStatsType = {
+export type productStatsType = {
     product: Product,
     amount: number
+}
+
+export type oneYearSaleType = {
+  _id: {
+    year: number,
+    month: number
+  },
+  totalSales: number
 }
 
 @Injectable({
@@ -27,10 +35,17 @@ export class StatsService {
   readonly url = `${this.baseUrlService.getBaseUrl()}shops/`;
 
 
-  getStats() {
-    const url = `${this.url}${this.shop.id}/true`
-    
-    return this.http.get<statsType>(url)
+  getStats(productCategoryIds?: string[]) {
+    let url = `${this.url}${this.shop.id}/true`
+    let params = new HttpParams()
+
+    if (productCategoryIds && productCategoryIds.length > 0) {
+      productCategoryIds.forEach(id => {
+        params = params.append('productCategories', id)
+      })
+    }
+
+    return this.http.get(url, { params })
   }
 
   getShop() {
