@@ -1,0 +1,68 @@
+@import "../../styles.scss";
+
+.navbar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: left;
+  height: 7.5vh;
+}
+
+.container-menu {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 7.5%;
+}
+
+.scooter-img {
+  width: 203px;
+  height: 205px;
+  flex-shrink: 0;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-family: Poppins;
+  margin-bottom: 5px;
+}
+
+h6 {
+  text-align: center;
+  margin-bottom: 30px;
+  opacity: 0.65;
+}
+
+.button-container {
+  width: 85%;
+}
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+
+  p {
+    font-family: Poppins;
+    font-size: 14px;
+    opacity: 0.65;
+  }
+}
+
+.error-message-show {
+  margin-top: 20px;
+  font-family: Poppins;
+  font-size: 14px;
+  color: #ff0000;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

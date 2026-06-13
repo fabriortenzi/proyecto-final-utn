@@ -164,41 +164,12 @@ export class OrderService {
     this.editClicked.next({ id: '', clicked: false });
   }
 
-  findOrdersWithoutDelivery(): Observable<Order[]> {
-    return this.http
-      .get<Order[]>(`${this.url}/orders-without-delivery/~`)
-      .pipe(map((response: any) => response.data));
-  }
-
   findCurrentCustomerOrders(): Observable<Order[]> {
     return this.http
       .get<Order[]>(
         `${this.url}/current-orders/${this.loginService.getLoggedUser().id}`
       )
       .pipe(map((response: any) => response.data));
-  }
-
-  findCurrentDeliveryOrders(): Observable<Order[]> {
-    return this.http
-      .get<Order[]>(
-        `${this.url}/current-deliveries/${this.loginService.getLoggedUser().id}`
-      )
-      .pipe(map((response: any) => response.data));
-  }
-
-  setDelivery(orderId: string) {
-    const body = { delivery: this.loggedUser.id };
-    return this.http
-      .put<Order>(`${this.url}/set-delivery/${orderId}`, body)
-      .pipe(map((response: any) => response.body));
-  }
-
-  setDateTimeArrival(orderId: string) {
-    const dateTime = this.validatorsService.getCurrentDateTime();
-    const body = { dateTimeArrival: dateTime };
-    return this.http
-      .put<Order>(`${this.url}/set-datetime-arrival/${orderId}`, body)
-      .pipe(map((response: any) => response.body));
   }
 
   findAllByDelivery(): Observable<Order[]> {

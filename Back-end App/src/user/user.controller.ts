@@ -22,8 +22,8 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
     apartment: req.body.apartment,
     additionalInfo: req.body.additionalInfo,
     address: req.body.address,
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
+    latitude: req.body.latitude != null ? Number(req.body.latitude) : undefined,
+    longitude: req.body.longitude != null ? Number(req.body.longitude) : undefined,
     userType: req.body.userType,
     withdrawals: req.body.withdrawals,
     clientOrders: req.body.clientOrders,
@@ -151,7 +151,7 @@ export async function login(req: Request, res: Response) {
 
     const token = jwt.sign(
       {
-        _id: user._id,
+        id: user.id,
         name: user.name,
         surname: user.surname,
         userType: user.userType,

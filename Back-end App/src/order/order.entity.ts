@@ -35,6 +35,9 @@ export class Order extends BaseEntity
     @ManyToOne(() => PaymentType, { nullable: false })
     paymentType !: Rel<PaymentType>
 
+    @Property({ nullable: true })
+    tentativeRouteId?: string
+
     @OneToMany(() => LineItem, (lineItem) => lineItem.order, {
         eager: true, cascade: [Cascade.ALL]
     })

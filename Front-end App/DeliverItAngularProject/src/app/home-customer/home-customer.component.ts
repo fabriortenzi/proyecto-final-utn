@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { ShopService } from '../services/shop.service';
 import { LoginService } from '../services/login.service';
+import { RecommendationService } from '../services/recommendation.service';
 import { ShopType } from '../entities/shopType.entity';
 import { Shop } from '../entities/shop.entity';
 import { ShopTypeService } from '../services/shop-type.service';
@@ -14,8 +15,9 @@ import { User } from '../entities/user.entity';
   styleUrls: ['./home-customer.component.scss'],
 })
 export class HomeCustomerComponent {
-  public shopTypes: ShopType[];
-  public shops: Shop[];
+  public shopTypes: ShopType[] = [];
+  public shops: Shop[] = [];
+  public recommendedShops: Shop[] = [];
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -24,7 +26,8 @@ export class HomeCustomerComponent {
     private shopTypeService: ShopTypeService,
     private orderService: OrderService,
     private shopService: ShopService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private recommendationService: RecommendationService,
   ) {}
 
   loggedUser: User = this.loginService.getLoggedUser();
@@ -32,6 +35,7 @@ export class HomeCustomerComponent {
   ngOnInit() {
     this.getShopTypes();
     this.getAllShops();
+    this.getRecommendedShops();
     this.orderService.resetProducts();
   }
 
@@ -44,6 +48,23 @@ export class HomeCustomerComponent {
   getAllShops() {
     this.shopService.getAll().subscribe((data: Shop[]) => {
       this.shops = data;
+    });
+  }
+
+  getRecommendedShops() {
+    this.recommendationService.getRecommendations().subscribe({
+      next: (recommendations) => {
+        const shopIds = recommendations.map(r => r.shopId);  // ← sin .body
+
+        this.shopService.getAll().subscribe((allShops: Shop[]) => {
+          this.recommendedShops = shopIds
+            .map(id => allShops.find(s => s.id === id))
+            .filter((s): s is Shop => s !== undefined);
+        });
+      },
+      error: () => {
+        this.recommendedShops = [];
+      }
     });
   }
 

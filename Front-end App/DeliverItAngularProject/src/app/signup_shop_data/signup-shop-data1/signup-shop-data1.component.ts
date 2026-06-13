@@ -23,6 +23,7 @@ export class SignupShopData1Component {
       openingTime: new FormControl('', Validators.required),
       closingTime: new FormControl('', Validators.required),
       shippingPrice: new FormControl('', [Validators.required,this.shippingPricevalidator.validatePrice()]),
+      preparationTime: new FormControl(''),
       shopType: new FormControl('', Validators.required)
     })
 
@@ -37,6 +38,9 @@ export class SignupShopData1Component {
   }
   getShippingPrice(){
     return this.shopSignUpForm.get('shippingPrice');
+  }
+  getPreparationTime(){
+    return this.shopSignUpForm.get('preparationTime');
   }
   getShopType(){
     return this.shopSignUpForm.get('shopType');
@@ -56,6 +60,7 @@ export class SignupShopData1Component {
         openingTime: this.getOpeningTime().value,
         closingTime: this.getClosingTime().value,
         shippingPrice: this.getShippingPrice().value,
+        preparationTime: this.getPreparationTime().value,
         shopType: this.getShopType().value,
       };
       this.shopRegisterService.addShopFormData(body)

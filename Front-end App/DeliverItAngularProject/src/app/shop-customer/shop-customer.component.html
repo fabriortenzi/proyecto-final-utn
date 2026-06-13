@@ -25,6 +25,7 @@
   <div class="extra-shop-info-container">
     <p class="card-bottomText">Horarios: de {{ this.shop.openingTime }} a {{ this.shop.closingTime }}</p>
     <p class="card-bottomText">Precio del envío: ${{ this.shop.shippingPrice }}</p>
+    <p *ngIf="shop?.preparationTime !== undefined" class="card-bottomText">Tiempo de preparación: {{ shop.preparationTime }} minutos</p>
   </div>
 </div>
 <h6 class="products-title">Productos</h6>

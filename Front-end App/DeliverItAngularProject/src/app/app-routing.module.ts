@@ -13,7 +13,9 @@ import { HomeCustomerComponent } from './home-customer/home-customer.component';
 import { ShopCustomerComponent } from './shop-customer/shop-customer.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { HomeDeliveryBoyComponent } from './home-delivery-boy/home-delivery-boy.component';
-import { ExploreNewDeliveriesComponent } from './explore-new-deliveries/explore-new-deliveries.component';
+import { StartDeliveryComponent } from './start-delivery/start-delivery.component';
+import { RouteProposalComponent } from './route-proposal/route-proposal.component';
+import { ActiveDeliveryComponent } from './active-delivery/active-delivery.component';
 import { HomeShopComponent } from './home-shop/home-shop.component';
 import { ShopAddProductComponent } from './shop-add-product/shop-add-product.component';
 import { ShopModifyProductComponent } from './shop-modify-product/shop-modify-product.component';
@@ -178,8 +180,20 @@ const routes: Routes = [
     data: { role: ['delivery'] },
   },
   {
-    path: 'explore-new-deliveries',
-    component: ExploreNewDeliveriesComponent,
+    path: 'start-delivery',
+    component: StartDeliveryComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+  {
+    path: 'route-proposal',
+    component: RouteProposalComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['delivery'] },
+  },
+  {
+    path: 'active-delivery',
+    component: ActiveDeliveryComponent,
     canActivate: [AuthGuard],
     data: { role: ['delivery'] },
   },

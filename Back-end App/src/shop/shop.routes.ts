@@ -232,6 +232,8 @@ shopRouter.delete('/:id', assureAuthAndRoles([UserTypeEnum.owner, UserTypeEnum.a
  *                 format: time
  *               shippingPrice:
  *                 type: number
+ *               preparationTime:
+ *                 type: number
  *               street:
  *                 type: string
  *               streetNumber:

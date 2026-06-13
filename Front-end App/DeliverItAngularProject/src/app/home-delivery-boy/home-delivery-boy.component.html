@@ -44,45 +44,14 @@
       </div>
     </nav>
 
-    <h2>Tus Pedidos en Curso</h2>
-
-    <div class="current-orders">
-      <div *ngIf="currentDeliveries.length === 0" class="no-orders">
-        <img
-          class="img-no-orders"
-          src="../assets/delivery boy on scooter.png"
-        />
-        <h3>Vaya... No tienes pedidos en curso</h3>
-      </div>
-      <div *ngIf="currentDeliveries.length > 0" class="active-orders">
-        <app-shop-card
-          (retrieveOrderId)="setArrival($event, order.commissionForDelivery)"
-          *ngFor="let order of currentDeliveries"
-          [title]="order.lineItems[0].product.shop.name"
-          [subtitle]="
-            'Origen: ' +
-            order.lineItems[0].product.shop.street +
-            ' ' +
-            order.lineItems[0].product.shop.streetNumber
-          "
-          [bottomText]="
-            'Destino: ' + order.client.street + ' ' + order.client.streetNumber
-          "
-          [hasStar]="false"
-          [hasDropdown]="true"
-          [hasDescription]="false"
-          imagePath="{{ order.lineItems[0].product.shop.logoPath }}"
-          description="{{ getDescription(order) }}"
-          [client]="order.client.name + ' ' + order.client.surname"
-          [paymentType]="order.paymentType.description"
-          [price]="order.totalAmount"
-          orderStatus="Para repartir"
-          orderId="{{ order.id }}"
-        >
-        </app-shop-card>
-      </div>
-      <a id="explore-more-deliveries" routerLink="/explore-new-deliveries"
-        ><app-primary-button title="Explorar más pedidos"></app-primary-button
+    <div class="start-delivery-section">
+      <img
+        class="img-no-orders"
+        src="../assets/delivery boy on scooter.png"
+      />
+      <h3>Comenzá un nuevo reparto</h3>
+      <a id="start-delivery-link" routerLink="/start-delivery"
+        ><app-primary-button title="Iniciar Reparto"></app-primary-button
       ></a>
     </div>
 
