@@ -4,6 +4,6 @@ pymongo
 pandas
 numpy
 --extra-index-url https://download.pytorch.org/whl/cpu
-torch==2.3.1+cpu
+torch==2.3.1
 faiss-cpu
 python-dotenv
