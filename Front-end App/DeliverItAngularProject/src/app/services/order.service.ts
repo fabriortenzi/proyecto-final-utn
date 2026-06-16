@@ -96,7 +96,7 @@ export class OrderService {
     }
   }
 
-  create(paymentTypeId: string, totalAmount: number): Observable<Order> {
+  create(paymentTypeId: string, totalAmount: number): Observable<any> {
     const lineItems = this.order.lineItems.map(
       ({ product, quantity, productVariationArrays }) => {
         const lineItem: any = {};
@@ -126,9 +126,11 @@ export class OrderService {
       totalAmount: totalAmount,
     };
 
-    return this.http
-      .post<Order>(this.url, body)
-      .pipe(map((response: any) => response.body));
+    return this.http.post(this.url, body);
+  }
+
+  createMercadoPagoPreference(orderId: string): Observable<any> {
+    return this.http.post(`${this.baseUrl.getBaseUrl()}mercadopago/create-preference`, { orderId });
   }
 
   resetProducts() {

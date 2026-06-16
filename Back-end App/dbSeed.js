@@ -51,6 +51,9 @@ db.getCollection("payment-type").insertMany([
   {
     description: "Efectivo",
   },
+  {
+    description: "Mercado Pago",
+  },
 ]);
 
 db.getCollection("product-category").insertMany([

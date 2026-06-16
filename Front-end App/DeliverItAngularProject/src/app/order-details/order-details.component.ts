@@ -10,74 +10,93 @@ import { ProductVariation } from '../entities/productVariation.entity';
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
-  styleUrls: ['./order-details.component.scss']
+  styleUrls: ['./order-details.component.scss'],
 })
 export class OrderDetailsComponent {
-  constructor(private orderService: OrderService,
+  constructor(
+    private orderService: OrderService,
     private paymentTypeService: PaymentTypeService,
-    private router: Router) { }
+    private router: Router,
+  ) {}
 
-  items: LineItem[] = []
-  subTotal: number
-  shippingPrice: number
-  total: number
-  paymentTypes: PaymentType[]
-  submitted = false
+  items: LineItem[] = [];
+  subTotal: number;
+  shippingPrice: number;
+  total: number;
+  paymentTypes: PaymentType[];
+  submitted = false;
   paymentTypeForm = new FormGroup({
-    selectedPaymentType: new FormControl('', Validators.required)
-  })
+    selectedPaymentType: new FormControl('', Validators.required),
+  });
 
   ngOnInit() {
-    this.getItems()
-    this.getSubTotal()
-    this.getShippingPrice()
-    this.getPaymentTypes()
-    this.total = this.subTotal + this.shippingPrice
+    this.getItems();
+    this.getSubTotal();
+    this.getShippingPrice();
+    this.getPaymentTypes();
+    this.total = this.subTotal + this.shippingPrice;
   }
 
   // Devuelvo un Array con los Productos y sus cantidades
   getItems() {
-    this.items = this.orderService.getOrder().lineItems
+    this.items = this.orderService.getOrder().lineItems;
   }
 
   getProductVariationDescription(productVariations: ProductVariation[]) {
-    const pvCopy = [...productVariations]
+    const pvCopy = [...productVariations];
 
     if (pvCopy.length === 1) {
       return pvCopy[0].description;
     } else if (pvCopy.length === 2) {
-      return pvCopy.map(pv => pv.description).join(' y ');
+      return pvCopy.map((pv) => pv.description).join(' y ');
     } else {
       const lastVariation = pvCopy.pop().description;
-      const descriptions = pvCopy.map(pv => pv.description);
+      const descriptions = pvCopy.map((pv) => pv.description);
       return descriptions.join(', ') + ' y ' + lastVariation;
     }
   }
 
   getSubTotal() {
-    this.subTotal = this.orderService.getSubTotal()
+    this.subTotal = this.orderService.getSubTotal();
   }
 
   getShippingPrice() {
-    this.shippingPrice = Number(localStorage.getItem('shippingPrice'))
+    this.shippingPrice = Number(localStorage.getItem('shippingPrice'));
   }
 
   getSelectedPaymentType() {
-    return this.paymentTypeForm.get('selectedPaymentType')
+    return this.paymentTypeForm.get('selectedPaymentType');
   }
 
   create() {
-    this.submitted = true
+    this.submitted = true;
     if (this.paymentTypeForm.valid) {
-      this.orderService.create(this.getSelectedPaymentType().value, this.total).subscribe(() => {
-        this.router.navigate(['order-confirmed'])
-      })
+      const selectedPaymentTypeId = this.getSelectedPaymentType().value;
+      const selectedPaymentType = this.paymentTypes.find(
+        (p) => p.id === selectedPaymentTypeId,
+      );
+      const isMercadoPago = selectedPaymentType?.description === 'Mercado Pago';
+
+      this.orderService
+        .create(selectedPaymentTypeId, this.total)
+        .subscribe((response: any) => {
+          if (isMercadoPago) {
+            const orderId = (response as any).data?.id || response.id;
+            this.orderService
+              .createMercadoPagoPreference(orderId)
+              .subscribe((mpResponse: any) => {
+                window.location.href = mpResponse.init_point;
+              });
+          } else {
+            this.router.navigate(['order-confirmed']);
+          }
+        });
     }
   }
 
   getPaymentTypes() {
     this.paymentTypeService.getAll().subscribe((data: PaymentType[]) => {
-      this.paymentTypes = data
-    })
+      this.paymentTypes = data;
+    });
   }
 }
