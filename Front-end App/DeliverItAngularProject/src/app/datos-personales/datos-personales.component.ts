@@ -4,7 +4,6 @@ import { DatosPersonalesService } from '../services/datos-personales.service';
 import { Router } from '@angular/router';
 import { UserType } from '../entities/userType.entity';
 import { LoginService } from '../services/login.service';
-import { PasskeyService } from '../services/passkey.service';
 import { LoginResponse } from '../entities/user.entity';
 
 @Component({
@@ -25,8 +24,7 @@ export class DatosPersonalesComponent {
   constructor(
     private service: DatosPersonalesService,
     private router: Router,
-    private loginService: LoginService,
-    private passkeyService: PasskeyService
+    private loginService: LoginService
   ) {}
 
   userTypes: UserType[] = null;
@@ -67,9 +65,7 @@ export class DatosPersonalesComponent {
             this.loginService
               .login(this.service.getUserAndPassword())
               .subscribe((res: LoginResponse) => {
-                this.passkeyService.tryRegisterPasskey().subscribe({
-                  complete: () => this.loginService.redirectUser(res.user),
-                });
+                this.loginService.redirectUser(res.user);
               });
           });
           break;

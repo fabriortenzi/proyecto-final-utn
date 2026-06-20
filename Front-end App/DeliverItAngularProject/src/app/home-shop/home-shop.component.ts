@@ -6,6 +6,7 @@ import { ProductVariationsService } from '../services/product-variations.service
 import { ReviewService } from '../services/review.service';
 import { StatsService } from '../services/stats.service';
 import { LoginService } from '../services/login.service';
+import { PasskeyService } from '../services/passkey.service';
 import { User } from '../entities/user.entity';
 import { ProductService } from '../services/product.service';
 
@@ -24,7 +25,8 @@ export class HomeShopComponent {
     private reviewService: ReviewService,
     private statsService: StatsService,
     private loginService: LoginService,
-    private productService: ProductService
+    private productService: ProductService,
+    private passkeyService: PasskeyService
   ) {}
 
   loggedUser: User = this.loginService.getLoggedUser();
@@ -63,6 +65,10 @@ export class HomeShopComponent {
   navigateToReviews() {
     this.reviewService.shopToReview = this.shop;
     this.router.navigate(['/reviews/shop']);
+  }
+
+  onRegisterPasskey() {
+    this.passkeyService.tryRegisterPasskey().subscribe();
   }
 
   logout() {

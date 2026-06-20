@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import { PasskeyService } from '../services/passkey.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -8,7 +9,11 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./admin-panel.component.scss'],
 })
 export class AdminPanelComponent {
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private passkeyService: PasskeyService
+  ) {}
 
   ngOnInit() {
     sessionStorage.removeItem('idPaymentType');
@@ -36,6 +41,10 @@ export class AdminPanelComponent {
 
   onEditCommissionPercentage() {
     this.router.navigate(['commission-percentage-list']);
+  }
+
+  onRegisterPasskey() {
+    this.passkeyService.tryRegisterPasskey().subscribe();
   }
 
   logout() {

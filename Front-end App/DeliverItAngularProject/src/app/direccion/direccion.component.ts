@@ -5,7 +5,6 @@ import { LoginResponse, User } from '../entities/user.entity';
 import { UserService } from '../services/user.service';
 import { DatosPersonalesService } from '../services/datos-personales.service';
 import { LoginService } from '../services/login.service';
-import { PasskeyService } from '../services/passkey.service';
 import { AddressValue } from '../address-autocomplete/address-autocomplete.component';
 
 function addressValidator(control: AbstractControl): ValidationErrors | null {
@@ -28,8 +27,7 @@ export class DireccionComponent {
     private loginService: LoginService,
     private router: Router,
     private userService: UserService,
-    private datosPersonalesService: DatosPersonalesService,
-    private passkeyService: PasskeyService
+    private datosPersonalesService: DatosPersonalesService
   ) {}
 
   userToUpdate: User;
@@ -94,9 +92,7 @@ export class DireccionComponent {
               .login(this.datosPersonalesService.getUserAndPassword())
               .subscribe((res: LoginResponse) => {
                 this.loginService.setLoggedUser(res.user);
-                this.passkeyService.tryRegisterPasskey().subscribe({
-                  complete: () => this.loginService.redirectUser(res.user),
-                });
+                this.loginService.redirectUser(res.user);
               });
           },
           error: () => {

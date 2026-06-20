@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { ShopService } from '../services/shop.service';
 import { LoginService } from '../services/login.service';
+import { PasskeyService } from '../services/passkey.service';
 import { RecommendationService } from '../services/recommendation.service';
 import { ShopType } from '../entities/shopType.entity';
 import { Shop } from '../entities/shop.entity';
@@ -28,6 +29,7 @@ export class HomeCustomerComponent {
     private shopService: ShopService,
     private loginService: LoginService,
     private recommendationService: RecommendationService,
+    private passkeyService: PasskeyService,
   ) {}
 
   loggedUser: User = this.loginService.getLoggedUser();
@@ -66,6 +68,10 @@ export class HomeCustomerComponent {
         this.recommendedShops = [];
       }
     });
+  }
+
+  onRegisterPasskey() {
+    this.passkeyService.tryRegisterPasskey().subscribe();
   }
 
   logout() {

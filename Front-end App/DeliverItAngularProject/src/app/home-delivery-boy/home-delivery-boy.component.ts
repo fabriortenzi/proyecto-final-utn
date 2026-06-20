@@ -3,6 +3,7 @@ import { OrderService } from '../services/order.service';
 import { Order } from '../entities/order.entity';
 import { MatSidenav } from '@angular/material/sidenav';
 import { LoginService } from '../services/login.service';
+import { PasskeyService } from '../services/passkey.service';
 import { User } from '../entities/user.entity';
 
 @Component({
@@ -15,7 +16,8 @@ export class HomeDeliveryBoyComponent {
 
   constructor(
     private orderService: OrderService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private passkeyService: PasskeyService
   ) {}
 
   loggedUser: User = this.loginService.getLoggedUser();
@@ -27,6 +29,10 @@ export class HomeDeliveryBoyComponent {
     this.orderService
       .findAllByDelivery()
       .subscribe((response) => (this.pastDeliveries = response.slice(0, 3)));
+  }
+
+  onRegisterPasskey() {
+    this.passkeyService.tryRegisterPasskey().subscribe();
   }
 
   getDescription(order: Order): string {
