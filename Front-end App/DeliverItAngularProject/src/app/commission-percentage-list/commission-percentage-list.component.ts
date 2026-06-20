@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class CommissionPercentageListComponent {
   commissions?: Commission[] = [];
-  date: any;
 
   constructor(
     private commissionService: CommissionService,
@@ -21,13 +20,10 @@ export class CommissionPercentageListComponent {
     this.commissionService
       .findAll()
       .subscribe((response) => (this.commissions = response));
-    this.date = new Date().toISOString().slice(0, 10);
   }
 
   onEditClick(commission: Commission) {
-    if (commission.validSince >= this.date) {
-      sessionStorage.setItem('idCommission', commission.id);
-      this.router.navigate(['edit-commission-percentage']);
-    }
+    sessionStorage.setItem('idCommission', commission.id);
+    this.router.navigate(['edit-commission-percentage']);
   }
 }
