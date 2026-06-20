@@ -1,16 +1,28 @@
 @import "../../styles.scss";
 
 .user-management-container {
-  padding: 20px;
+  padding: 32px 20px 20px;
   max-width: 1200px;
   margin: 0 auto;
 
-  .page-title {
-    font-family: Poppins;
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 600;
-    margin: 0 0 24px;
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+
+    .back-btn {
+      font-size: 28px;
+      user-select: none;
+    }
+
+    .page-title {
+      font-family: Poppins;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 600;
+      margin: 0;
+    }
   }
 
   .filters-container {
