@@ -234,3 +234,90 @@ they are in the global scss because it's used in different components */
 .extra-shop-info-container > p {
   margin-top: 5px;
 }
+
+// Angular Material theme overrides (MDC-based)
+:root {
+  --mdc-theme-primary: #{$primary-red};
+}
+
+.mat-mdc-slide-toggle {
+  --mdc-switch-selected-handle-color: #{$primary-red};
+  --mdc-switch-selected-track-color: #{$secondary-red};
+  --mdc-switch-selected-focus-handle-color: #{$primary-red};
+  --mdc-switch-selected-hover-handle-color: #{$primary-red};
+  --mdc-switch-selected-focus-track-color: #{$secondary-red};
+  --mdc-switch-selected-hover-track-color: #{$secondary-red};
+}
+
+.mat-mdc-slide-toggle.mat-mdc-checked .mdc-switch__thumb {
+  background-color: $primary-red !important;
+  border-color: $primary-red !important;
+}
+
+.mat-mdc-slide-toggle.mat-mdc-checked .mdc-switch__track {
+  background-color: $secondary-red !important;
+}
+
+.mat-mdc-form-field {
+  --mdc-theme-primary: #{$primary-red};
+}
+
+.mat-mdc-form-field.mat-focused {
+  --mdc-theme-primary: #{$primary-red};
+}
+
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: $primary-red !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: $primary-red !important;
+}
+
+.mat-mdc-select-arrow {
+  color: $primary-red !important;
+}
+
+.cdk-overlay-pane {
+  --mdc-theme-primary: #{$primary-red};
+}
+
+.mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-disabled) .mdc-list-item__primary-text {
+  color: $primary-red !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected .mdc-list-item__checkmark {
+  color: $primary-red !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected .mdc-list-item__checkmark-svg {
+  fill: $primary-red !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected .mdc-list-item__checkmark-path {
+  stroke: $primary-red !important;
+}
+
+.mat-mdc-paginator {
+  --mdc-theme-primary: #{$primary-red};
+}
+
+.mat-mdc-header-cell,
+.mat-mdc-cell,
+.mat-mdc-paginator,
+.mat-mdc-select,
+.mat-mdc-form-field,
+.mat-mdc-option {
+  font-family: Poppins, sans-serif;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.mat-mdc-cell {
+  font-size: 13px;
+}

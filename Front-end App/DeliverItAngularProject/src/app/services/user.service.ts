@@ -18,6 +18,14 @@ export class UserService {
     private loginService: LoginService
   ) {}
 
+  getAll(): Observable<User[]> {
+    return this.http.get(`${this.url}`).pipe(map((response: any) => response.data));
+  }
+
+  toggleEnabled(id: string, enabled: boolean): Observable<any> {
+    return this.http.patch(`${this.url}/${id}/toggle-enabled`, { enabled });
+  }
+
   findOne(): Observable<User> {
     return this.http
       .get<User>(`${this.url}/${this.loginService.getLoggedUser().id}`)

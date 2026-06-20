@@ -25,6 +25,7 @@ import { CustomerSearchResultsComponent } from './customer-search-results/custom
 import { CustomerCurrentOrdersComponent } from './customer-current-orders/customer-current-orders.component';
 import { OrderConfirmedComponent } from './order-confirmed/order-confirmed.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 import { AddPaymentTypeComponent } from './add-payment-type/add-payment-type.component';
 import { AddProductCategoryComponent } from './add-product-category/add-product-category.component';
 import { EditPaymentTypeComponent } from './edit-payment-type/edit-payment-type.component';
@@ -238,6 +239,12 @@ const routes: Routes = [
   {
     path: 'admin-panel',
     component: AdminPanelComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'user-management',
+    component: UserManagementComponent,
     canActivate: [AuthGuard],
     data: { role: ['admin'] },
   },

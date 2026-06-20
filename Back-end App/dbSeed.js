@@ -77,6 +77,7 @@ db.getCollection("user").insertMany([
     address: "Zeballos 180, S2000BPD Rosario, Santa Fe, Argentina",
     latitude: -32.9572128,
     longitude: -60.62739000000001,
+    enabled: true,
     userType: ObjectId("6a1cae2b965e866be59df8a3"),
   },
   {
@@ -87,6 +88,7 @@ db.getCollection("user").insertMany([
     email: "repartidor1@a.com",
     password: "$2a$10$zCsuqNPG9o7x5nc/iXKkt.yufaEcd7YqPG9jWj4p8yiy.ITZIghc2",
     creditBalance: 0,
+    enabled: true,
     userType: ObjectId("6a1cae2b965e866be59df8a5"),
   },
   {
@@ -97,6 +99,7 @@ db.getCollection("user").insertMany([
     email: "fourguys@a.com",
     password: "$2a$10$I0pdVBEJhhWVHwYTYfF9JOuQbOAcQNKEyCl9ylYqH0F25R2Rqen0S",
     creditBalance: 0,
+    enabled: true,
     userType: ObjectId("6a1cae2b965e866be59df8a4"),
   },
   {
@@ -107,6 +110,7 @@ db.getCollection("user").insertMany([
     email: "frozenscript@a.com",
     password: "$2a$10$W3sOb/.H9TidsaYzBxG/6O7FKcPWcGz1OL1XyNUaNwKb9r2FBUQzm",
     creditBalance: 0,
+    enabled: true,
     userType: ObjectId("6a1cae2b965e866be59df8a4"),
   },
   {
@@ -117,6 +121,7 @@ db.getCollection("user").insertMany([
     email: "dominos@a.com",
     password: "$2a$10$.rnMZrru9taRVuBSmvfWLuR2H5sMawmBkEp./WUI69DFSF.PiTKEC",
     creditBalance: 0,
+    enabled: true,
     userType: ObjectId("6a1cae2b965e866be59df8a4"),
   },
   {
@@ -127,6 +132,7 @@ db.getCollection("user").insertMany([
     email: "jitcoffee@a.com",
     password: "$2a$10$Dx6YxE2AuddRKTyU0wsXAusY52sMcxrMxU6ya/Us1i1nIv/GBI.7y",
     creditBalance: 0,
+    enabled: true,
     userType: ObjectId("6a1cae2b965e866be59df8a4"),
   },
   {
@@ -137,6 +143,7 @@ db.getCollection("user").insertMany([
     email: "admin@a.com",
     password: "$2a$10$HxwD0gnyLTUoDtjqywTQXO/sPpJ/ZoF8kUMKbWOHFzv3iEGJ33orS",
     creditBalance: 0,
+    enabled: true,
     userType: ObjectId("6a1cae2b965e866be59df8a6"),
   },
 ]);

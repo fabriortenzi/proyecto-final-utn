@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { PasskeyService } from '../services/passkey.service';
+import { User } from '../entities/user.entity';
 
 @Component({
   selector: 'app-admin-panel',
@@ -9,30 +10,18 @@ import { PasskeyService } from '../services/passkey.service';
   styleUrls: ['./admin-panel.component.scss'],
 })
 export class AdminPanelComponent {
+  loggedUser: User;
+
   constructor(
     private router: Router,
     private loginService: LoginService,
     private passkeyService: PasskeyService
-  ) {}
-
-  ngOnInit() {
-    sessionStorage.removeItem('idPaymentType');
+  ) {
+    this.loggedUser = this.loginService.getLoggedUser();
   }
 
-  onAddPaymentType() {
-    this.router.navigate(['add-payment-type']);
-  }
-
-  onEditPaymentType() {
-    this.router.navigate(['payment-type-list']);
-  }
-
-  onAddProductCategory() {
-    this.router.navigate(['add-product-category']);
-  }
-
-  onEditProductCategory() {
-    this.router.navigate(['product-category-list']);
+  onUserManagement() {
+    this.router.navigate(['user-management']);
   }
 
   onAddCommissionPercentage() {

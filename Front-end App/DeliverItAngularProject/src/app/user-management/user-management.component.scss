@@ -1,0 +1,69 @@
+@import "../../styles.scss";
+
+.user-management-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .page-title {
+    font-family: Poppins;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    margin: 0 0 24px;
+  }
+
+  .filters-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+
+    .email-filter {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .role-filter {
+      width: 200px;
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+
+      .mat-column-userType {
+        text-transform: capitalize;
+      }
+
+      .mat-column-enabled {
+        width: 120px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .user-management-container {
+    padding: 12px;
+
+    .filters-container {
+      flex-direction: column;
+
+      .email-filter,
+      .role-filter {
+        width: 100%;
+      }
+    }
+
+    .table-container {
+      table {
+        font-size: 13px;
+      }
+    }
+  }
+}

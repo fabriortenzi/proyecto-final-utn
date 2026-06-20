@@ -8,6 +8,7 @@ import {
   update,
   login,
   addAdmin,
+  toggleEnabled,
   validateUpdate,
 } from "./user.controller.js";
 import { assureAuthAndRoles, UserTypeEnum } from "../shared/auth.middleware.js";
@@ -292,4 +293,5 @@ userRouter.put("/:id", sanitizedInput, validateUpdate, update);
  *       500:
  *         description: Internal server error
  */
+userRouter.patch("/:id/toggle-enabled", sanitizedInput, assureAuthAndRoles([UserTypeEnum.admin]), toggleEnabled);
 userRouter.patch("/:id", sanitizedInput, update);

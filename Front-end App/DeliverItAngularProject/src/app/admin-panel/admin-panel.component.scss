@@ -1,4 +1,27 @@
 @import "../../styles.scss";
+
+.admin-header {
+  margin-top: 10%;
+  margin-left: 18%;
+  margin-right: 18%;
+
+  .greeting {
+    font-family: Poppins;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 500;
+    opacity: 0.65;
+  }
+}
+
 .options {
   margin-bottom: 20%;
   border-color: #d1d1d1;
@@ -27,6 +50,11 @@
 .buttons_logos {
   margin-left: 5%;
   display: flex;
+}
+
+.buttons_logos ion-icon {
+  font-size: 30px;
+  color: #000;
 }
 
 #plus_icon {
@@ -58,5 +86,23 @@
 
 .logout-button .button_text p {
   color: red;
-  /* Texto rojo */
+}
+
+@media (min-width: 1024px) {
+  .admin-header {
+    margin-top: 4%;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+
+  .options-container {
+    margin-top: 4%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 4%;
+  }
+
+  .options {
+    margin-bottom: 5%;
+  }
 }

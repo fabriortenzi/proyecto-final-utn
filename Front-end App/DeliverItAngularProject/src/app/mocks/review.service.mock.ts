@@ -17,6 +17,7 @@ const userMockValue: User = {
   creditBalance: 1000,
   email: 'info@deliverit.com',
   userType: userTypeMock,
+  enabled: true,
 };
 
 const shopMockValue: Shop = {

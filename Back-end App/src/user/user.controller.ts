@@ -30,6 +30,7 @@ export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
     deliveryOrders: req.body.deliveryOrders,
     reviews: req.body.reviews,
     shop: req.body.shop,
+    enabled: req.body.enabled,
   };
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
@@ -113,6 +114,7 @@ export async function add(req: Request, res: Response) {
         latitude: req.body.sanitizedInput.latitude,
         longitude: req.body.sanitizedInput.longitude,
         userType: type,
+        enabled: true,
         withdrawals: req.body.sanitizedInput.withdrawals,
         clientOrders: req.body.sanitizedInput.clientOrders,
         deliveryOrders: req.body.sanitizedInput.deliveryOrders,
@@ -139,6 +141,10 @@ export async function login(req: Request, res: Response) {
     ); //ver si este populate es correcto
     if (!user) {
       return res.status(404).json({ message: "User Not Found" });
+    }
+
+    if (user.enabled === false) {
+      return res.status(403).json({ message: "Cuenta deshabilitada. Contactate con un administrador." });
     }
 
     const isPasswordCorrect = await bcrypt.compare(
@@ -202,6 +208,7 @@ export async function addAdmin(req: Request, res: Response) {
         latitude: req.body.sanitizedInput.latitude,
         longitude: req.body.sanitizedInput.longitude,
         userType: type,
+        enabled: true,
         withdrawals: req.body.sanitizedInput.withdrawals,
         clientOrders: req.body.sanitizedInput.clientOrders,
         deliveryOrders: req.body.sanitizedInput.deliveryOrders,
@@ -214,6 +221,35 @@ export async function addAdmin(req: Request, res: Response) {
 
       return res.status(201).json({ message: "admin created", data: newUser });
     }
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+export async function toggleEnabled(req: Request, res: Response) {
+  try {
+    const validatorResponse = validator.validateObjectId(req.params.id);
+    if (!validatorResponse.isValid) {
+      return res.status(500).json({ message: validatorResponse.message });
+    }
+
+    if (typeof req.body.sanitizedInput.enabled !== "boolean") {
+      return res.status(400).json({ message: "enabled must be a boolean" });
+    }
+
+    const user = await em.findOne(User, req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.id === (req as any).token.id) {
+      return res.status(400).json({ message: "Cannot disable your own account" });
+    }
+
+    user.enabled = req.body.sanitizedInput.enabled;
+    await em.flush();
+
+    return res.status(200).json({ message: "User enabled status updated", data: user });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }

@@ -48,6 +48,9 @@ export class User extends BaseEntity
 
     @Property({ nullable: true })
     longitude?: number
+
+    @Property({ nullable: false, default: true })
+    enabled: boolean = true
     
     @ManyToOne(() => UserType, { nullable: false })
     userType !: Rel<UserType>

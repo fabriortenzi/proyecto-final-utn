@@ -14,6 +14,7 @@ export class User {
   public longitude?: number;
   public creditBalance?: number;
   public userType: UserType;
+  public enabled: boolean;
 }
 
 export interface LoginResponse {
