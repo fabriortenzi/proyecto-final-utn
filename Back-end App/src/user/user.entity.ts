@@ -5,6 +5,7 @@ import { Withdrawal } from '../withdrawal/withdrawal.entity.js'
 import { Shop } from '../shop/shop.entity.js'
 import { Review } from '../review/review.entity.js'
 import { Order } from '../order/order.entity.js'
+import { Authenticator } from '../webauthn/webauthn.entity.js'
 
 @Entity()
 export class User extends BaseEntity
@@ -75,4 +76,12 @@ export class User extends BaseEntity
 
     @OneToOne(() => Shop, { nullable: true })
     shop?: Rel<Shop>;
+
+    @Property({ nullable: true })
+    webauthnChallenge?: string
+
+    @OneToMany(() => Authenticator, (authenticator) => authenticator.user, {
+        cascade: [Cascade.ALL],
+    })
+    authenticators = new Collection<Authenticator>(this)
 }

@@ -21,6 +21,7 @@ import { serve, setup } from "swagger-ui-express";
 import { swaggerSpec } from "./swaggerSpec.config.js";
 import { recommenderRouter } from "./recommender/recommender.routes.js";
 import { mercadopagoRouter } from "./mercadopago/mercadopago.routes.js";
+import { webauthnRouter } from "./webauthn/webauthn.routes.js";
 
 // Función para configurar y obtener la aplicación Express
 export function getApp() {
@@ -52,6 +53,7 @@ export function getApp() {
   app.use("/api/delivery-routes", deliveryRouteRouter);
   app.use("/api/recommendations", recommenderRouter);
   app.use("/api/mercadopago", mercadopagoRouter);
+  app.use("/api/webauthn", webauthnRouter);
 
   // Middleware para servir la documentación de la API con Swagger UI
   app.use("/api-docs", serve, setup(swaggerSpec));

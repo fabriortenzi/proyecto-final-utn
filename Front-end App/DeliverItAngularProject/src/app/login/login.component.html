@@ -61,4 +61,16 @@
       title="INICIAR SESIÓN"
     ></app-primary-button>
   </form>
+  <div *ngIf="passkeyAvailable" class="passkey-divider">
+    <span>o</span>
+  </div>
+  <button
+    *ngIf="passkeyAvailable"
+    (click)="loginWithPasskey()"
+    class="passkey-button"
+    type="button"
+  >
+    <span class="material-symbols-outlined">fingerprint</span>
+    Usar Datos Biométricos
+  </button>
 </div>

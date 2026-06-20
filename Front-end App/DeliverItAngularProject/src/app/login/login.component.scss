@@ -1,3 +1,5 @@
+@import "../../styles.scss";
+
 @media screen and (max-width: 576px) {
   .input-button {
     width: 90%;
@@ -15,7 +17,6 @@
     width: 45%;
   }
 }
-
 
 .container {
   position: relative;
@@ -55,4 +56,60 @@
 
 .input-and-icon input {
   width: 100%;
+}
+
+.passkey-divider {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+  width: 45%;
+  span {
+    padding: 0 16px;
+    color: #666;
+  }
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+  }
+}
+
+.passkey-button {
+  background: #fff;
+  border: 2px solid $primary-red;
+  border-radius: 10px;
+  color: $primary-red;
+  cursor: pointer;
+  font-family: Poppins;
+  font-size: 17px;
+  font-weight: 500;
+  height: 50px;
+  transition: all 0.2s;
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  &:hover {
+    background: #fff5f5;
+  }
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .passkey-divider,
+  .passkey-button {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .passkey-divider,
+  .passkey-button {
+    width: 65%;
+  }
 }

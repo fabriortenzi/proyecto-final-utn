@@ -16,6 +16,7 @@
     "@mikro-orm/core": "5.9.0",
     "@mikro-orm/mongo-highlighter": "1.0.0",
     "@mikro-orm/mongodb": "5.9.0",
+    "@simplewebauthn/server": "^13.3.1",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
