@@ -1,10 +1,19 @@
-import { Rel, Entity, ManyToOne, Property, OneToMany, Cascade, DateTimeType, Collection, Filter} from '@mikro-orm/core'
+import { Rel, Entity, ManyToOne, Property, OneToMany, Cascade, DateTimeType, Collection, Filter, Enum } from '@mikro-orm/core'
 import { BaseEntity } from '../shared/baseEntity.entity.js'
 import { User } from '../user/user.entity.js'
 import { PaymentType } from '../paymentType/paymentType.entity.js'
 import { LineItem } from '../lineItem/lineItem.entity.js'
 
+export enum OrderStatus {
+  PENDING_CONFIRMATION = 'PENDING_CONFIRMATION',
+  CONFIRMED = 'CONFIRMED',
+  CANCELED = 'CANCELED',
+  PENDING_DELIVERY = 'PENDING_DELIVERY',
+  DELIVERED = 'DELIVERED',
+}
+
 @Entity()
+@Filter({ name: 'notSynthetic', cond: { isSynthetic: { $ne: true } }, default: true })
 @Filter({ name: 'deliveryUndefined', cond: { delivery: { $eq: undefined } } })
 @Filter({ name: 'dateTimeArrival', cond: { dateTimeArrival: { $eq: undefined } } })
 @Filter({ name: 'dateTimeArrivalSet', cond: { dateTimeArrival: { $ne: undefined } } })
@@ -25,6 +34,9 @@ export class Order extends BaseEntity
 
     @Property({ nullable: true })
     totalAmount!: number
+
+    @Enum(() => OrderStatus)
+    status: OrderStatus = OrderStatus.PENDING_CONFIRMATION
 
     @ManyToOne(() => User, { nullable: false })
     client !: Rel<User>

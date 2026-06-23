@@ -4,6 +4,7 @@ import { Shop } from '../shop/shop.entity.js'
 import { User } from '../user/user.entity.js'
 
 @Entity()
+@Filter({ name: 'notSynthetic', cond: { isSynthetic: { $ne: true } }, default: true })
 @Filter({ name: 'customer', cond: args => ({ user: args.id }) })
 @Filter({ name: 'shop', cond: args => ({ shop: args.id }) })
 
