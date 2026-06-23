@@ -1,6 +1,6 @@
 import { orm } from "../shared/orm.js";
 import { DeliveryRoute, DeliveryRouteStatus } from "./deliveryRoute.entity.js";
-import { Order } from "../order/order.entity.js";
+import { Order, OrderStatus } from "../order/order.entity.js";
 import { User } from "../user/user.entity.js";
 import { routeAssignmentService } from "./routeAssignment.service.js";
 import { Request, Response, NextFunction } from "express";
@@ -75,10 +75,10 @@ export async function requestRoute(req: Request, res: Response) {
         .json({ message: "You already have an active or proposed route" });
     }
 
-    // Query available orders: no delivery assigned and no tentative route
+    // Query available orders: confirmed, no delivery assigned, and no tentative route
     const availableOrders = await em.find(
       Order,
-      { delivery: { $eq: undefined }, tentativeRouteId: { $eq: undefined } },
+      { delivery: { $eq: undefined }, tentativeRouteId: { $eq: undefined }, status: OrderStatus.CONFIRMED },
       { populate: ["lineItems.product.shop", "client"] },
     );
 
@@ -166,6 +166,7 @@ export async function confirmRoute(req: Request, res: Response) {
     for (const order of orders) {
       order.delivery = user;
       order.tentativeRouteId = undefined;
+      order.status = OrderStatus.PENDING_DELIVERY;
     }
 
     await em.flush();
@@ -212,11 +213,12 @@ export async function completeStop(req: Request, res: Response) {
     const updatedStops = [...route.stops];
     updatedStops[stopIndex] = { ...updatedStops[stopIndex], completedAt: new Date() };
 
-    // If delivery stop: mark order as arrived and credit the delivery user
+    // If delivery stop: mark order as delivered and credit the delivery user
     if (updatedStops[stopIndex].type === "delivery") {
       const order = await em.findOne(Order, updatedStops[stopIndex].orderId);
       if (order) {
         order.dateTimeArrival = new Date();
+        order.status = OrderStatus.DELIVERED;
 
         const deliveryUser = await em.findOne(User, userId);
         if (deliveryUser) {

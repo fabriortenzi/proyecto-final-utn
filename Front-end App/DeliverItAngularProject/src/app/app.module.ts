@@ -75,6 +75,7 @@ import { ReviewComponent } from './review/review.component';
 import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
 import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-delivery-withdrawals.component';
 import { ShopStatsComponent } from './shop-stats/shop-stats.component';
+import { PedidosAConfirmarComponent } from './pedidos-a-confirmar/pedidos-a-confirmar.component';
 import { ErrorInterceptor } from './services/interceptors/error.service';
 import { LoginService } from './services/login.service';
 import { SignupShopDataBasicComponent } from './signup_shop_data/signup-shop-data-basic/signup-shop-data-basic.component';
@@ -147,6 +148,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
     SignupShopDataBasicComponent,
     AddressAutocompleteComponent,
     UserManagementComponent,
+    PedidosAConfirmarComponent,
   ],
   imports: [
     BrowserModule,

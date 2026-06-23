@@ -22,7 +22,7 @@
     [client]="order.client.name + ' ' + order.client.surname" 
     [paymentType]=order.paymentType.description
     [price]="' $' + order.totalAmount + ' ; Tu comisión: $' + order.commissionForDelivery "
-    orderStatus="Entregada" 
+    [orderStatus]="order.status"
     orderId={{order.id}}
     dateTimeArrival={{order.dateTimeArrival}}>
     </app-shop-card>

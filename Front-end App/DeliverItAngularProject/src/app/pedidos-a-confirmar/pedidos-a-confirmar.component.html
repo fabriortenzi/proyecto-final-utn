@@ -1,0 +1,49 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+
+<nav class="navbar">
+  <div class="container-menu">
+    <span class="material-symbols-rounded" (click)="goBack()">arrow_back</span>
+  </div>
+</nav>
+
+<h2>Pedidos a confirmar</h2>
+
+<div class="spinner-container" *ngIf="loading">
+  <mat-spinner diameter="40"></mat-spinner>
+  <p>Cargando pedidos...</p>
+</div>
+
+<div *ngIf="!loading && orders.length === 0" class="no-orders">
+  <img
+    class="img-no-orders"
+    src="../assets/casual-life-3d-shopping-cart-with-boxes.png"
+  />
+  <h3>No hay pedidos pendientes de confirmación</h3>
+</div>
+
+<div *ngIf="!loading && orders.length > 0" class="orders-container">
+  <div class="order-card" *ngFor="let order of orders">
+    <div class="order-header">
+      <p class="client-name">{{ order.client.name }} {{ order.client.surname }}</p>
+      <p class="order-total">Total: ${{ order.totalAmount }}</p>
+    </div>
+    <div class="order-body">
+      <p class="order-desc">{{ getDescription(order) }}</p>
+      <p class="order-payment">Pago: {{ order.paymentType?.description }}</p>
+      <p class="order-address">
+        Dirección: {{ order.client.street }} {{ order.client.streetNumber }}
+      </p>
+    </div>
+    <div class="order-actions">
+      <button class="btn-confirm" (click)="confirmOrder(order.id)">
+        Confirmar
+      </button>
+      <button class="btn-cancel" (click)="cancelOrder(order.id)">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>

@@ -9,21 +9,27 @@
     <h3>Vaya... No tienes pedidos pendientes</h3>
   </div>
   <div *ngIf="currentOrders.length > 0" class="active-orders">
-    <app-shop-card *ngFor="let order of currentOrders"
-      [title]="order.lineItems[0].product.shop.name"
-      [subtitle]="'Origen: ' + order.lineItems[0].product.shop.street + ' ' + order.lineItems[0].product.shop.streetNumber "
-      [bottomText]="'Destino: ' + order.client.street + ' ' + order.client.streetNumber" 
-      [hasStar]=false
-      [hasDropdown]=true 
-      [hasDescription]=false
-      imagePath={{order.lineItems[0].product.shop.logoPath}}
-      description={{getDescription(order)}} 
-      [client]="order.client.name + ' ' + order.client.surname"
-      [paymentType]=order.paymentType.description 
-      price={{order.totalAmount}}
-      orderStatus="En camino"
-      orderId={{order.id}}>
-    </app-shop-card>
+    <div class="order-wrapper" *ngFor="let order of currentOrders">
+      <app-shop-card
+        [title]="order.lineItems[0].product.shop.name"
+        [subtitle]="'Origen: ' + order.lineItems[0].product.shop.street + ' ' + order.lineItems[0].product.shop.streetNumber "
+        [bottomText]="'Destino: ' + order.client.street + ' ' + order.client.streetNumber" 
+        [hasStar]=false
+        [hasDropdown]=false 
+        [hasDescription]=false
+        imagePath={{order.lineItems[0].product.shop.logoPath}}
+        description={{getDescription(order)}} 
+        [client]="order.client.name + ' ' + order.client.surname"
+        [paymentType]=order.paymentType.description 
+        price={{order.totalAmount}}
+        [orderStatus]="order.status"
+        orderId={{order.id}}>
+      </app-shop-card>
+      <div class="status-container">
+        <p class="status-text">{{ getStatusText(order.status) }}</p>
+        <button *ngIf="order.status === 'PENDING_CONFIRMATION'" class="btn-cancel-order" (click)="cancelOrder(order.id)">Cancelar pedido</button>
+      </div>
+    </div>
   </div>
 </div>
 <!--

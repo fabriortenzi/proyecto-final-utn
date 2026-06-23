@@ -54,6 +54,10 @@ export class HomeShopComponent {
     this.router.navigate(['/shop-stats']);
   }
 
+  onOrdersToConfirm() {
+    this.router.navigate(['/pedidos-a-confirmar']);
+  }
+
   getShop(id: string) {
     this.shopService.getShopByOwnerId(id).subscribe((data: Shop) => {
       this.shop = data;

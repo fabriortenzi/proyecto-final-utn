@@ -194,4 +194,29 @@ export class OrderService {
     }
     return description;
   }
+
+  findOrdersToConfirm(shopId: string): Observable<Order[]> {
+    return this.http
+      .get<Order[]>(`${this.url}/orders-to-confirm/${shopId}`)
+      .pipe(map((response: any) => response.data));
+  }
+
+  confirmOrder(orderId: string): Observable<any> {
+    return this.http.put(`${this.url}/confirm/${orderId}`, {});
+  }
+
+  cancelOrder(orderId: string): Observable<any> {
+    return this.http.put(`${this.url}/cancel/${orderId}`, {});
+  }
+
+  getStatusDisplayText(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      PENDING_CONFIRMATION: 'Pendiente de confirmación',
+      CONFIRMED: 'En preparación',
+      CANCELED: 'Cancelado',
+      PENDING_DELIVERY: 'En camino',
+      DELIVERED: 'Entregada',
+    };
+    return statusMap[status] || status;
+  }
 }

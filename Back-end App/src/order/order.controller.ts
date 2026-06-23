@@ -1,5 +1,5 @@
 import { orm } from '../shared/orm.js';
-import { Order } from './order.entity.js';
+import { Order, OrderStatus } from './order.entity.js';
 import { Request, Response, NextFunction } from 'express';
 import { validator } from '../shared/validator.js';
 import { Product } from '../product/product.entity.js';
@@ -137,7 +137,10 @@ export async function findOrdersWithoutDelivery(req: Request, res: Response) {
   try {
     const ordersWithoutDelivery = await em.find(
       Order,
-      { tentativeRouteId: { $eq: undefined } },
+      { 
+        tentativeRouteId: { $eq: undefined },
+        status: OrderStatus.CONFIRMED 
+      },
       {
         filters: ['deliveryUndefined'],
         populate: [
@@ -235,6 +238,12 @@ export async function setDelivery(
   if (order === null) {
     return res.status(404).json({ message: 'order not found' });
   }
+
+  if (order.status !== OrderStatus.CONFIRMED) {
+    return res.status(400).json({ message: 'Order must be confirmed before assigning delivery' });
+  }
+
+  order.status = OrderStatus.PENDING_DELIVERY;
   req.body.orderToUpdate = order;
   next();
 }
@@ -254,7 +263,13 @@ export async function setDateTimeArrival(
   });
   if (order === null) {
     return res.status(404).json({ message: 'order not found' });
-  } //  if null --> order with that id does not exist | order exists but has already been delivered
+  }
+
+  if (order.status !== OrderStatus.PENDING_DELIVERY) {
+    return res.status(400).json({ message: 'Order must be pending delivery to be marked as delivered' });
+  }
+
+  order.status = OrderStatus.DELIVERED;
   req.body.orderToUpdate = order;
 
   next();
@@ -269,6 +284,62 @@ export async function update(req: Request, res: Response) {
       .json({ message: 'order updated', data: req.body.orderToUpdate });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
+  }
+}
+
+export async function findOrdersToConfirm(req: Request, res: Response) {
+  try {
+    const shopId = req.params.idShop;
+    const orders = await em.find(Order, { status: OrderStatus.PENDING_CONFIRMATION }, {
+        populate: ['lineItems.product.shop', 'client', 'paymentType']
+    });
+
+    const shopOrders = orders.filter(order => order.lineItems[0]?.product?.shop?.id === shopId);
+
+    return res.status(200).json({ message: 'found orders to confirm', data: shopOrders });
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+export async function confirmOrder(req: Request, res: Response) {
+  try {
+    const order = await em.findOne(Order, req.params.id);
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+    
+    if (order.status !== OrderStatus.PENDING_CONFIRMATION) {
+      return res.status(400).json({ message: 'Order must be pending confirmation to be confirmed' });
+    }
+    
+    order.status = OrderStatus.CONFIRMED;
+    await em.flush();
+    return res.status(200).json({ message: 'Order confirmed', data: order });
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+export async function cancelOrder(req: Request, res: Response) {
+  try {
+    const order = await em.findOne(Order, req.params.id, { populate: ['client'] });
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+    
+    if (order.status !== OrderStatus.PENDING_CONFIRMATION) {
+      return res.status(400).json({ message: 'Order must be pending confirmation to be canceled' });
+    }
+
+    const requesterId = (req as any).token?.id;
+    const requesterType = (req as any).token?.userType?.description;
+
+    if (requesterType === 'client' && order.client.id !== requesterId) {
+      return res.status(403).json({ message: 'You can only cancel your own orders' });
+    }
+    
+    order.status = OrderStatus.CANCELED;
+    await em.flush();
+    return res.status(200).json({ message: 'Order canceled', data: order });
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
   }
 }
 

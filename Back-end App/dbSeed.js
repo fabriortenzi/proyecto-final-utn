@@ -264,6 +264,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36ac51414fec8858368e86"),
     productCategory: ObjectId("6a1e53090951213dad7f1e56"),
     prices: [{ amount: 12999, validSince: "2026-06-20" }],
+    enabled: true,
   },
   {
     _id: ObjectId("6a36ada7414fec8858368e88"),
@@ -276,6 +277,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36ac51414fec8858368e86"),
     productCategory: ObjectId("6a1e53090951213dad7f1e56"),
     prices: [{ amount: 11999, validSince: "2026-06-20" }],
+    enabled: true,
   },
   {
     _id: ObjectId("6a36adde414fec8858368e89"),
@@ -288,6 +290,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36ac51414fec8858368e86"),
     productCategory: ObjectId("6a1e53090951213dad7f1e56"),
     prices: [{ amount: 14999, validSince: "2026-06-20" }],
+    enabled: true,
   },
   {
     _id: ObjectId("6a36ae0a414fec8858368e8a"),
@@ -300,6 +303,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36ac51414fec8858368e86"),
     productCategory: ObjectId("6a1e53850951213dad7f1e5a"),
     prices: [{ amount: 2499, validSince: "2026-06-20" }],
+    enabled: true,
   },
   {
     _id: ObjectId("6a36ae68414fec8858368e8b"),
@@ -312,6 +316,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36ac51414fec8858368e86"),
     productCategory: ObjectId("6a1e53850951213dad7f1e5a"),
     prices: [{ amount: 3999, validSince: "2026-06-20" }],
+    enabled: true,
   },
   {
     _id: ObjectId("6a36ae92414fec8858368e8c"),
@@ -324,6 +329,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36ac51414fec8858368e86"),
     productCategory: ObjectId("6a1e53850951213dad7f1e5b"),
     prices: [{ amount: 2199, validSince: "2026-06-20" }],
+    enabled: true,
   },
   {
     _id: ObjectId("6a36aeae414fec8858368e8d"),
@@ -336,6 +342,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36ac51414fec8858368e86"),
     productCategory: ObjectId("6a1e53850951213dad7f1e5b"),
     prices: [{ amount: 2199, validSince: "2026-06-20" }],
+    enabled: true,
   },
   // FrozenScript
   {
@@ -350,6 +357,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36b1498c9d623af7d272af"),
     productCategory: ObjectId("6a1e53750951213dad7f1e58"),
     prices: [{ amount: 3749, validSince: "2026-06-20" }],
+    enabled: true,
   },
   {
     _id: ObjectId("6a36b24b8c9d623af7d272b5"),
@@ -363,6 +371,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36b1498c9d623af7d272af"),
     productCategory: ObjectId("6a1e53750951213dad7f1e58"),
     prices: [{ amount: 4299, validSince: "2026-06-20" }],
+    enabled: true,
   },
   {
     _id: ObjectId("6a36b2818c9d623af7d272b6"),
@@ -375,6 +384,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36b1498c9d623af7d272af"),
     productCategory: ObjectId("6a1e53750951213dad7f1e58"),
     prices: [{ amount: 1999, validSince: "2026-06-20" }],
+    enabled: true,
   },
   // Domino's Pizza
   {
@@ -388,6 +398,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36bd658c9d623af7d272b9"),
     productCategory: ObjectId("6a1e53090951213dad7f1e57"),
     prices: [{ amount: 13999, validSince: "2026-06-20" }],
+    enabled: true,
   },
   // JIT Coffee
   {
@@ -401,6 +412,7 @@ db.getCollection("product").insertMany([
     shop: ObjectId("6a36c2b062c0bafdf84c0c5d"),
     productCategory: ObjectId("6a1e53850951213dad7f1e5b"),
     prices: [{ amount: 4999, validSince: "2026-06-20" }],
+    enabled: true,
   },
 ]);
 

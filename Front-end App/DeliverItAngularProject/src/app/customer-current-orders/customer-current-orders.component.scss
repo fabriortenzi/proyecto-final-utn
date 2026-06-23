@@ -88,6 +88,41 @@ h3 {
   font-family: Poppins;
 }
 
+.order-wrapper {
+  margin-bottom: 12px;
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  margin-top: 4px;
+}
+
+.status-text {
+  font-size: 13px;
+  color: #f57c00;
+  font-weight: 500;
+  margin: 0;
+}
+
+.btn-cancel-order {
+  background: none;
+  border: 1px solid #f44336;
+  color: #f44336;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-cancel-order:hover {
+  background: #f44336;
+  color: white;
+}
+
 /*
 .expand_more {
   font-size: 40px;

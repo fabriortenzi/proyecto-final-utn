@@ -12,6 +12,9 @@ import {
   remove,
   setDelivery,
   setDateTimeArrival,
+  confirmOrder,
+  cancelOrder,
+  findOrdersToConfirm,
 } from './order.controller.js';
 import { assureAuthAndRoles, UserTypeEnum } from '../shared/auth.middleware.js';
 
@@ -158,6 +161,123 @@ orderRouter.get(
   '/orders-without-delivery/~',
   assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.delivery]),
   findOrdersWithoutDelivery
+);
+
+/**
+ * @swagger
+ * /api/orders/orders-to-confirm/{idShop}:
+ *   get:
+ *     tags:
+ *       - Order
+ *     summary: Retrieve all orders pending confirmation for a shop
+ *     description: Fetches all orders with PENDING_CONFIRMATION status for a specific shop.
+ *     parameters:
+ *       - in: path
+ *         name: idShop
+ *         required: true
+ *         description: The ID of the shop
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A list of orders pending confirmation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "found orders to confirm"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Order'
+ *       500:
+ *         description: Internal server error
+ */
+orderRouter.get(
+  '/orders-to-confirm/:idShop',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.owner]),
+  findOrdersToConfirm
+);
+
+/**
+ * @swagger
+ * /api/orders/confirm/{id}:
+ *   put:
+ *     tags:
+ *       - Order
+ *     summary: Confirm an order
+ *     description: Confirms an order by its ID, transitioning from PENDING_CONFIRMATION to CONFIRMED.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the order
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Order confirmed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Order confirmed"
+ *                 data:
+ *                   $ref: '#/components/schemas/Order'
+ *       404:
+ *         description: Order not found
+ *       500:
+ *         description: Internal server error
+ */
+orderRouter.put(
+  '/confirm/:id',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.owner]),
+  confirmOrder
+);
+
+/**
+ * @swagger
+ * /api/orders/cancel/{id}:
+ *   put:
+ *     tags:
+ *       - Order
+ *     summary: Cancel an order
+ *     description: Cancels an order by its ID, transitioning from PENDING_CONFIRMATION to CANCELED.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the order
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Order canceled successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Order canceled"
+ *                 data:
+ *                   $ref: '#/components/schemas/Order'
+ *       404:
+ *         description: Order not found
+ *       500:
+ *         description: Internal server error
+ */
+orderRouter.put(
+  '/cancel/:id',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.owner, UserTypeEnum.client]),
+  cancelOrder
 );
 
 /**

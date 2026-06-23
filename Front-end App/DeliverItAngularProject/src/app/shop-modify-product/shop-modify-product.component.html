@@ -50,8 +50,8 @@
         </div>
     </div>
     <app-primary-button class="button-style" title="ACTUALIZAR" (click)="submit()"></app-primary-button>
-    <div class="last-button-container">
-        <app-secondary-button class="button-style" title="ELIMINAR" (click)="delete()"></app-secondary-button>
+    <div class="last-button-container" *ngIf="product">
+        <app-secondary-button class="button-style" [title]="(product.enabled === false) ? 'HABILITAR' : 'DESHABILITAR'" (click)="toggleEnabled()"></app-secondary-button>
     </div>
   </form>
 </div>

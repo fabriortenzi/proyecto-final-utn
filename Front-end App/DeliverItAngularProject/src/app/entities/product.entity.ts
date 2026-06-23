@@ -9,7 +9,7 @@ export class Product {
   public price?: number|string
   public prices?: Price[]
   public validSince?: Date
-  public shop?: string
+  public shop?: any
   public productCategory?: string
   public photoPath?: string
   public photo?: File 

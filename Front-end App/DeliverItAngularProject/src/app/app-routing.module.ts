@@ -23,6 +23,7 @@ import { AllDeliveredOrdersComponent } from './all-delivered-orders/all-delivere
 import { ShopListProductComponent } from './shop-list-product/shop-list-product.component';
 import { CustomerSearchResultsComponent } from './customer-search-results/customer-search-results.component';
 import { CustomerCurrentOrdersComponent } from './customer-current-orders/customer-current-orders.component';
+import { PedidosAConfirmarComponent } from './pedidos-a-confirmar/pedidos-a-confirmar.component';
 import { OrderConfirmedComponent } from './order-confirmed/order-confirmed.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { UserManagementComponent } from './user-management/user-management.component';
@@ -169,6 +170,12 @@ const routes: Routes = [
   {
     path: 'shop-modify-productVariations',
     component: ShopModifyProductVariationsComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['owner'] },
+  },
+  {
+    path: 'pedidos-a-confirmar',
+    component: PedidosAConfirmarComponent,
     canActivate: [AuthGuard],
     data: { role: ['owner'] },
   },
