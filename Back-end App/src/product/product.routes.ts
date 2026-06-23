@@ -1,5 +1,5 @@
 import { Router} from 'express';
-import {find, remove, update, validateId, sanitizedInput, create, validateInputStringLength} from './product.controller.js';
+import {find, remove, update, validateId, sanitizedInput, create, validateInputStringLength, toggleEnabled} from './product.controller.js';
 import multer from 'multer';
 import { multerUpload } from '../shared/imageHandler.js';
 import { assureAuthAndRoles, UserTypeEnum } from '../shared/auth.middleware.js';
@@ -7,6 +7,30 @@ import { assureAuthAndRoles, UserTypeEnum } from '../shared/auth.middleware.js';
 export const productRouter = Router();
 
 const multerUpld = multerUpload.single('photo')
+
+/**
+ * @swagger
+ * /api/products/{id}/toggle-enabled:
+ *   patch:
+ *     tags:
+ *       - Product
+ *     summary: Toggle product enabled status
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the product
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Product status toggled
+ *       404:
+ *         description: Product not found
+ *       500:
+ *         description: Internal server error
+ */
+productRouter.patch('/:id/toggle-enabled', assureAuthAndRoles([UserTypeEnum.owner, UserTypeEnum.admin]), validateId, toggleEnabled)
 
 /**
  * @swagger

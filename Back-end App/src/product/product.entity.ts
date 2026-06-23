@@ -5,6 +5,7 @@ import { ProductCategory } from '../productCategory/productCategory.entity.js'
 import { LineItem } from '../lineItem/lineItem.entity.js'
 
 @Entity()
+@Filter({ name: 'onlyEnabled', cond: { $or: [{ enabled: { $eq: true } }, { enabled: { $eq: undefined } }] }, default: true })
 @Filter({ name: 'productCategory', cond:  args =>({ productCategory: {$in: args.par} }) })
 @Filter({ name: 'shopId', cond:  args =>({ shop: args.shopId }) }) 
 @Filter({ name: 'ids', cond:  args =>({ id: {$in: args.par} }) }) 
@@ -27,6 +28,9 @@ export class Product extends BaseEntity
 
     @Property({ nullable: true })
     maxVariations?: number
+
+    @Property({ nullable: false, default: true })
+    enabled!: boolean
 
     @ManyToOne(() => Shop, { nullable: false })
     shop !: Rel<Shop>

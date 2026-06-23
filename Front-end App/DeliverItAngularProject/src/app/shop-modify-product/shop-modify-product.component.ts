@@ -19,6 +19,8 @@ export class ShopModifyProductComponent {
   productId:string;
   photo: File=null;
   
+  product: any;
+
   constructor(private router : Router, private validator : ValidatorsService, private productService :ProductService){
     this.productId = sessionStorage.getItem('productId');
   }
@@ -30,6 +32,16 @@ export class ShopModifyProductComponent {
         amount: new FormControl('', [Validators.required,this.validator.validatePrice()]),
         validSince: new FormControl({value: this.validator.getTodayDate(),disabled : false}, [Validators.required, this.validator.validateFutureDate()]) 
       })
+
+      this.productService.getOne(this.productId).subscribe(product => {
+        this.product = product;
+        this.shopModifyProductForm.patchValue({
+          name: product.name,
+          description: product.description,
+          amount: product.prices[0].amount,
+          validSince: new Date(product.prices[0].validSince).toISOString().split('T')[0]
+        });
+      });
     }
 
   getName(){
@@ -74,9 +86,9 @@ export class ShopModifyProductComponent {
         }
   }
 
-  delete(){
-    this.productService.delete(this.productId).subscribe(() =>{
-      this.router.navigate(['/home-shop']);
+  toggleEnabled(){
+    this.productService.toggleEnabled(this.productId).subscribe((response) =>{
+      this.product.enabled = response.data.enabled;
     })
   }
 }

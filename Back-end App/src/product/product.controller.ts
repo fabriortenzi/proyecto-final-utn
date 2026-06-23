@@ -60,7 +60,13 @@ async function findByShop(req: Request, res: Response){
       return res.status(400).json({message: validatorResponse.message})
     }
 
-    const products = await em.find(Product,{},{filters:{'shopId':{shopId:req.params.shopId}}})
+    const isOwner = (req as any).token?.userType?.description === 'owner';
+    const filters: any = { 'shopId': { shopId: req.params.shopId } };
+    if (isOwner) {
+        filters.onlyEnabled = false;
+    }
+
+    const products = await em.find(Product,{},{filters: filters})
 
     const productsToSend = await getCompleteProductArray(products,res)
 
@@ -80,12 +86,18 @@ async function findOneById(req: Request, res: Response)
           return res.status(400).json({message: validatorResponse.message})
         }
 
-        const product = await em.findOne(Product,req.params.id)
+        const isOwner = (req as any).token?.userType?.description === 'owner';
+        const options: any = {};
+        if (isOwner) {
+            options.filters = { onlyEnabled: false };
+        }
+
+        const product = await em.findOne(Product,req.params.id, options)
 
         if(product===null){
           return res.status(404).json({message: 'Product not found'})
         }
-
+//...rest of function
         const pricesUpToDate : Price[] = []
 
         for (const price of product.prices){
@@ -135,6 +147,27 @@ export async function findShopsByProductCategory(productCategoryName: string)
     return shops
 }
 
+
+export async function toggleEnabled(req: Request, res: Response)
+{
+    try{
+      // Desactivamos el filtro 'onlyEnabled' para poder encontrar el producto incluso si está deshabilitado
+      const product = await em.findOne(Product, req.params.id, { filters: { onlyEnabled: false } }) as Product
+
+      if(product===null){
+        return res.status(404).json({message: 'Product not found'})
+      }
+
+      const isCurrentlyEnabled = product.enabled === undefined ? true : product.enabled;
+      product.enabled = !isCurrentlyEnabled;
+      await em.flush()
+
+      return res.status(200).json({message: `Product ${product.enabled ? 'enabled' : 'disabled'} successfully`, data: product});
+      }
+    catch(error:any){
+        res.status(500).json({message: error.message})
+      }
+}
 
 export async function remove(req: Request, res: Response)
 {
@@ -207,7 +240,9 @@ export async function create(req: Request, res: Response) {
 
     const product = em.create(Product, Object.assign(
         req.body.sanitizedInput,
-        {maxVariations: maxVariations,
+        {
+          enabled: true,
+          maxVariations: maxVariations,
           prices: [
             {
               amount: Number.parseFloat(req.body.sanitizedInput.price),

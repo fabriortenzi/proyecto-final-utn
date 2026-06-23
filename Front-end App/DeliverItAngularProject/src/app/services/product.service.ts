@@ -84,4 +84,9 @@ export class ProductService {
       map((response: any) => response.body)
     )
   }
+
+  toggleEnabled(id: string): Observable<any> {
+    const url = `${this.baseUrlService.getBaseUrl()}products/${id}/toggle-enabled`;
+    return this.http.patch<any>(url, {});
+  }
 }
