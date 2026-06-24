@@ -54,6 +54,27 @@ p {
   height: 14px;
 }
 
+.card-status {
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+
+.status-active {
+  color: #f57c00;
+}
+
+.status-delivered {
+  color: #2e7d32;
+}
+
+.status-canceled {
+  color: #c62828;
+}
+
 .add-product-button-container {
   display: flex;
   justify-content: flex-end;

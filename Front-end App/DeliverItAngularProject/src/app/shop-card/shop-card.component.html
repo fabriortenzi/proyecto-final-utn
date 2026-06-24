@@ -17,6 +17,9 @@
       />
       <p *ngIf="totalReviews" class="card-bottomText">({{ totalReviews }})</p>
     </div>
+    <p class="card-status" *ngIf="statusDisplayText">
+      Estado: <span [ngClass]="statusClass">{{ statusDisplayText }}</span>
+    </p>
   </div>
   <div *ngIf="hasDropdown === true" class="dropdown">
     <span
@@ -51,4 +54,5 @@
   paymentType="{{ paymentType }}"
   orderStatus="{{ orderStatus }}"
   dateTimeArrival="{{ dateTimeArrival }}"
+  [hideButton]="hideDropdownButton"
 ></app-deliver-order-description>

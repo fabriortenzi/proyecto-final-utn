@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
 .navbar {
   display: flex;
   align-items: center;
@@ -54,45 +57,49 @@ h2 {
 }
 
 .order-card {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  min-height: 90px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .order-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
+  padding: 12px 12px 0 12px;
 }
 
 .client-name {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
   margin: 0;
 }
 
 .order-total {
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 600;
   color: #333;
   margin: 0;
 }
 
 .order-body {
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+  padding: 0 12px;
 }
 
 .order-desc {
-  font-size: 14px;
+  font-size: 12px;
   color: #555;
   margin: 0 0 8px 0;
 }
 
 .order-payment,
 .order-address {
-  font-size: 13px;
+  font-size: 12px;
   color: #777;
   margin: 4px 0;
 }
@@ -100,6 +107,7 @@ h2 {
 .order-actions {
   display: flex;
   gap: 12px;
+  padding: 0 12px 12px 12px;
 }
 
 .btn-confirm {

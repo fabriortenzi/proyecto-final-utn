@@ -36,14 +36,6 @@
   font-size: 16px;
 }
 
-.current-orders {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  height: auto;
-  flex-direction: column;
-}
-
 h6 {
   text-align: left;
   margin-left: 10%;
@@ -92,22 +84,15 @@ h3 {
   margin-bottom: 12px;
 }
 
-.status-container {
+.cancel-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px;
+  justify-content: center;
+  width: 100%;
   margin-top: 4px;
 }
 
-.status-text {
-  font-size: 13px;
-  color: #f57c00;
-  font-weight: 500;
-  margin: 0;
-}
-
 .btn-cancel-order {
+  width: 50%;
   background: none;
   border: 1px solid #f44336;
   color: #f44336;
@@ -123,14 +108,18 @@ h3 {
   color: white;
 }
 
-/*
-.expand_more {
-  font-size: 40px;
+.section {
+  margin-top: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-#all-delivered-dropdown {
-  color: black;
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0 10px 5%;
+  font-family: Poppins;
+  color: #333;
+  width: 90%;
 }
-*/

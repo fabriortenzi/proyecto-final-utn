@@ -134,6 +134,36 @@ export async function findCurrentCustomerOrders(req: Request, res: Response) {
   }
 }
 
+export async function findAllCustomerOrders(req: Request, res: Response) {
+  try {
+    const validatorResponse = validator.validateObjectId(req.params.idCustomer);
+    if (!validatorResponse.isValid) {
+      return res.status(400).json({ message: validatorResponse.message });
+    }
+    const customerOrders = await em.find(
+      Order,
+      {},
+      {
+        filters: {
+          client: { par: req.params.idCustomer },
+        },
+        populate: [
+          'client',
+          'paymentType',
+          'lineItems.product.prices',
+          'lineItems.product.shop',
+        ],
+      }
+    );
+    return res.status(200).json({
+      message: 'found all customer orders',
+      data: customerOrders,
+    });
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
 export async function findOrdersWithoutDelivery(req: Request, res: Response) {
   try {
     const ordersWithoutDelivery = await em.find(

@@ -14,6 +14,7 @@ export class DeliverOrderDescriptionComponent {
   @Input() paymentType: string;
   @Input() orderStatus: string;
   @Input() dateTimeArrival: string;
+  @Input() hideButton: boolean = false;
   buttonName: string;
 
   private statusMap: { [key: string]: string } = {

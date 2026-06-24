@@ -123,7 +123,8 @@ async function findOneById(req: Request, res: Response)
           shop: product.shop,
           prices: [pricesUpToDateSorted[0]],
           allowsVariations: product.allowsVariations,
-          maxVariations: maxVariations
+          maxVariations: maxVariations,
+          enabled: product.enabled
         }
 
         return res.status(200).json({message: 'Product found', body: productToSend})

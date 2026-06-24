@@ -174,6 +174,14 @@ export class OrderService {
       .pipe(map((response: any) => response.data));
   }
 
+  findAllCustomerOrders(): Observable<Order[]> {
+    return this.http
+      .get<Order[]>(
+        `${this.url}/all-orders/${this.loginService.getLoggedUser().id}`
+      )
+      .pipe(map((response: any) => response.data));
+  }
+
   findAllByDelivery(): Observable<Order[]> {
     return this.http
       .get<Order[]>(`${this.url}/all-orders-delivered/${this.loggedUser.id}`)
@@ -215,7 +223,7 @@ export class OrderService {
       CONFIRMED: 'En preparación',
       CANCELED: 'Cancelado',
       PENDING_DELIVERY: 'En camino',
-      DELIVERED: 'Entregada',
+      DELIVERED: 'Entregado',
     };
     return statusMap[status] || status;
   }

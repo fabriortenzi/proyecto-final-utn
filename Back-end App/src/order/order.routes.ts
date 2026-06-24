@@ -3,6 +3,7 @@ import {
   add,
   findAll,
   findAllByDelivery,
+  findAllCustomerOrders,
   findCurrentCustomerOrders,
   findCurrentDeliveryOrders,
   findOne,
@@ -356,6 +357,45 @@ orderRouter.get(
   '/current-orders/:idCustomer',
   assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.client]),
   findCurrentCustomerOrders
+);
+
+/**
+ * @swagger
+ * /api/orders/all-orders/{idCustomer}:
+ *   get:
+ *     tags:
+ *       - Order
+ *     summary: Retrieve all orders for a specific customer
+ *     description: Fetches all orders (current and historical) for a specific customer by their ID.
+ *     parameters:
+ *       - in: path
+ *         name: idCustomer
+ *         required: true
+ *         description: The ID of the customer
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A list of all orders for the specified customer
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "found all customer orders"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Order'
+ *       500:
+ *         description: Internal server error
+ */
+orderRouter.get(
+  '/all-orders/:idCustomer',
+  assureAuthAndRoles([UserTypeEnum.admin, UserTypeEnum.client]),
+  findAllCustomerOrders
 );
 
 /**

@@ -32,6 +32,14 @@ export class ShopCardComponent {
   @Input() paymentType: string;
   @Input() orderStatus: string;
   @Input() dateTimeArrival: string;
+  @Input() statusDisplayText: string;
+  @Input() hideDropdownButton: boolean = false;
+
+  get statusClass(): string {
+    if (this.orderStatus === 'DELIVERED') return 'status-delivered';
+    if (this.orderStatus === 'CANCELED') return 'status-canceled';
+    return 'status-active';
+  }
 
   showDescription(){this.hasDescription=!this.hasDescription}
 
