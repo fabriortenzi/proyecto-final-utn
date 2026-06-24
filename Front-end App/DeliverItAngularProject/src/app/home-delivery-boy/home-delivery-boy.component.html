@@ -74,7 +74,7 @@
           [subtitle]="
             'Destino: ' + order.client.street + ' ' + order.client.streetNumber
           "
-          [bottomText]="'Entregada: ' + order.dateTimeArrival"
+          [bottomText]="'Entregada: ' + (order.dateTimeArrival | dateFormat)"
           [hasStar]="false"
         ></app-shop-card>
       </div>

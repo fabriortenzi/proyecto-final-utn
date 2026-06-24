@@ -83,6 +83,7 @@ import { AuthInterceptor } from './services/interceptors/auth.service';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { AddressAutocompleteComponent } from './address-autocomplete/address-autocomplete.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 
 @NgModule({
   declarations: [
@@ -149,6 +150,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
     AddressAutocompleteComponent,
     UserManagementComponent,
     PedidosAConfirmarComponent,
+    DateFormatPipe,
   ],
   imports: [
     BrowserModule,
