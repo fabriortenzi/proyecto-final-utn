@@ -35,7 +35,9 @@ export class WithdrawOptionsComponent {
         dateTime: this.validatorsService.getCurrentDateTime(),
       };
       this.userService
-        .update(this.loggedUser.creditBalance * -1)
+        .update(
+          Math.round(this.loggedUser.creditBalance * -1 * 100) / 100
+        )
         .subscribe((response) => console.log(response));
       this.withdrawalService.add(withdrawal).subscribe((response) => {
         console.log(response);

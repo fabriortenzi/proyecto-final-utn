@@ -43,17 +43,22 @@ export class WithdrawalAmountComponent {
   submit() {
     this.submitted = true;
     if (this.addWithdrawalAmountForm.valid) {
+      const amount = Math.round(
+        this.addWithdrawalAmountForm.get('amount').value * 100
+      ) / 100;
+      const amountAfter =
+        Math.round(
+          (this.loggedUser.creditBalance - amount) * 100
+        ) / 100;
       const withdrawal = {
-        amount: this.addWithdrawalAmountForm.get('amount').value,
+        amount,
         amountBefore: this.loggedUser.creditBalance,
-        amountAfter:
-          this.loggedUser.creditBalance -
-          this.addWithdrawalAmountForm.get('amount').value,
+        amountAfter,
         dateTime: this.validator.getCurrentDateTime(),
       };
 
       this.userService
-        .update(withdrawal.amount * -1)
+        .update(Math.round(withdrawal.amount * -1 * 100) / 100)
         .subscribe((response) => console.log(response));
       this.withdrawalService.add(withdrawal).subscribe((response) => {
         console.log(response);

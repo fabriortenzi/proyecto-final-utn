@@ -89,8 +89,9 @@ export async function add(req: Request, res: Response) {
     }
 
     const currentCommission = await findCurrentCommission();
-    req.body.sanitizedInput.commissionForDelivery =
-      currentCommission.percentage * req.body.sanitizedInput.totalAmount;
+    req.body.sanitizedInput.commissionForDelivery = Math.round(
+      currentCommission.percentage * req.body.sanitizedInput.totalAmount * 100
+    ) / 100;
 
     const newOrder = em.create(Order, req.body.sanitizedInput);
 

@@ -270,8 +270,9 @@ export async function validateUpdate(
     if (user === null) {
       return res.status(404).json({ message: "User not found" });
     }
-    req.body.sanitizedInput.creditBalance =
-      req.body.sanitizedInput.creditBalance + user.creditBalance;
+    req.body.sanitizedInput.creditBalance = Math.round(
+      (req.body.sanitizedInput.creditBalance + user.creditBalance) * 100
+    ) / 100;
     req.body.sanitizedInput.userToUpdate = user;
   } else {
     return res.status(401).json({ message: "Not allowed to update" });
