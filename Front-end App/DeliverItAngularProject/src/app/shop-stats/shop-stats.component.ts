@@ -4,7 +4,7 @@ import { ProductCategory } from '../entities/productCategory.entity';
 import {
   StatsService,
   statsType,
-  oneYearSaleType,
+  weeklySaleType,
 } from '../services/stats.service';
 import { ProductCategoryService } from '../services/product-category.service';
 import Plotly from 'plotly.js-dist';
@@ -24,7 +24,7 @@ export class ShopStatsComponent {
   protected categories: ProductCategory[] = [];
   protected selectedCategoryIds: string[] = [];
   protected showDropdown = false;
-  protected oneYearSales: oneYearSaleType[] = [];
+  protected weeklySales: weeklySaleType[] = [];
 
   constructor(
     private statsService: StatsService,
@@ -42,7 +42,7 @@ export class ShopStatsComponent {
       .getStats(this.selectedCategoryIds)
       .subscribe((response: any) => {
         this.stats = response.body.stats;
-        this.oneYearSales = response.body.oneYearSales;
+        this.weeklySales = response.body.weeklySales;
 
         this.renderBarChart();
         this.renderLineChart();
@@ -125,25 +125,10 @@ export class ShopStatsComponent {
   }
 
   renderLineChart() {
-    const months = [
-      'Ene',
-      'Feb',
-      'Mar',
-      'Abr',
-      'May',
-      'Jun',
-      'Jul',
-      'Ago',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dic',
-    ];
-
-    const xValue = this.oneYearSales.map(
-      (s) => `${months[s._id.month - 1]} ${s._id.year}`,
+    const xValue = this.weeklySales.map(
+      (s) => `Sem ${s._id.week}/${s._id.year}`,
     );
-    const yValue = this.oneYearSales.map((s) => s.totalSales);
+    const yValue = this.weeklySales.map((s) => s.totalSales);
 
     const data: Partial<Plotly.PlotData>[] = [
       {

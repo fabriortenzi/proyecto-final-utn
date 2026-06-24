@@ -315,11 +315,11 @@ export async function calculateStats(req: Request, res: Response) {
         ? (raw as string[])
         : [raw as string];
 
-    const oneYearSales = await getSalesFromOneYearBefore(shop.id, catIds);
+    const weeklySales = await getWeeklySalesLastThreeMonths(shop.id, catIds);
 
     return res.status(200).json({
       message: "Shop stats successfully retrieved",
-      body: { stats, oneYearSales },
+      body: { stats, weeklySales },
     });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
@@ -354,13 +354,13 @@ function compareFunction(a: productStatsType, b: productStatsType) {
   }
 }
 
-async function getSalesFromOneYearBefore(
+async function getWeeklySalesLastThreeMonths(
   shopId: string,
   productCategoryIds: string[],
 ) {
   const now = new Date();
-  const twelveMonthsAgo = new Date();
-  twelveMonthsAgo.setFullYear(twelveMonthsAgo.getFullYear() - 1);
+  const threeMonthsAgo = new Date();
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
   const shopObjectId = new ObjectId(shopId);
 
@@ -396,7 +396,8 @@ async function getSalesFromOneYearBefore(
     },
     { $unwind: "$orderInfo" },
 
-    // Convertir string dates a Date objects
+    { $match: { "orderInfo.status": "DELIVERED" } },
+
     {
       $addFields: {
         parsedDate: {
@@ -414,7 +415,7 @@ async function getSalesFromOneYearBefore(
       },
     },
 
-    { $match: { parsedDate: { $gte: twelveMonthsAgo, $lt: now } } },
+    { $match: { parsedDate: { $gte: threeMonthsAgo, $lt: now } } },
 
     {
       $addFields: {
@@ -443,8 +444,8 @@ async function getSalesFromOneYearBefore(
     {
       $group: {
         _id: {
-          year: { $year: "$parsedDate" },
-          month: { $month: "$parsedDate" },
+          year: { $isoWeekYear: "$parsedDate" },
+          week: { $isoWeek: "$parsedDate" },
         },
         totalSales: {
           $sum: {
@@ -457,7 +458,7 @@ async function getSalesFromOneYearBefore(
       },
     },
 
-    { $sort: { "_id.year": 1, "_id.month": 1 } },
+    { $sort: { "_id.year": 1, "_id.week": 1 } },
   ];
 
   return await mongoEm.aggregate(Product, pipeline);

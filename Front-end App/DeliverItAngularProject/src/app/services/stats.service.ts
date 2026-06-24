@@ -14,10 +14,10 @@ export type productStatsType = {
     amount: number
 }
 
-export type oneYearSaleType = {
+export type weeklySaleType = {
   _id: {
     year: number,
-    month: number
+    week: number
   },
   totalSales: number
 }

@@ -344,7 +344,7 @@ export async function cancelOrder(req: Request, res: Response) {
 }
 
 export async function findByMonthAndShop(shopId: string) {
-  const orders = await em.find(Order, {}, { populate: ['lineItems.product'] });
+  const orders = await em.find(Order, { status: OrderStatus.DELIVERED }, { populate: ['lineItems.product'] });
 
   const shopOrders = filterOrdersByShop(orders, shopId);
 
