@@ -1,20 +1,53 @@
 <div class="parent-container">
-  <div class="container">
-    <h1>Retiro realizado con éxito</h1>
-    <h4>Has retirado ${{ amount }} de tu balance</h4>
-    <div class="video-container">
-      <video
-        playsinline
-        src="../../assets/green-check.mp4"
-        width="400"
-        autoplay
-        loop
-      ></video>
+  <div class="container" [ngClass]="{'state-confirming': state === 'confirming', 'state-done': state === 'done'}">
+
+    <div *ngIf="state === 'idle'" class="step-idle">
+      <div class="mp-header">
+        <img class="mp-logo" src="../../assets/mp-logo.png" alt="Mercado Pago" />
+        <h2 class="mp-title">Mercado Pago</h2>
+      </div>
+
+      <div class="amount-display">
+        <span class="amount-label">Vas a cobrar</span>
+        <span class="amount-value">${{ amount }}</span>
+      </div>
+
+      <button class="mp-confirm-btn" (click)="confirmWithdrawal()">
+        <img class="mp-btn-logo" src="../../assets/mp-logo.png" alt="MP" />
+        Confirmar extracción
+      </button>
     </div>
-    <app-primary-button
-      (click)="goBackToMenu()"
-      title="VOLVER AL MENÚ DE RETIROS"
-      routerLink="/withdrawal-menu"
-    ></app-primary-button>
+
+    <div *ngIf="state === 'confirming'" class="step-confirming">
+      <div class="mp-loader">
+        <div class="mp-loader-circle"></div>
+      </div>
+      <p class="mp-processing-text">Procesando extracción</p>
+      <div class="mp-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <div *ngIf="state === 'done'" class="step-done">
+      <h1>Retiro realizado con éxito</h1>
+      <h4>Has retirado ${{ amount }} de tu balance</h4>
+      <div class="video-container">
+        <video
+          playsinline
+          src="../../assets/green-check.mp4"
+          width="400"
+          autoplay
+          loop
+        ></video>
+      </div>
+      <app-primary-button
+        (click)="goBackToMenu()"
+        title="VOLVER AL MENÚ DE RETIROS"
+        routerLink="/withdrawal-menu"
+      ></app-primary-button>
+    </div>
+
   </div>
 </div>

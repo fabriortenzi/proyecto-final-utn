@@ -6,15 +6,24 @@ import { Router } from '@angular/router';
   templateUrl: './withdrawal-confirmed.component.html',
   styleUrls: ['./withdrawal-confirmed.component.scss']
 })
-export class WithdrawalConfirmedComponent 
+export class WithdrawalConfirmedComponent
 {
   amount: string
+  state: 'idle' | 'confirming' | 'done' = 'idle'
 
   constructor(private router: Router){}
 
   ngOnInit()
   {
     this.amount = localStorage.getItem('withdrawalAmount')
+  }
+
+  confirmWithdrawal()
+  {
+    this.state = 'confirming'
+    setTimeout(() => {
+      this.state = 'done'
+    }, 2500)
   }
 
   goBackToMenu()
