@@ -17,12 +17,10 @@ export class WithdrawalService {
     private loginService: LoginService
   ) {}
 
-  loggedUser = this.loginService.getLoggedUser();
-
   findAllByDelivery(): Observable<Withdrawal[]> {
     return this.http
       .get<Withdrawal[]>(
-        `${this.url}/all-delivery-withdrawals/${this.loggedUser.id}`
+        `${this.url}/all-delivery-withdrawals/${this.loginService.getLoggedUser().id}`
       )
       .pipe(map((response: any) => response.data));
   }
@@ -33,7 +31,7 @@ export class WithdrawalService {
       amountBefore: withdrawal.amountBefore,
       amountAfter: withdrawal.amountAfter,
       dateTime: withdrawal.dateTime,
-      user: this.loggedUser.id,
+      user: this.loginService.getLoggedUser().id,
     };
     return this.http
       .post<Withdrawal>(this.url, body)

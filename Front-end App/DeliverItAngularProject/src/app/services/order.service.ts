@@ -41,7 +41,6 @@ export class OrderService {
   });
   editHasBeenClicked = this.editClicked.asObservable();
 
-  loggedUser = this.loginService.getLoggedUser();
 
   addProduct(product: Product, variations?: ProductVariation[]) {
     let productInList = this.order.lineItems.find(
@@ -184,7 +183,7 @@ export class OrderService {
 
   findAllByDelivery(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(`${this.url}/all-orders-delivered/${this.loggedUser.id}`)
+      .get<Order[]>(`${this.url}/all-orders-delivered/${this.loginService.getLoggedUser().id}`)
       .pipe(map((response: any) => response.data));
   }
 
