@@ -1,13 +1,13 @@
 @import "../../styles.scss";
 
-.header {
-  padding: 15px 0 5px;
+.navbar-compact {
+  padding: 15px 15px 8px;
+}
 
-  h2 {
-    text-align: left;
-    margin-left: 10%;
-    font-family: Poppins;
-  }
+.page-header {
+  margin: 0 15px 15px;
+  font-family: Poppins;
+  font-weight: 500;
 }
 
 .map-container {

@@ -8,7 +8,7 @@
 
 .subcontainer {
   width: 90%;
-  margin-top: 50px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -101,4 +101,14 @@
 
 .text-no-reviews {
   margin-top: 20px;
+}
+
+.navbar-compact {
+  padding: 15px 15px 8px;
+}
+
+.page-header {
+  margin: 0 15px 15px;
+  font-family: Poppins;
+  font-weight: 500;
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { OrderService } from '../services/order.service';
 import { Product } from '../entities/product.entity';
 import { ProductService } from '../services/product.service';
@@ -15,7 +16,7 @@ import { ReviewService } from '../services/review.service';
 export class ShopCustomerComponent {
   constructor(private orderService: OrderService,
     private productService: ProductService,
-    private route: ActivatedRoute, private shopService: ShopService, private reviewService: ReviewService, private router: Router) { }
+    private route: ActivatedRoute, private shopService: ShopService, private reviewService: ReviewService, private router: Router, private location: Location) { }
 
   products: Product[]
   totalQty: number
@@ -53,5 +54,9 @@ export class ShopCustomerComponent {
   navigateToReviews() {
     this.reviewService.shopToReview = this.shop
     this.router.navigate(['/reviews/shop'])
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

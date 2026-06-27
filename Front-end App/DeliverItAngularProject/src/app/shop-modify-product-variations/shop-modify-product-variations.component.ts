@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductVariationsService } from '../services/product-variations.service';
@@ -17,7 +18,7 @@ export class ShopModifyProductVariationsComponent {
   productVariationId: string;
   
 
-  constructor(private router : Router, private productVariationService :ProductVariationsService, private validator : ValidatorsService){}
+  constructor(private router : Router, private productVariationService :ProductVariationsService, private validator : ValidatorsService, private location: Location){}
 
   ngOnInit() {
       this.shopModifyProductVariationForm = new FormGroup({
@@ -61,6 +62,10 @@ export class ShopModifyProductVariationsComponent {
     this.productVariationService.getSelectedProductVariationId().subscribe(pvId => {
       this.productVariationId = pvId;
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import {
   AbstractControl,
   FormControl,
@@ -36,6 +37,7 @@ export class SignupShopDataBasicComponent {
   constructor(
     private shopRegisterService: ShopRegisterServiceService,
     private router: Router,
+    private location: Location,
   ) {}
 
   submit() {
@@ -74,5 +76,9 @@ export class SignupShopDataBasicComponent {
 
   getAddress() {
     return this.shopSignUpForm.get('address');
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

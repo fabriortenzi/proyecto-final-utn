@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { ReviewService } from '../services/review.service';
 import { LoginService } from '../services/login.service';
 import { PendingShopReviewsResponse, Review } from '../entities/review.entity';
@@ -12,7 +13,8 @@ import { Shop } from '../entities/shop.entity';
 export class CustomerPendShopReviewsComponent {
   constructor(
     private reviewService: ReviewService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private location: Location
   ) {}
   pendingShopsReviews: PendingShopReviewsResponse;
 
@@ -38,5 +40,9 @@ export class CustomerPendShopReviewsComponent {
 
   setReviewToUpdate(review: Review) {
     this.reviewService.reviewToUpdate = review;
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

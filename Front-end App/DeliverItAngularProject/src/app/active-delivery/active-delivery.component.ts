@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { DeliveryRouteService } from '../services/delivery-route.service';
 import { GoogleMapsLoaderService } from '../services/google-maps-loader.service';
@@ -23,7 +24,8 @@ export class ActiveDeliveryComponent implements OnInit {
   constructor(
     private deliveryRouteService: DeliveryRouteService,
     private googleMapsLoader: GoogleMapsLoaderService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -106,5 +108,9 @@ export class ActiveDeliveryComponent implements OnInit {
 
   getStopButtonText(stop: Stop): string {
     return stop.type === 'pickup' ? 'Recogido' : 'Entregado';
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

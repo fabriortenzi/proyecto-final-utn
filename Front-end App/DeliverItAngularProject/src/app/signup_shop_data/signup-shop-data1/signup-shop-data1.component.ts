@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import {FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {ValidatorsService} from '../../services/validators.service';
@@ -17,7 +18,7 @@ export class SignupShopData1Component {
   submitted: boolean = false;
   shopTypes: ShopType[] = [];
 
-  constructor(private router: Router, private shippingPricevalidator : ValidatorsService, private shopTypeService: ShopTypeService, private shopRegisterService: ShopRegisterServiceService){}
+  constructor(private router: Router, private shippingPricevalidator : ValidatorsService, private shopTypeService: ShopTypeService, private shopRegisterService: ShopRegisterServiceService, private location: Location){}
   ngOnInit() {
     this.shopSignUpForm = new FormGroup({
       openingTime: new FormControl('', Validators.required),
@@ -69,4 +70,7 @@ export class SignupShopData1Component {
     }
   }
 
+  goBack() {
+    this.location.back();
+  }
 }

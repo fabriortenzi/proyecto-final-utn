@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { OrderService } from '../services/order.service';
 import { Order } from '../entities/order.entity';
 
@@ -14,7 +15,7 @@ export class CustomerCurrentOrdersComponent
   currentOrders: Order[] = []
   historyOrders: Order[] = []
 
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService, private location: Location) {}
 
   ngOnInit()
   {
@@ -46,5 +47,9 @@ export class CustomerCurrentOrdersComponent
 
   getStatusText(status: string | undefined): string {
     return this.orderService.getStatusDisplayText(status || '');
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

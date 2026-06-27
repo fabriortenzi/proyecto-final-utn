@@ -196,3 +196,24 @@
 .footer {
   height: 190px;
 }
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 8px;
+}
+
+.navbar-absolute {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  z-index: 10;
+}
+
+.back-btn-circle {
+  background: white;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}

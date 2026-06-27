@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { IcecreamflavorsService } from '../../services/icecreamflavors.service';
 import { Router } from '@angular/router';
 import { ValidatorsService } from 'src/app/services/validators.service';
@@ -23,7 +24,8 @@ export class SignupShopDataIcecreamflavorsComponent {
     private serv: IcecreamflavorsService,
     private router: Router,
     private validator: ValidatorsService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -80,5 +82,9 @@ export class SignupShopDataIcecreamflavorsComponent {
     this.serv.postFlavors().subscribe(() => {
       this.router.navigate(['/home-shop']);
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

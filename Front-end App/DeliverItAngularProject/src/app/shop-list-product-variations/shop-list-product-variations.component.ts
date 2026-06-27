@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
 import { Shop } from '../entities/shop.entity';
@@ -17,7 +18,8 @@ export class ShopListProductVariationsComponent {
 
   constructor(private orderService: OrderService,
     private productVariationsService: ProductVariationsService,
-    private router: Router) { }
+    private router: Router,
+    private location: Location) { }
   
   ngOnInit() {
     this.getShop()
@@ -41,5 +43,9 @@ export class ShopListProductVariationsComponent {
 
   addVariation(){
     this.router.navigate(['/signup_shop_data_icecreamflavors']);
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

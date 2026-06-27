@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import {ValidatorsService} from '../../services/validators.service';
 import { ShopRegisterServiceService } from 'src/app/services/shop-register-service.service';
@@ -19,7 +20,7 @@ export class SignupShopData2Component {
   logo: File = null;
   banner: File = null;
   
-  constructor(private router: Router, private validator: ValidatorsService, private shopRegisterService: ShopRegisterServiceService, private loginService: LoginService){}
+  constructor(private router: Router, private validator: ValidatorsService, private shopRegisterService: ShopRegisterServiceService, private loginService: LoginService, private location: Location){}
 
   onLogoSelected(event){
     this.validLogo = this.validator.validateImageFormat(event.target.files[0]);
@@ -64,4 +65,7 @@ export class SignupShopData2Component {
     }
   }
 
+  goBack() {
+    this.location.back();
+  }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatosPersonalesService } from '../services/datos-personales.service';
 import { Router } from '@angular/router';
@@ -24,7 +25,8 @@ export class DatosPersonalesComponent {
   constructor(
     private service: DatosPersonalesService,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private location: Location
   ) {}
 
   userTypes: UserType[] = null;
@@ -106,5 +108,9 @@ export class DatosPersonalesComponent {
       return { notAccept0: true };
     }
     return null;
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

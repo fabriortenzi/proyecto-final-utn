@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
 import { PaymentTypeService } from '../services/payment-type.service';
@@ -17,6 +18,7 @@ export class OrderDetailsComponent {
     private orderService: OrderService,
     private paymentTypeService: PaymentTypeService,
     private router: Router,
+    private location: Location,
   ) {}
 
   items: LineItem[] = [];
@@ -98,5 +100,9 @@ export class OrderDetailsComponent {
     this.paymentTypeService.getAll().subscribe((data: PaymentType[]) => {
       this.paymentTypes = data;
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

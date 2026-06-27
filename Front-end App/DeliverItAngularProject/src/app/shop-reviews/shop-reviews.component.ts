@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Review } from '../entities/review.entity';
 import { ReviewService } from '../services/review.service';
@@ -11,7 +12,7 @@ import { BaseUrlService } from '../services/base-url.service';
   styleUrls: ['./shop-reviews.component.scss'],
 })
 export class ShopReviewsComponent {
-  constructor(private route: ActivatedRoute, private reviewService: ReviewService, private baseUrlService: BaseUrlService) { }
+  constructor(private route: ActivatedRoute, private reviewService: ReviewService, private baseUrlService: BaseUrlService, private location: Location) { }
   reviews: Review[];
   shop: Shop
   shopImageURL: string
@@ -30,5 +31,9 @@ export class ShopReviewsComponent {
       this.reviews = data
       this.loadingData = false
     })
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

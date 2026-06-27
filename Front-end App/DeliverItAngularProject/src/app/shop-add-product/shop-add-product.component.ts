@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import { Location } from '@angular/common';
 import { ValidatorsService } from '../services/validators.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,7 +27,7 @@ export class ShopAddProductComponent {
     photo: File=null;
     maxVariationsAllowed: boolean = false;
     
-    constructor(private router : Router, private validator : ValidatorsService, private productCategoryService : ProductCategoryService, private productService :ProductService, private route: ActivatedRoute){
+    constructor(private router : Router, private validator : ValidatorsService, private productCategoryService : ProductCategoryService, private productService :ProductService, private route: ActivatedRoute, private location: Location){
         productCategoryService.getAll().subscribe(response => this.productCategories = response.body)
         this.shopId = sessionStorage.getItem('shopId');
     }
@@ -103,5 +104,9 @@ export class ShopAddProductComponent {
             this.router.navigate(['/home-shop']);
           }
     }
+
+  goBack() {
+    this.location.back();
+  }
 }
 

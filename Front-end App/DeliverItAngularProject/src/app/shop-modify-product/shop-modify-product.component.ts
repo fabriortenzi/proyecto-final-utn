@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { ValidatorsService } from '../services/validators.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,7 +22,7 @@ export class ShopModifyProductComponent {
   
   product: any;
 
-  constructor(private router : Router, private validator : ValidatorsService, private productService :ProductService){
+  constructor(private router : Router, private validator : ValidatorsService, private productService :ProductService, private location: Location){
     this.productId = sessionStorage.getItem('productId');
   }
 
@@ -90,5 +91,9 @@ export class ShopModifyProductComponent {
     this.productService.toggleEnabled(this.productId).subscribe((response) =>{
       this.product.enabled = response.data.enabled;
     })
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

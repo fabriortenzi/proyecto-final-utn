@@ -1,12 +1,14 @@
 <head>
     <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://cdn.plot.ly/plotly-2.29.1.min.js" charset="utf-8"></script>
 </head>
 <body>
-    <div class="titleContainer">
-        <h1>Estadísticas del local</h1>
-    </div>
+    <nav class="navbar-compact">
+      <span class="material-symbols-outlined" (click)="goBack()">arrow_back</span>
+    </nav>
+    <h1 class="page-header">Estadísticas del local</h1>
     <div class="monthCardContainer">
         <h3 id="actualMonthText">Mes actual</h3>
         <h6 id="actualMonth">{{this.date}}</h6>

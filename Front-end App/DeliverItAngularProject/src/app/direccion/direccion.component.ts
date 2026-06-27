@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginResponse, User } from '../entities/user.entity';
@@ -27,7 +28,8 @@ export class DireccionComponent {
     private loginService: LoginService,
     private router: Router,
     private userService: UserService,
-    private datosPersonalesService: DatosPersonalesService
+    private datosPersonalesService: DatosPersonalesService,
+    private location: Location
   ) {}
 
   userToUpdate: User;
@@ -113,5 +115,9 @@ export class DireccionComponent {
 
   getInfo() {
     return this.direccionForm.get('additionalInfo');
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

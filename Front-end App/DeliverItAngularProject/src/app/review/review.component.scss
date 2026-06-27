@@ -1,5 +1,15 @@
 @import "../../styles.scss";
 
+.navbar-compact {
+  padding: 15px 15px 8px;
+}
+
+.page-header {
+  margin: 0 15px 15px;
+  font-family: Poppins;
+  font-weight: 500;
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -7,7 +17,7 @@
 }
 
 .subcontainer {
-  margin-top: 50px;
+  margin-top: 20px;
   width: 90%;
 }
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
@@ -19,7 +20,8 @@ export class ShopListProductComponent {
   constructor(private shopService: ShopService,
     private orderService: OrderService,
     private router: Router,
-    private productService: ProductService) { }
+    private productService: ProductService,
+    private location: Location) { }
     
   ngOnInit() {
     this.shopId = sessionStorage.getItem('shopId');
@@ -49,5 +51,9 @@ export class ShopListProductComponent {
 
   getProduct(productId: string) {
     return this.products.find((p) => p.id === productId)
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

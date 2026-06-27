@@ -1,6 +1,10 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<nav class="navbar-compact">
+  <span class="material-symbols-outlined" (click)="goBack()">arrow_back</span>
+</nav>
+<h1 class="page-header">Completar datos personales</h1>
 <div class="container">
   <form [formGroup]="userDataForm" class="input-group">
-    <h1>Completar datos personales</h1>
     <div class="input-subgroup nombre">
       <h6>Nombre</h6>
       <input formControlName="name" type="text" autofocus />

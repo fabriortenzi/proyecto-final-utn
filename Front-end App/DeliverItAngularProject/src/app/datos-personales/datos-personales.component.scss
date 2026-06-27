@@ -17,9 +17,19 @@
 }
 
 
+.navbar-compact {
+  padding: 15px 15px 8px;
+}
+
+.page-header {
+  margin: 0 15px 15px;
+  font-family: Poppins;
+  font-weight: 500;
+}
+
 .container {
   position: relative;
-  top: 50px;
+  top: 20px;
   height: 70vh;
   display: flex;
   flex-direction: column;

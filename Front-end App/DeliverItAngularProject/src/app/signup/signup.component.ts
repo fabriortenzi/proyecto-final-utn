@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatosPersonalesService } from '../services/datos-personales.service';
@@ -18,7 +19,8 @@ export class SignupComponent {
     private router: Router,
     private service: DatosPersonalesService,
     private validatorsService: ValidatorsService,
-    private userService: UserService
+    private userService: UserService,
+    private location: Location
   ) {}
 
   userToUpdate: User;
@@ -96,5 +98,9 @@ export class SignupComponent {
         this.router.navigate(['/datos-personales']);
       }
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

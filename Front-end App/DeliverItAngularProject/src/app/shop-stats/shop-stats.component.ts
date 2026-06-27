@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 import { Shop } from '../entities/shop.entity';
 import { ProductCategory } from '../entities/productCategory.entity';
 import {
@@ -29,6 +30,7 @@ export class ShopStatsComponent {
   constructor(
     private statsService: StatsService,
     private productCategoryService: ProductCategoryService,
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -171,6 +173,10 @@ export class ShopStatsComponent {
       staticPlot: true,
       responsive: true,
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
 
