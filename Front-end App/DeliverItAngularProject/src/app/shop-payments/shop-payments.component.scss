@@ -1,0 +1,90 @@
+@import "../../styles.scss";
+
+.shop-payments-container {
+  padding: 32px 20px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+
+    .back-btn {
+      font-size: 28px;
+      user-select: none;
+    }
+
+    .page-title {
+      font-family: Poppins;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .filters-container {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+
+    .month-filter {
+      width: 200px;
+    }
+
+    .year-filter {
+      width: 120px;
+    }
+  }
+
+  .table-container {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+
+      .mp-cell {
+        color: #c62828;
+        font-weight: 600;
+      }
+
+      .cash-cell {
+        color: #2e7d32;
+        font-weight: 600;
+      }
+
+      th.mat-header-cell {
+        white-space: nowrap;
+        padding: 0 8px;
+      }
+
+      td.mat-cell {
+        padding: 0 8px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-payments-container {
+    padding: 12px;
+
+    .filters-container {
+      flex-direction: column;
+
+      .month-filter,
+      .year-filter {
+        width: 100%;
+      }
+    }
+
+    .table-container {
+      table {
+        font-size: 13px;
+      }
+    }
+  }
+}

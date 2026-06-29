@@ -32,6 +32,10 @@ export class AdminPanelComponent {
     this.router.navigate(['commission-percentage-list']);
   }
 
+  onShopPayments() {
+    this.router.navigate(['shop-payments']);
+  }
+
   onRegisterPasskey() {
     this.passkeyService.tryRegisterPasskey().subscribe();
   }

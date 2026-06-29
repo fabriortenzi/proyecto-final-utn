@@ -1,11 +1,16 @@
-import { orm } from '../shared/orm.js';
-import { Order, OrderStatus } from './order.entity.js';
-import { Request, Response, NextFunction } from 'express';
-import { validator } from '../shared/validator.js';
-import { Product } from '../product/product.entity.js';
-import { findCurrentCommission } from '../commission/commission.controller.js';
+import { orm } from "../shared/orm.js";
+import { Order, OrderStatus } from "./order.entity.js";
+import { Request, Response, NextFunction } from "express";
+import { validator } from "../shared/validator.js";
+import { Product } from "../product/product.entity.js";
+import { Shop } from "../shop/shop.entity.js";
+import { findCurrentCommission } from "../commission/commission.controller.js";
 
 const em = orm.em;
+
+function roundTo2(n: number): number {
+  return Math.round(n * 100) / 100;
+}
 
 export function sanitizedInput(req: Request, _: Response, next: NextFunction) {
   req.body.sanitizedInput = {
@@ -24,9 +29,9 @@ export async function findAll(req: Request, res: Response) {
     const orders = await em.find(
       Order,
       {},
-      { populate: ['client', 'delivery', 'paymentType', 'lineItems'] }
+      { populate: ["client", "delivery", "paymentType", "lineItems"] },
     );
-    return res.status(200).json({ message: 'found all orders ', data: orders });
+    return res.status(200).json({ message: "found all orders ", data: orders });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -41,18 +46,18 @@ export async function findOne(req: Request, res: Response) {
 
     const order = await em.findOne(Order, req.params.id, {
       populate: [
-        'client',
-        'paymentType',
-        'lineItems.productVariationArrays.productVariations',
-        'delivery',
+        "client",
+        "paymentType",
+        "lineItems.productVariationArrays.productVariations",
+        "delivery",
       ],
     });
 
     if (order === null) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ message: "Order not found" });
     }
 
-    return res.status(200).json({ message: 'Order found', body: order });
+    return res.status(200).json({ message: "Order found", body: order });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -71,33 +76,41 @@ export async function add(req: Request, res: Response) {
     const productsInOrder = await em.find(
       Product,
       {},
-      { filters: { ids: { par: Array.from(productIds) } } }
+      { filters: { ids: { par: Array.from(productIds) } } },
     );
 
     for (const lineItem of req.body.sanitizedInput.lineItems) {
       let completeProduct = productsInOrder.find(
-        (prd) => prd.id == lineItem.product
+        (prd) => prd.id == lineItem.product,
       );
       lineItem.product = completeProduct;
     }
 
     const validatorResponse = validator.validateOrder(
-      req.body.sanitizedInput as Order
+      req.body.sanitizedInput as Order,
     );
     if (!validatorResponse.isValid) {
       return res.status(400).json({ message: validatorResponse.message });
     }
 
     const currentCommission = await findCurrentCommission();
-    req.body.sanitizedInput.commissionForDelivery = Math.round(
-      currentCommission.percentage * req.body.sanitizedInput.totalAmount * 100
-    ) / 100;
+    req.body.sanitizedInput.commissionForDelivery = roundTo2(
+      currentCommission.percentage * req.body.sanitizedInput.totalAmount,
+    );
+
+    const baseForService =
+      req.body.sanitizedInput.totalAmount -
+      req.body.sanitizedInput.commissionForDelivery;
+    req.body.sanitizedInput.commissionService = roundTo2(0.06 * baseForService);
+    req.body.sanitizedInput.totalAmountShop = roundTo2(
+      baseForService - req.body.sanitizedInput.commissionService,
+    );
 
     const newOrder = em.create(Order, req.body.sanitizedInput);
 
     await em.flush();
 
-    return res.status(201).json({ message: 'order created', data: newOrder });
+    return res.status(201).json({ message: "order created", data: newOrder });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -118,15 +131,15 @@ export async function findCurrentCustomerOrders(req: Request, res: Response) {
           client: { par: req.params.idCustomer },
         },
         populate: [
-          'client',
-          'paymentType',
-          'lineItems.product.prices',
-          'lineItems.product.shop',
+          "client",
+          "paymentType",
+          "lineItems.product.prices",
+          "lineItems.product.shop",
         ],
-      }
+      },
     );
     return res.status(200).json({
-      message: 'found all current customer orders',
+      message: "found all current customer orders",
       data: currentCustomerOrders,
     });
   } catch (error: any) {
@@ -148,15 +161,15 @@ export async function findAllCustomerOrders(req: Request, res: Response) {
           client: { par: req.params.idCustomer },
         },
         populate: [
-          'client',
-          'paymentType',
-          'lineItems.product.prices',
-          'lineItems.product.shop',
+          "client",
+          "paymentType",
+          "lineItems.product.prices",
+          "lineItems.product.shop",
         ],
-      }
+      },
     );
     return res.status(200).json({
-      message: 'found all customer orders',
+      message: "found all customer orders",
       data: customerOrders,
     });
   } catch (error: any) {
@@ -168,22 +181,22 @@ export async function findOrdersWithoutDelivery(req: Request, res: Response) {
   try {
     const ordersWithoutDelivery = await em.find(
       Order,
-      { 
+      {
         tentativeRouteId: { $eq: undefined },
-        status: OrderStatus.CONFIRMED 
+        status: OrderStatus.CONFIRMED,
       },
       {
-        filters: ['deliveryUndefined'],
+        filters: ["deliveryUndefined"],
         populate: [
-          'client',
-          'paymentType',
-          'lineItems.product.prices',
-          'lineItems.product.shop',
+          "client",
+          "paymentType",
+          "lineItems.product.prices",
+          "lineItems.product.shop",
         ],
-      }
+      },
     );
     return res.status(200).json({
-      message: 'found all orders w/o delivery',
+      message: "found all orders w/o delivery",
       data: ordersWithoutDelivery,
     });
   } catch (error: any) {
@@ -207,16 +220,16 @@ export async function findCurrentDeliveryOrders(req: Request, res: Response) {
           delivery: { par: req.params.idDelivery },
         },
         populate: [
-          'client',
-          'paymentType',
-          'lineItems.product.prices',
-          'lineItems.product.shop',
+          "client",
+          "paymentType",
+          "lineItems.product.prices",
+          "lineItems.product.shop",
         ],
-      }
+      },
     );
 
     return res.status(200).json({
-      message: 'found all current delivery orders',
+      message: "found all current delivery orders",
       data: currentDeliveryOrders,
     });
   } catch (error: any) {
@@ -236,18 +249,18 @@ export async function findAllByDelivery(req: Request, res: Response) {
           dateTimeArrivalSet: true,
         },
         populate: [
-          'client',
-          'delivery',
-          'paymentType',
-          'lineItems.product.prices',
-          'lineItems.product.shop',
+          "client",
+          "delivery",
+          "paymentType",
+          "lineItems.product.prices",
+          "lineItems.product.shop",
         ],
         orderBy: {
-          dateTimeArrival: 'desc',
+          dateTimeArrival: "desc",
         },
-      }
+      },
     );
-    return res.status(200).json({ message: 'found all orders ', data: orders });
+    return res.status(200).json({ message: "found all orders ", data: orders });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -256,7 +269,7 @@ export async function findAllByDelivery(req: Request, res: Response) {
 export async function setDelivery(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   const validatorResponse = validator.validateObjectId(req.params.id);
   if (!validatorResponse.isValid) {
@@ -264,14 +277,16 @@ export async function setDelivery(
   }
 
   const order = await em.findOne(Order, req.params.id, {
-    filters: ['deliveryUndefined'],
+    filters: ["deliveryUndefined"],
   }); //race condition validation
   if (order === null) {
-    return res.status(404).json({ message: 'order not found' });
+    return res.status(404).json({ message: "order not found" });
   }
 
   if (order.status !== OrderStatus.CONFIRMED) {
-    return res.status(400).json({ message: 'Order must be confirmed before assigning delivery' });
+    return res
+      .status(400)
+      .json({ message: "Order must be confirmed before assigning delivery" });
   }
 
   order.status = OrderStatus.PENDING_DELIVERY;
@@ -282,7 +297,7 @@ export async function setDelivery(
 export async function setDateTimeArrival(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   const validatorResponse = validator.validateObjectId(req.params.id);
   if (!validatorResponse.isValid) {
@@ -293,11 +308,15 @@ export async function setDateTimeArrival(
     filters: { dateTimeArrival: true },
   });
   if (order === null) {
-    return res.status(404).json({ message: 'order not found' });
+    return res.status(404).json({ message: "order not found" });
   }
 
   if (order.status !== OrderStatus.PENDING_DELIVERY) {
-    return res.status(400).json({ message: 'Order must be pending delivery to be marked as delivered' });
+    return res
+      .status(400)
+      .json({
+        message: "Order must be pending delivery to be marked as delivered",
+      });
   }
 
   order.status = OrderStatus.DELIVERED;
@@ -312,7 +331,7 @@ export async function update(req: Request, res: Response) {
     await em.flush();
     res
       .status(200)
-      .json({ message: 'order updated', data: req.body.orderToUpdate });
+      .json({ message: "order updated", data: req.body.orderToUpdate });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -321,13 +340,21 @@ export async function update(req: Request, res: Response) {
 export async function findOrdersToConfirm(req: Request, res: Response) {
   try {
     const shopId = req.params.idShop;
-    const orders = await em.find(Order, { status: OrderStatus.PENDING_CONFIRMATION }, {
-        populate: ['lineItems.product.shop', 'client', 'paymentType']
-    });
+    const orders = await em.find(
+      Order,
+      { status: OrderStatus.PENDING_CONFIRMATION },
+      {
+        populate: ["lineItems.product.shop", "client", "paymentType"],
+      },
+    );
 
-    const shopOrders = orders.filter(order => order.lineItems[0]?.product?.shop?.id === shopId);
+    const shopOrders = orders.filter(
+      (order) => order.lineItems[0]?.product?.shop?.id === shopId,
+    );
 
-    return res.status(200).json({ message: 'found orders to confirm', data: shopOrders });
+    return res
+      .status(200)
+      .json({ message: "found orders to confirm", data: shopOrders });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -336,15 +363,19 @@ export async function findOrdersToConfirm(req: Request, res: Response) {
 export async function confirmOrder(req: Request, res: Response) {
   try {
     const order = await em.findOne(Order, req.params.id);
-    if (!order) return res.status(404).json({ message: 'Order not found' });
-    
+    if (!order) return res.status(404).json({ message: "Order not found" });
+
     if (order.status !== OrderStatus.PENDING_CONFIRMATION) {
-      return res.status(400).json({ message: 'Order must be pending confirmation to be confirmed' });
+      return res
+        .status(400)
+        .json({
+          message: "Order must be pending confirmation to be confirmed",
+        });
     }
-    
+
     order.status = OrderStatus.CONFIRMED;
     await em.flush();
-    return res.status(200).json({ message: 'Order confirmed', data: order });
+    return res.status(200).json({ message: "Order confirmed", data: order });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -352,30 +383,40 @@ export async function confirmOrder(req: Request, res: Response) {
 
 export async function cancelOrder(req: Request, res: Response) {
   try {
-    const order = await em.findOne(Order, req.params.id, { populate: ['client'] });
-    if (!order) return res.status(404).json({ message: 'Order not found' });
-    
+    const order = await em.findOne(Order, req.params.id, {
+      populate: ["client"],
+    });
+    if (!order) return res.status(404).json({ message: "Order not found" });
+
     if (order.status !== OrderStatus.PENDING_CONFIRMATION) {
-      return res.status(400).json({ message: 'Order must be pending confirmation to be canceled' });
+      return res
+        .status(400)
+        .json({ message: "Order must be pending confirmation to be canceled" });
     }
 
     const requesterId = (req as any).token?.id;
     const requesterType = (req as any).token?.userType?.description;
 
-    if (requesterType === 'client' && order.client.id !== requesterId) {
-      return res.status(403).json({ message: 'You can only cancel your own orders' });
+    if (requesterType === "client" && order.client.id !== requesterId) {
+      return res
+        .status(403)
+        .json({ message: "You can only cancel your own orders" });
     }
-    
+
     order.status = OrderStatus.CANCELED;
     await em.flush();
-    return res.status(200).json({ message: 'Order canceled', data: order });
+    return res.status(200).json({ message: "Order canceled", data: order });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
 }
 
 export async function findByMonthAndShop(shopId: string) {
-  const orders = await em.find(Order, { status: OrderStatus.DELIVERED }, { populate: ['lineItems.product'] });
+  const orders = await em.find(
+    Order,
+    { status: OrderStatus.DELIVERED },
+    { populate: ["lineItems.product"] },
+  );
 
   const shopOrders = filterOrdersByShop(orders, shopId);
 
@@ -396,6 +437,87 @@ function filterOrdersByShop(orders: Order[], shopId: string) {
   return filteredOrders;
 }
 
+export async function getShopPaymentsSummary(req: Request, res: Response) {
+  try {
+    const now = new Date();
+    const year = parseInt(req.query.year as string) || now.getFullYear();
+    const month = parseInt(req.query.month as string) || now.getMonth() + 1;
+
+    const monthFirstDate = new Date(year, month - 1, 1, 0, 0, 0);
+    const monthLastDate = new Date(year, month, 1, 0, 0, 0);
+
+    const allDelivered = await em.find(
+      Order,
+      { status: OrderStatus.DELIVERED },
+      { populate: ["paymentType", "lineItems.product.shop"] },
+    );
+
+    const monthOrders = allDelivered.filter((order) => {
+      const d = new Date(order.dateTimeOrder);
+      return d >= monthFirstDate && d < monthLastDate;
+    });
+
+    const shopMap = new Map<
+      string,
+      {
+        shop: { id: string; name: string };
+        totalAmount: number;
+        totalCommissionForDelivery: number;
+        totalAmountShop: number;
+        mpAmountShop: number;
+        mpCommissionService: number;
+        cashCommissionService: number;
+      }
+    >();
+
+    for (const order of monthOrders) {
+      const shop = order.lineItems[0]?.product?.shop;
+      if (!shop) continue;
+
+      const isMp = order.paymentType.description
+        .toLowerCase()
+        .replace(/\s/g, "").includes("mercadopago");
+      const entry = shopMap.get(shop.id) || {
+        shop: { id: shop.id, name: shop.name },
+        totalAmount: 0,
+        totalCommissionForDelivery: 0,
+        totalAmountShop: 0,
+        mpAmountShop: 0,
+        mpCommissionService: 0,
+        cashCommissionService: 0,
+      };
+
+      entry.totalAmount += order.totalAmount || 0;
+      entry.totalCommissionForDelivery += order.commissionForDelivery || 0;
+      const shopAmount = order.totalAmountShop || 0;
+      entry.totalAmountShop += shopAmount;
+
+      if (isMp) {
+        entry.mpAmountShop += shopAmount;
+        entry.mpCommissionService += order.commissionService || 0;
+      } else {
+        entry.cashCommissionService += order.commissionService || 0;
+      }
+
+      shopMap.set(shop.id, entry);
+    }
+
+    const data = Array.from(shopMap.values()).map((e) => ({
+      ...e,
+      totalAmount: roundTo2(e.totalAmount),
+      totalCommissionForDelivery: roundTo2(e.totalCommissionForDelivery),
+      totalAmountShop: roundTo2(e.totalAmountShop),
+      mpAmountShop: roundTo2(e.mpAmountShop),
+      mpCommissionService: roundTo2(e.mpCommissionService),
+      cashCommissionService: roundTo2(e.cashCommissionService),
+    }));
+
+    return res.status(200).json({ message: "shop payments summary", data });
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
 export async function remove(req: Request, res: Response) {
   try {
     const validatorResponse = validator.validateObjectId(req.params.id);
@@ -405,10 +527,10 @@ export async function remove(req: Request, res: Response) {
 
     const order = await em.findOne(Order, req.params.id);
     if (order === null) {
-      return res.status(404).json({ message: 'Order not found' });
+      return res.status(404).json({ message: "Order not found" });
     }
     await em.removeAndFlush(order);
-    return res.status(200).json({ message: 'Order deleted successfully' });
+    return res.status(200).json({ message: "Order deleted successfully" });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
@@ -421,14 +543,14 @@ function filterOrdersByMonth(orders: Order[]) {
     todayDate.getMonth(),
     1,
     0,
-    0
+    0,
   );
   let monthLastDate = new Date(
     todayDate.getFullYear(),
     todayDate.getMonth(),
     1,
     0,
-    0
+    0,
   );
   monthLastDate.setMonth(monthLastDate.getMonth() + 1);
 

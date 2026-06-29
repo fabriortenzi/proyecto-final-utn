@@ -16,6 +16,7 @@ import {
   confirmOrder,
   cancelOrder,
   findOrdersToConfirm,
+  getShopPaymentsSummary,
 } from './order.controller.js';
 import { assureAuthAndRoles, UserTypeEnum } from '../shared/auth.middleware.js';
 
@@ -48,6 +49,12 @@ export const orderRouter = Router();
  *         description: Internal server error
  */
 orderRouter.get('/', assureAuthAndRoles([UserTypeEnum.admin]), findAll);
+
+orderRouter.get(
+  '/shop-payments-summary',
+  assureAuthAndRoles([UserTypeEnum.admin]),
+  getShopPaymentsSummary
+);
 
 /**
  * @swagger

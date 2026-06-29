@@ -216,6 +216,12 @@ export class OrderService {
     return this.http.put(`${this.url}/cancel/${orderId}`, {});
   }
 
+  getShopPaymentsSummary(year: number, month: number): Observable<any[]> {
+    return this.http
+      .get(`${this.url}/shop-payments-summary?year=${year}&month=${month}`)
+      .pipe(map((response: any) => response.data));
+  }
+
   getStatusDisplayText(status: string): string {
     const statusMap: { [key: string]: string } = {
       PENDING_CONFIRMATION: 'Pendiente de confirmación',

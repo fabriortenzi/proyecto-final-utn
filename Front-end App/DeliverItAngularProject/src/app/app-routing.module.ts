@@ -42,6 +42,7 @@ import { WithdrawalAmountComponent } from './withdrawal-amount/withdrawal-amount
 import { AddCommissionPercentageComponent } from './add-commission-percentage/add-commission-percentage.component';
 import { CommissionPercentageListComponent } from './commission-percentage-list/commission-percentage-list.component';
 import { EditCommissionPercentageComponent } from './edit-commission-percentage/edit-commission-percentage.component';
+import { ShopPaymentsComponent } from './shop-payments/shop-payments.component';
 import { ShopListProductVariationsComponent } from './shop-list-product-variations/shop-list-product-variations.component';
 import { ShopModifyProductVariationsComponent } from './shop-modify-product-variations/shop-modify-product-variations.component';
 import { CustomerPendShopReviewsComponent } from './customer-pend-shop-reviews/customer-pend-shop-reviews.component';
@@ -306,6 +307,12 @@ const routes: Routes = [
   {
     path: 'edit-commission-percentage',
     component: EditCommissionPercentageComponent,
+    canActivate: [AuthGuard],
+    data: { role: ['admin'] },
+  },
+  {
+    path: 'shop-payments',
+    component: ShopPaymentsComponent,
     canActivate: [AuthGuard],
     data: { role: ['admin'] },
   },

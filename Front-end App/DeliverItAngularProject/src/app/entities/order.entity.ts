@@ -21,6 +21,8 @@ export class Order {
   public lineItems: LineItem[]
   public status?: string
   public commissionForDelivery?: number
+  public commissionService?: number
+  public totalAmountShop?: number
   public totalAmount?: number
 }
 

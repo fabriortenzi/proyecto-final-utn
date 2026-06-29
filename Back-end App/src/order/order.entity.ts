@@ -35,6 +35,12 @@ export class Order extends BaseEntity
     @Property({ nullable: true })
     totalAmount!: number
 
+    @Property({ nullable: true })
+    commissionService?: number
+
+    @Property({ nullable: true })
+    totalAmountShop?: number
+
     @Enum(() => OrderStatus)
     status: OrderStatus = OrderStatus.PENDING_CONFIRMATION
 

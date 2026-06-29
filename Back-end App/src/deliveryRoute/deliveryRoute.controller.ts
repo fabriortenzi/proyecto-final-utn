@@ -222,7 +222,9 @@ export async function completeStop(req: Request, res: Response) {
 
         const deliveryUser = await em.findOne(User, userId);
         if (deliveryUser) {
-          deliveryUser.creditBalance += order.commissionForDelivery;
+          deliveryUser.creditBalance = Math.round(
+            (deliveryUser.creditBalance + order.commissionForDelivery) * 100
+          ) / 100;
         }
       }
     }

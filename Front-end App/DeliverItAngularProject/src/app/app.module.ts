@@ -83,6 +83,7 @@ import { AuthInterceptor } from './services/interceptors/auth.service';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { AddressAutocompleteComponent } from './address-autocomplete/address-autocomplete.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+import { ShopPaymentsComponent } from './shop-payments/shop-payments.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 
 @NgModule({
@@ -149,6 +150,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     SignupShopDataBasicComponent,
     AddressAutocompleteComponent,
     UserManagementComponent,
+    ShopPaymentsComponent,
     PedidosAConfirmarComponent,
     DateFormatPipe,
   ],
