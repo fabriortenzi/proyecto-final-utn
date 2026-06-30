@@ -45,9 +45,9 @@ export async function createPreference(req: Request, res: Response) {
       items: items as any,
       auto_return: 'approved',
       back_urls: {
-        success: `${frontendUrl}/order-confirmed`,
-        failure: `${frontendUrl}/order-details`,
-        pending: `${frontendUrl}/order-details`,
+        success: `${frontendUrl}`,
+        failure: `${frontendUrl}`,
+        pending: `${frontendUrl}`,
       },
       external_reference: order.id,
     };
