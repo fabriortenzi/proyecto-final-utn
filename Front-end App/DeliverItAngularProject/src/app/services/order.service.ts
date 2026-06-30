@@ -26,6 +26,30 @@ export class OrderService {
   ) {
     this.order = new Order();
     this.order.lineItems = [];
+    this.restoreOrderFromStorage();
+  }
+
+  private restoreOrderFromStorage() {
+    const stored = sessionStorage.getItem('deliverit_order');
+    if (stored) {
+      try {
+        const data = JSON.parse(stored);
+        this.order.lineItems = data.lineItems || [];
+        this.totalQuantity.next(data.totalQuantity || 0);
+      } catch {
+        sessionStorage.removeItem('deliverit_order');
+      }
+    }
+  }
+
+  private persistOrderToStorage() {
+    sessionStorage.setItem(
+      'deliverit_order',
+      JSON.stringify({
+        lineItems: this.order.lineItems,
+        totalQuantity: this.totalQuantity.value,
+      })
+    );
   }
 
   // This variables send the total quantity of items when it changes
@@ -68,6 +92,7 @@ export class OrderService {
       let newValue = currentValue + 1;
       this.totalQuantity.next(newValue);
     }
+    this.persistOrderToStorage();
   }
 
   getQuantity(id: string): number {
@@ -93,6 +118,7 @@ export class OrderService {
         this.order.lineItems.splice(index, 1);
       }
     }
+    this.persistOrderToStorage();
   }
 
   create(paymentTypeId: string, totalAmount: number): Observable<any> {
@@ -132,10 +158,15 @@ export class OrderService {
     return this.http.post(`${this.baseUrl.getBaseUrl()}mercadopago/create-preference`, { orderId });
   }
 
+  createMercadoPagoPreferenceFromData(items: any[]): Observable<any> {
+    return this.http.post(`${this.baseUrl.getBaseUrl()}mercadopago/create-preference-from-data`, { items });
+  }
+
   resetProducts() {
     this.order = new Order();
     this.order.lineItems = [];
     this.totalQuantity.next(0);
+    sessionStorage.removeItem('deliverit_order');
   }
 
   getOrder() {

@@ -79,20 +79,29 @@ export class OrderDetailsComponent {
       );
       const isMercadoPago = selectedPaymentType?.description === 'Mercado Pago';
 
-      this.orderService
-        .create(selectedPaymentTypeId, this.total)
-        .subscribe((response: any) => {
-          if (isMercadoPago) {
-            const orderId = (response as any).data?.id || response.id;
-            this.orderService
-              .createMercadoPagoPreference(orderId)
-              .subscribe((mpResponse: any) => {
-                window.location.href = mpResponse.init_point;
-              });
-          } else {
+      if (isMercadoPago) {
+        const items = this.items.map((item) => ({
+          title: item.product.name,
+          quantity: item.quantity,
+          currency_id: 'ARS',
+          unit_price: Number(item.product.prices[0].amount),
+        }));
+
+        sessionStorage.setItem('deliverit_paymentTypeId', selectedPaymentTypeId);
+        sessionStorage.setItem('deliverit_totalAmount', this.total.toString());
+
+        this.orderService
+          .createMercadoPagoPreferenceFromData(items)
+          .subscribe((mpResponse: any) => {
+            window.location.href = mpResponse.init_point;
+          });
+      } else {
+        this.orderService
+          .create(selectedPaymentTypeId, this.total)
+          .subscribe(() => {
             this.router.navigate(['order-confirmed']);
-          }
-        });
+          });
+      }
     }
   }
 

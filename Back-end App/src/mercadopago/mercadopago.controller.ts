@@ -3,19 +3,25 @@ import { Request, Response } from 'express';
 import { orm } from '../shared/orm.js';
 import { Order } from '../order/order.entity.js';
 
+async function createMpPreference(body: any) {
+  if (!process.env.MERCADO_PAGO_ACCESS_TOKEN) {
+    throw new Error('MERCADO_PAGO_ACCESS_TOKEN no está definido');
+  }
+
+  const client = new MercadoPagoConfig({
+    accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN,
+  });
+
+  const preference = new Preference(client);
+  return await preference.create({ body });
+}
+
 export async function createPreference(req: Request, res: Response) {
   try {
     const { orderId } = req.body;
 
     if (!orderId) {
       return res.status(400).json({ message: 'orderId is required' });
-    }
-
-    if (!process.env.MERCADO_PAGO_ACCESS_TOKEN) {
-      console.error('❌ MERCADO_PAGO_ACCESS_TOKEN no está definido');
-      return res
-        .status(500)
-        .json({ message: 'MercadoPago token not configured' });
     }
 
     const order = await orm.em.findOne(Order, orderId, {
@@ -33,37 +39,53 @@ export async function createPreference(req: Request, res: Response) {
       unit_price: Number(item.product.prices[0].amount),
     }));
 
-    const frontendUrl =
-      process.env.FRONTEND_URL ||
-      `https://github.com/fabriortenzi/proyecto-final-utn`;
-
-    if (!frontendUrl) {
-      console.error('❌ MERCADO_PAGO_ACCESS_TOKEN no está definido');
-      return res
-        .status(500)
-        .json({ message: 'MercadoPago token not configured' });
-    }
-
-    console.log(frontendUrl);
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:4200';
 
     const body = {
       items: items as any,
       auto_return: 'approved',
       back_urls: {
-        success: frontendUrl,
-        failure: frontendUrl,
-        pending: frontendUrl,
+        success: `${frontendUrl}/order-confirmed`,
+        failure: `${frontendUrl}/order-details`,
+        pending: `${frontendUrl}/order-details`,
       },
       external_reference: order.id,
     };
 
-    // ✅ Crear el cliente DENTRO de la función
-    const client = new MercadoPagoConfig({
-      accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN,
-    });
+    const result = await createMpPreference(body);
 
-    const preference = new Preference(client);
-    const result = await preference.create({ body });
+    return res.status(200).json({
+      message: 'Preference created',
+      init_point: result.init_point,
+      preferenceId: result.id,
+    });
+  } catch (error: any) {
+    console.error('MercadoPago Error:', error);
+    return res.status(500).json({ message: error.message });
+  }
+}
+
+export async function createPreferenceFromData(req: Request, res: Response) {
+  try {
+    const { items } = req.body;
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ message: 'items array is required' });
+    }
+
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:4200';
+
+    const body = {
+      items: items as any,
+      auto_return: 'approved',
+      back_urls: {
+        success: `${frontendUrl}/order-confirmed`,
+        failure: `${frontendUrl}/order-details`,
+        pending: `${frontendUrl}/order-details`,
+      },
+    };
+
+    const result = await createMpPreference(body);
 
     return res.status(200).json({
       message: 'Preference created',
