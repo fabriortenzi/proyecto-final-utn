@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<div class="parent-container">
+  <div class="mp-card" [class.state-loading]="isLoading" [class.state-success]="isSuccess">
+
+    <!-- Init Loading -->
+    <div *ngIf="isInitState" class="step-loading">
+      <div class="mp-loader">
+        <div class="mp-loader-circle"></div>
+      </div>
+      <p class="mp-processing-text">Conectando con Mercado Pago</p>
+      <div class="mp-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- Login Loading -->
+    <div *ngIf="isLoginLoading" class="step-loading">
+      <div class="mp-loader">
+        <div class="mp-loader-circle"></div>
+      </div>
+      <p class="mp-processing-text">Verificando credenciales</p>
+      <div class="mp-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div *ngIf="isSuccess" class="step-success">
+      <h1>Cuenta vinculada con éxito</h1>
+      <h4>Tu cuenta de Mercado Pago se ha conectado correctamente</h4>
+      <div class="video-container">
+        <video playsinline src="../../assets/green-check.mp4" width="400" autoplay loop></video>
+      </div>
+      <p class="mp-redirect-text">Redirigiendo...</p>
+    </div>
+
+    <!-- Login Form -->
+    <div *ngIf="showForm" class="step-form">
+      <div class="mp-header">
+        <img class="mp-logo" src="../../assets/mp-logo.png" alt="Mercado Pago" />
+        <h2 class="mp-title">Mercado Pago</h2>
+      </div>
+
+      <p class="mp-subtitle">Iniciá sesión para vincular tu cuenta</p>
+
+      <div *ngIf="isError" class="mp-error-banner">
+        <span class="material-symbols-outlined mp-error-icon">error</span>
+        <span>Email o contraseña incorrectos. Verificá tus datos e intentá de nuevo.</span>
+      </div>
+
+      <div class="mp-form">
+        <div class="mp-field">
+          <label>Email o usuario de Mercado Pago</label>
+          <input
+            type="email"
+            [value]="email"
+            (input)="email = $any($event.target).value"
+            placeholder="ejemplo@mercadopago.com"
+            [class.input-error]="isError"
+          />
+        </div>
+
+        <div class="mp-field">
+          <label>Contraseña</label>
+          <div class="mp-password-wrapper">
+            <input
+              [type]="passwordVisible ? 'text' : 'password'"
+              [value]="password"
+              (input)="password = $any($event.target).value"
+              placeholder="••••••••"
+              [class.input-error]="isError"
+            />
+            <span
+              class="material-symbols-outlined mp-toggle-pass"
+              (click)="passwordVisible = !passwordVisible"
+            >
+              {{ passwordVisible ? 'visibility' : 'visibility_off' }}
+            </span>
+          </div>
+        </div>
+
+        <button class="mp-login-btn" (click)="onSubmit()">
+          <img class="mp-btn-logo" src="../../assets/mp-logo.png" alt="MP" />
+          Iniciar sesión
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

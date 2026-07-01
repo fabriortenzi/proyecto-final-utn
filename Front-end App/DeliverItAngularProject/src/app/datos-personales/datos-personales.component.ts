@@ -5,7 +5,7 @@ import { DatosPersonalesService } from '../services/datos-personales.service';
 import { Router } from '@angular/router';
 import { UserType } from '../entities/userType.entity';
 import { LoginService } from '../services/login.service';
-import { LoginResponse } from '../entities/user.entity';
+
 
 @Component({
   selector: 'app-datos-personales',
@@ -63,24 +63,11 @@ export class DatosPersonalesComponent {
           break;
 
         case 'delivery':
-          this.service.register().subscribe(() => {
-            this.loginService
-              .login(this.service.getUserAndPassword())
-              .subscribe((res: LoginResponse) => {
-                this.loginService.redirectUser(res.user);
-              });
-          });
+          this.router.navigate(['/mp-login'], { queryParams: { role: 'delivery' } });
           break;
 
         case 'owner':
-          this.service.register().subscribe((data) => {
-            this.loginService
-              .login(this.service.getUserAndPassword())
-              .subscribe((res: LoginResponse) => {
-                this.loginService.setLoggedUser(res.user);
-                this.router.navigate(['/signup_shop_data_basic']);
-              });
-          });
+          this.router.navigate(['/mp-login'], { queryParams: { role: 'owner' } });
           break;
       }
     }

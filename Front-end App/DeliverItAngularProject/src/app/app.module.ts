@@ -85,6 +85,7 @@ import { AddressAutocompleteComponent } from './address-autocomplete/address-aut
 import { UserManagementComponent } from './user-management/user-management.component';
 import { ShopPaymentsComponent } from './shop-payments/shop-payments.component';
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { MpLoginComponent } from './mp-login/mp-login.component';
 
 @NgModule({
   declarations: [
@@ -153,6 +154,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     ShopPaymentsComponent,
     PedidosAConfirmarComponent,
     DateFormatPipe,
+    MpLoginComponent,
   ],
   imports: [
     BrowserModule,

@@ -51,6 +51,7 @@ import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
 import { AllDeliveryWithdrawalsComponent } from './all-delivery-withdrawals/all-delivery-withdrawals.component';
 import { ShopStatsComponent } from './shop-stats/shop-stats.component';
 import { AuthGuard } from './auth.guard';
+import { MpLoginComponent } from './mp-login/mp-login.component';
 
 const routes: Routes = [
   //Not protected routes
@@ -60,6 +61,7 @@ const routes: Routes = [
   { path: 'datos-personales', component: DatosPersonalesComponent },
   { path: 'direccion', component: DireccionComponent },
   { path: 'error-panel', component: ErrorPanelComponent },
+  { path: 'mp-login', component: MpLoginComponent },
 
   { path: 'signup_shop_data1', component: SignupShopData1Component },
   { path: 'signup_shop_data2', component: SignupShopData2Component },
