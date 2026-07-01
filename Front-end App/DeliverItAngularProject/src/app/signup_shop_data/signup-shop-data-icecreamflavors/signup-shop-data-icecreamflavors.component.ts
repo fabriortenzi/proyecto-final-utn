@@ -79,6 +79,10 @@ export class SignupShopDataIcecreamflavorsComponent {
   }
 
   submit() {
+    if (this.serv.flavors.length === 0) {
+      this.router.navigate(['/home-shop'])
+      return
+    }
     this.serv.postFlavors().subscribe(() => {
       this.router.navigate(['/home-shop']);
     });

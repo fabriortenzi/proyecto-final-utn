@@ -31,8 +31,20 @@ export class IcecreamflavorsService {
     this.lastIndex--;
   }
 
-  postFlavors():Observable<ProductVariation[]> {
-    return this.productVariationsService.create(this.flavors)
+  postFlavors(): Observable<ProductVariation[]> {
+    return new Observable(observer =>
+    {
+      this.productVariationsService.create(this.flavors).subscribe({
+        next: (res) =>
+        {
+          this.flavors = []
+          this.lastIndex = 0
+          observer.next(res)
+          observer.complete()
+        },
+        error: (err) => observer.error(err)
+      })
+    })
   }
 
   // Implementation of the selection of flavours by the customer

@@ -27,6 +27,7 @@ export class ShopModifyProductVariationsComponent {
       })
 
       this.setProductVariationId()
+      this.populateForm()
     }
 
   getName(){
@@ -62,6 +63,17 @@ export class ShopModifyProductVariationsComponent {
     this.productVariationService.getSelectedProductVariationId().subscribe(pvId => {
       this.productVariationId = pvId;
     });
+  }
+
+  populateForm() {
+    this.productVariationService.getSelectedProductVariation().subscribe(variation => {
+      if (variation && variation.id) {
+        this.shopModifyProductVariationForm.patchValue({
+          name: variation.name,
+          description: variation.description
+        })
+      }
+    })
   }
 
   goBack() {

@@ -12,6 +12,7 @@ import { BaseUrlService } from './base-url.service';
 export class ProductVariationsService {
 
   private selectedProductVariationId = new BehaviorSubject<any>({})
+  private selectedProductVariation = new BehaviorSubject<any>({})
   private selectedShop = new BehaviorSubject<any>({})
 
 
@@ -38,6 +39,14 @@ export class ProductVariationsService {
 
   getSelectedProductVariationId() {
     return this.selectedProductVariationId.asObservable();
+  }
+
+  setSelectedProductVariation(variation: ProductVariation) {
+    this.selectedProductVariation.next(variation)
+  }
+
+  getSelectedProductVariation() {
+    return this.selectedProductVariation.asObservable()
   }
 
   setSelectedShop(shop:Shop){

@@ -29,6 +29,10 @@ export class ShopListProductVariationsComponent {
     this.orderService.editHasBeenClicked.subscribe(({ id: productVariationId, clicked: hasBeenClicked }) => {
       if (hasBeenClicked) {
         this.productVariationsService.setSelectedProductVariationId(productVariationId);
+        const variation = this.productVariations.find(pv => pv.id === productVariationId)
+        if (variation) {
+          this.productVariationsService.setSelectedProductVariation(variation)
+        }
         this.orderService.unclickOnEdit();
         this.router.navigate(['/shop-modify-productVariations']);
       }
