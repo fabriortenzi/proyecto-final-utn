@@ -87,6 +87,15 @@ export class OrderDetailsComponent {
           unit_price: Number(item.product.prices[0].amount),
         }));
 
+        if (this.shippingPrice > 0) {
+          items.push({
+            title: 'Envío',
+            quantity: 1,
+            currency_id: 'ARS',
+            unit_price: this.shippingPrice,
+          });
+        }
+
         sessionStorage.setItem('deliverit_paymentTypeId', selectedPaymentTypeId);
         sessionStorage.setItem('deliverit_totalAmount', this.total.toString());
 

@@ -22,7 +22,7 @@ export class OrderService {
     private http: HttpClient,
     private baseUrl: BaseUrlService,
     private validatorsService: ValidatorsService,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {
     this.order = new Order();
     this.order.lineItems = [];
@@ -46,9 +46,16 @@ export class OrderService {
     sessionStorage.setItem(
       'deliverit_order',
       JSON.stringify({
-        lineItems: this.order.lineItems,
+        lineItems: this.order.lineItems.map((l) => {
+          return {
+            ...l,
+            productVariationArrays: l.productVariationArrays[0]
+              ? l.productVariationArrays
+              : [],
+          };
+        }),
         totalQuantity: this.totalQuantity.value,
-      })
+      }),
     );
   }
 
@@ -65,10 +72,9 @@ export class OrderService {
   });
   editHasBeenClicked = this.editClicked.asObservable();
 
-
   addProduct(product: Product, variations?: ProductVariation[]) {
     let productInList = this.order.lineItems.find(
-      (p) => p.product.id === product.id
+      (p) => p.product.id === product.id,
     );
 
     if (!productInList) {
@@ -82,7 +88,7 @@ export class OrderService {
       this.totalQuantity.next(newValue);
     } else {
       let index: number = this.order.lineItems.findIndex(
-        (p) => p.product.id === productInList.product.id
+        (p) => p.product.id === productInList.product.id,
       );
 
       this.order.lineItems[index].quantity++;
@@ -103,7 +109,7 @@ export class OrderService {
 
   removeProduct(product: Product) {
     const index = this.order.lineItems.findIndex(
-      (item) => item.product.id == product.id
+      (item) => item.product.id == product.id,
     );
 
     if (index !== -1) {
@@ -128,21 +134,22 @@ export class OrderService {
         lineItem.product = product.id;
         lineItem.quantity = quantity;
 
-        if (productVariationArrays[0] !== undefined) {
+        if (productVariationArrays[0]) {
           lineItem.productVariationArrays = productVariationArrays.map(
             (pva) => {
               return { productVariations: pva.map((pv) => pv.id) };
-            }
+            },
           );
         } else {
           lineItem.productVariationArrays = [];
         }
 
         return lineItem;
-      }
+      },
     );
 
     const dateTime = this.validatorsService.getCurrentDateTime();
+
     const body = {
       dateTimeOrder: dateTime,
       paymentType: paymentTypeId,
@@ -155,11 +162,17 @@ export class OrderService {
   }
 
   createMercadoPagoPreference(orderId: string): Observable<any> {
-    return this.http.post(`${this.baseUrl.getBaseUrl()}mercadopago/create-preference`, { orderId });
+    return this.http.post(
+      `${this.baseUrl.getBaseUrl()}mercadopago/create-preference`,
+      { orderId },
+    );
   }
 
   createMercadoPagoPreferenceFromData(items: any[]): Observable<any> {
-    return this.http.post(`${this.baseUrl.getBaseUrl()}mercadopago/create-preference-from-data`, { items });
+    return this.http.post(
+      `${this.baseUrl.getBaseUrl()}mercadopago/create-preference-from-data`,
+      { items },
+    );
   }
 
   resetProducts() {
@@ -178,11 +191,13 @@ export class OrderService {
     if (par) {
       par.lineItems.forEach(
         (lineItem) =>
-          (sum += Number(lineItem.product.prices[0].amount) * lineItem.quantity)
+          (sum +=
+            Number(lineItem.product.prices[0].amount) * lineItem.quantity),
       );
     } else {
       this.order.lineItems.forEach(
-        (item) => (sum += Number(item.product.prices[0].amount) * item.quantity)
+        (item) =>
+          (sum += Number(item.product.prices[0].amount) * item.quantity),
       );
     }
     return sum;
@@ -198,23 +213,25 @@ export class OrderService {
 
   findCurrentCustomerOrders(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(
-        `${this.url}/current-orders/${this.loginService.getLoggedUser().id}`
-      )
+      .get<
+        Order[]
+      >(`${this.url}/current-orders/${this.loginService.getLoggedUser().id}`)
       .pipe(map((response: any) => response.data));
   }
 
   findAllCustomerOrders(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(
-        `${this.url}/all-orders/${this.loginService.getLoggedUser().id}`
-      )
+      .get<
+        Order[]
+      >(`${this.url}/all-orders/${this.loginService.getLoggedUser().id}`)
       .pipe(map((response: any) => response.data));
   }
 
   findAllByDelivery(): Observable<Order[]> {
     return this.http
-      .get<Order[]>(`${this.url}/all-orders-delivered/${this.loginService.getLoggedUser().id}`)
+      .get<
+        Order[]
+      >(`${this.url}/all-orders-delivered/${this.loginService.getLoggedUser().id}`)
       .pipe(map((response: any) => response.data));
   }
 
