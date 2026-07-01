@@ -80,3 +80,5 @@ dist/**/*
 **/saved_model/
 **/*.pt
 **/*.pkl
+
+.atl

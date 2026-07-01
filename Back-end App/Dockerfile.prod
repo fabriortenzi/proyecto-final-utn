@@ -1,0 +1,25 @@
+FROM node:20-alpine AS frontend-builder
+WORKDIR /app
+COPY ["Front-end App/DeliverItAngularProject/package.json", "Front-end App/DeliverItAngularProject/package-lock.json", "./"]
+RUN npm ci
+COPY ["Front-end App/DeliverItAngularProject/", "./"]
+ARG GOOGLE_MAPS_API_KEY=YOUR_KEY
+RUN sed -i "s|YOUR_KEY|${GOOGLE_MAPS_API_KEY}|g" src/environments/environment.ts
+RUN npx ng build --configuration production
+
+FROM node:20-alpine AS backend-builder
+WORKDIR /app
+COPY ["Back-end App/package.json", "Back-end App/package-lock.json", "./"]
+RUN npm ci
+COPY ["Back-end App/", "./"]
+RUN npx tsc
+
+FROM node:20-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=backend-builder /app/dist ./dist
+COPY --from=backend-builder /app/node_modules ./node_modules
+COPY --from=backend-builder /app/package*.json ./
+COPY --from=frontend-builder /app/dist/deliver-it-angular-project ./frontend-dist
+EXPOSE 3000
+CMD ["node", "dist/app.js"]

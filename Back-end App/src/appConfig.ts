@@ -1,7 +1,8 @@
-// Importación de dependencias y módulos
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
+import { fileURLToPath } from "url";
 import { shopTypeRouter } from "./shopType/shopType.routes.js";
 import { paymentTypeRouter } from "./paymentType/paymentType.routes.js";
 import { productCategoryRouter } from "./productCategory/productCategory.routes.js";
@@ -22,6 +23,9 @@ import { swaggerSpec } from "./swaggerSpec.config.js";
 import { recommenderRouter } from "./recommender/recommender.routes.js";
 import { mercadopagoRouter } from "./mercadopago/mercadopago.routes.js";
 import { webauthnRouter } from "./webauthn/webauthn.routes.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Función para configurar y obtener la aplicación Express
 export function getApp() {
@@ -58,10 +62,19 @@ export function getApp() {
   // Middleware para servir la documentación de la API con Swagger UI
   app.use("/api-docs", serve, setup(swaggerSpec));
 
-  // Middleware para manejar solicitudes a rutas no definidas (error 404)
-  app.use((_, res) => {
-    return res.status(404).send({ message: "Resource not found" });
-  });
+  if (process.env.NODE_ENV === "production") {
+    const staticPath = path.resolve(__dirname, "..", "frontend-dist");
+    app.use(express.static(staticPath));
+
+    app.get("*", (req, res, next) => {
+      if (req.path.startsWith("/api/")) return next();
+      res.sendFile(path.join(staticPath, "index.html"));
+    });
+  } else {
+    app.use((_, res) => {
+      return res.status(404).send({ message: "Resource not found" });
+    });
+  }
 
   // Retorna la aplicación Express configurada
   return app;
