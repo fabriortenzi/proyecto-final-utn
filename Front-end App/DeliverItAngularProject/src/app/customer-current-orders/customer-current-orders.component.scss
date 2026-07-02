@@ -78,6 +78,26 @@ h3 {
   margin-top: 4px;
 }
 
+.refund-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fff3e0;
+  border: 1px solid #ffb74d;
+  font-size: 13px;
+  font-family: Poppins;
+  color: #e65100;
+  line-height: 1.4;
+}
+
+.refund-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
 .btn-cancel-order {
   width: 50%;
   background: none;

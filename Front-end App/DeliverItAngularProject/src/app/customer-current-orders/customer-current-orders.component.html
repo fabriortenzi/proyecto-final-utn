@@ -65,6 +65,10 @@
         [statusDisplayText]="getStatusText(order.status)"
         [hideDropdownButton]=true>
       </app-shop-card>
+      <div class="refund-notice" *ngIf="wasCanceledWithMP(order)">
+        <span class="material-symbols-rounded refund-icon">info</span>
+        <span>Pedido cancelado. Como pagaste con Mercado Pago, el reintegro se verá reflejado en tu cuenta pronto.</span>
+      </div>
     </div>
   </div>
 </div>

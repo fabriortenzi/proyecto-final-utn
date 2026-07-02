@@ -19,7 +19,7 @@ export class PedidosAConfirmarComponent {
     private orderService: OrderService,
     private loginService: LoginService,
     private shopService: ShopService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -57,9 +57,15 @@ export class PedidosAConfirmarComponent {
   }
 
   cancelOrder(orderId: string) {
+    const order = this.orders.find((o) => o.id === orderId);
     this.orderService.cancelOrder(orderId).subscribe({
       next: () => {
         this.orders = this.orders.filter((o) => o.id !== orderId);
+        if (order?.paymentType?.description === 'Mercado Pago') {
+          alert(
+            'Cancelaste el pedido. El cliente pagó con Mercado Pago — el reintegro se verá reflejado en su cuenta en los próximos días.',
+          );
+        }
       },
     });
   }
