@@ -23,6 +23,7 @@ export class ShopCardComponent {
   @Input() hasDescription: boolean = false; // enables the dropdown order description
   @Input() hasImage : boolean = true;
   @Input() totalReviews
+  @Input() disabled: boolean = false;
   
   // dropdown order description parameters
   @Input() orderId : string;

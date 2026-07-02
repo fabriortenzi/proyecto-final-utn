@@ -352,7 +352,8 @@ async function getCompleteProductArray(products : Loaded<Product, never>[], res:
       shop: prod.shop,
       prices: priceWithNoProduct,
       allowsVariations: prod.allowsVariations,
-      maxVariations: maxVariations
+      maxVariations: maxVariations,
+      enabled: prod.enabled
     }
 
     productsToSend.push(productToSend)

@@ -4,8 +4,8 @@
 />
 
 <div class="container" [attr.prod-name]="product?.name">
-  <img class="image" *ngIf="hasImage" [src]="imagePath" />
-  <div class="text-container">
+  <img class="image" *ngIf="hasImage" [src]="imagePath" [class.disabled]="disabled" />
+  <div class="text-container" [class.disabled]="disabled">
     <p class="card-title">{{ title }}</p>
     <p class="card-subtitle">{{ subtitle }}</p>
     <div class="text-and-star">

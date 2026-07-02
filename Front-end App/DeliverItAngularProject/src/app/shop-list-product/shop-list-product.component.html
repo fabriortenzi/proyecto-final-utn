@@ -30,6 +30,7 @@
       bottomText="${{ product.prices[0].amount }}"
       imagePath="{{ product.photoPath }}"
       [hasEditButton]="true"
+      [disabled]="!product.enabled"
     >
     </app-shop-card>
   </div>
