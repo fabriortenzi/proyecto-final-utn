@@ -3,10 +3,10 @@ services:
     image: mongo:7
     restart: unless-stopped
     ports:
-      - '27017:27017'
+      - "27017:27017"
     volumes:
       - mongodb_data:/data/db
-      - './Back-end App/dbSeed.js:/docker-entrypoint-initdb.d/seed.js:ro'
+      - "./Back-end App/dbSeed.js:/docker-entrypoint-initdb.d/seed.js:ro"
 
   backend:
     build:
@@ -16,7 +16,7 @@ services:
         GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
     restart: unless-stopped
     ports:
-      - '3000:3000'
+      - "3000:3000"
     environment:
       - NODE_ENV=production
       - DB_URL=mongodb://mongodb:27017/deliverit
@@ -27,6 +27,8 @@ services:
       - RECOMMENDER_URL=http://recommender:8001
       - MERCADO_PAGO_ACCESS_TOKEN=${MERCADO_PAGO_ACCESS_TOKEN:-}
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:3000}
+      - WEBAUTHN_ORIGIN=${WEBAUTHN_ORIGIN:-}
+      - WEBAUTHN_RP_ID=${WEBAUTHN_RP_ID:-}
     depends_on:
       - mongodb
 
@@ -36,7 +38,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - '8001:8001'
+      - "8001:8001"
     environment:
       - MONGO_URI=mongodb://mongodb:27017
       - MONGO_DB=deliver_it
