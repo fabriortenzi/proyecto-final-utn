@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { PasskeyService } from '../services/passkey.service';
 import { User } from '../entities/user.entity';
+import { UserManualService } from '../services/user-manual.service';
 
 @Component({
   selector: 'app-admin-panel',
@@ -15,7 +16,8 @@ export class AdminPanelComponent {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private passkeyService: PasskeyService
+    private passkeyService: PasskeyService,
+    private userManualService: UserManualService
   ) {
     this.loggedUser = this.loginService.getLoggedUser();
   }
@@ -38,6 +40,10 @@ export class AdminPanelComponent {
 
   onRegisterPasskey() {
     this.passkeyService.tryRegisterPasskey().subscribe();
+  }
+
+  onDownloadManual() {
+    this.userManualService.downloadUserManual('admin');
   }
 
   logout() {

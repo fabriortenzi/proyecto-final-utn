@@ -9,6 +9,7 @@ import { Shop } from '../entities/shop.entity';
 import { ShopTypeService } from '../services/shop-type.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { User } from '../entities/user.entity';
+import { UserManualService } from '../services/user-manual.service';
 
 @Component({
   selector: 'app-home-customer',
@@ -30,6 +31,7 @@ export class HomeCustomerComponent {
     private loginService: LoginService,
     private recommendationService: RecommendationService,
     private passkeyService: PasskeyService,
+    private userManualService: UserManualService,
   ) {}
 
   loggedUser: User = this.loginService.getLoggedUser();
@@ -72,6 +74,10 @@ export class HomeCustomerComponent {
 
   onRegisterPasskey() {
     this.passkeyService.tryRegisterPasskey().subscribe();
+  }
+
+  downloadManual() {
+    this.userManualService.downloadUserManual('client');
   }
 
   logout() {

@@ -5,6 +5,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { LoginService } from '../services/login.service';
 import { PasskeyService } from '../services/passkey.service';
 import { User } from '../entities/user.entity';
+import { UserManualService } from '../services/user-manual.service';
 
 @Component({
   selector: 'app-home-delivery-boy',
@@ -17,7 +18,8 @@ export class HomeDeliveryBoyComponent {
   constructor(
     private orderService: OrderService,
     private loginService: LoginService,
-    private passkeyService: PasskeyService
+    private passkeyService: PasskeyService,
+    private userManualService: UserManualService,
   ) {}
 
   loggedUser: User = this.loginService.getLoggedUser();
@@ -33,6 +35,10 @@ export class HomeDeliveryBoyComponent {
 
   onRegisterPasskey() {
     this.passkeyService.tryRegisterPasskey().subscribe();
+  }
+
+  downloadManual() {
+    this.userManualService.downloadUserManual('delivery');
   }
 
   getDescription(order: Order): string {

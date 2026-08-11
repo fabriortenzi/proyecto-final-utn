@@ -23,6 +23,7 @@ import { swaggerSpec } from "./swaggerSpec.config.js";
 import { recommenderRouter } from "./recommender/recommender.routes.js";
 import { mercadopagoRouter } from "./mercadopago/mercadopago.routes.js";
 import { webauthnRouter } from "./webauthn/webauthn.routes.js";
+import { userManualRouter } from "./userManual/userManual.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -58,6 +59,7 @@ export function getApp() {
   app.use("/api/recommendations", recommenderRouter);
   app.use("/api/mercadopago", mercadopagoRouter);
   app.use("/api/webauthn", webauthnRouter);
+  app.use("/api/user-manuals", userManualRouter);
 
   // Middleware para servir la documentación de la API con Swagger UI
   app.use("/api-docs", serve, setup(swaggerSpec));

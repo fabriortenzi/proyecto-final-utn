@@ -31,27 +31,27 @@
 
       <ng-container matColumnDef="totalAmount">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Ventas</th>
-        <td mat-cell *matCellDef="let row">${{ row.totalAmount.toFixed(2) }}</td>
+        <td mat-cell *matCellDef="let row" class="amount-cell">${{ row.totalAmount.toFixed(2) }}</td>
       </ng-container>
 
       <ng-container matColumnDef="commissionForDelivery">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Comisión Repartidor</th>
-        <td mat-cell *matCellDef="let row">${{ row.totalCommissionForDelivery.toFixed(2) }}</td>
+        <td mat-cell *matCellDef="let row" class="amount-cell">${{ row.totalCommissionForDelivery.toFixed(2) }}</td>
       </ng-container>
 
       <ng-container matColumnDef="totalAmountShop">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Total al Local</th>
-        <td mat-cell *matCellDef="let row">${{ row.totalAmountShop.toFixed(2) }}</td>
+        <td mat-cell *matCellDef="let row" class="amount-cell">${{ row.totalAmountShop.toFixed(2) }}</td>
       </ng-container>
 
       <ng-container matColumnDef="mpCommissionService">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Comisión DeliverIt MP</th>
-        <td mat-cell *matCellDef="let row" class="revenue-cell">${{ row.mpCommissionService.toFixed(2) }}</td>
+        <td mat-cell *matCellDef="let row" class="revenue-cell amount-cell">${{ row.mpCommissionService.toFixed(2) }}</td>
       </ng-container>
 
       <ng-container matColumnDef="cashCommissionService">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Comisión DeliverIt Efectivo (a Cobrar)</th>
-        <td mat-cell *matCellDef="let row" class="cash-cell">${{ row.cashCommissionService.toFixed(2) }}</td>
+        <td mat-cell *matCellDef="let row" class="cash-cell amount-cell">${{ row.cashCommissionService.toFixed(2) }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

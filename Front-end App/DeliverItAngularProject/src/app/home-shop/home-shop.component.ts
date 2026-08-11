@@ -9,6 +9,7 @@ import { LoginService } from '../services/login.service';
 import { PasskeyService } from '../services/passkey.service';
 import { User } from '../entities/user.entity';
 import { ProductService } from '../services/product.service';
+import { UserManualService } from '../services/user-manual.service';
 
 @Component({
   selector: 'app-home-shop',
@@ -26,7 +27,8 @@ export class HomeShopComponent {
     private statsService: StatsService,
     private loginService: LoginService,
     private productService: ProductService,
-    private passkeyService: PasskeyService
+    private passkeyService: PasskeyService,
+    private userManualService: UserManualService
   ) {}
 
   loggedUser: User = this.loginService.getLoggedUser();
@@ -73,6 +75,10 @@ export class HomeShopComponent {
 
   onRegisterPasskey() {
     this.passkeyService.tryRegisterPasskey().subscribe();
+  }
+
+  onDownloadManual() {
+    this.userManualService.downloadUserManual('owner');
   }
 
   logout() {
